@@ -22,15 +22,20 @@ export const createAccountDetails = () => ({
     password : Math.random().toString( 36 )
 })
 
-export const createAccount = async ( app, secret, password ) =>
+export const createAccount = async ( app, secret, password, authTabIndex ) =>
 {
     const { client } = app;
     let ourSecret = secret;
     let ourPassword = password;
 
-    const tabIndex = await newTab( app );
+    let tabIndex = authTabIndex;
 
-    await navigateTo( app, 'safe-auth://home' );
+    if( !tabIndex)
+    {
+        tabIndex = await newTab( app );
+        await setClientToMainBrowserWindow( app );
+        await navigateTo( app, 'safe-auth://home' );
+    }
 
     if( !secret )
     {
@@ -88,14 +93,29 @@ export const logout = async ( app, authTabIndex ) =>
     await delay( 2500 );
 
     await client.waitForExist( `.${AUTH_UI_CLASSES.AUTH_LOGOUT_BUTTON}` );
+    console.log('----------> logged outs waitng')
     await client.click( `.${AUTH_UI_CLASSES.AUTH_LOGOUT_BUTTON}` );
 };
 
 
-export const login = async ( app, secret, password ) =>
+export const login = async ( app, secret, password, authTabIndex ) =>
 {
     const { client } = app;
+    console.log('----------> logg inn')
 
+    let tabIndex = authTabIndex;
+
+    if( !tabIndex)
+    {
+        tabIndex = await newTab( app );
+        await setClientToMainBrowserWindow( app );
+        await navigateTo( app, 'safe-auth://home' );
+    }
+
+    await delay( 2500 );
+    await client.windowByIndex( tabIndex );
+
+    console.log('----------> logg inn for tab')
     // await setAppToAuthTab( app );
     await client.waitForExist( `.${AUTH_UI_CLASSES.AUTH_FORM}` );
     await client.click( `.${AUTH_UI_CLASSES.AUTH_SECRET_INPUT}` );
@@ -103,4 +123,5 @@ export const login = async ( app, secret, password ) =>
     await client.click( `.${AUTH_UI_CLASSES.AUTH_PASSWORD_INPUT}` );
     await client.keys( password );
     await client.click( `.${AUTH_UI_CLASSES.AUTH_LOGIN_BUTTON}` );
+    console.log('----------> logg inn for done')
 };

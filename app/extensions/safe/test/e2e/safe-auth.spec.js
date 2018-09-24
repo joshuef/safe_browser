@@ -49,7 +49,7 @@ describe( 'safe authenticator protocol', () =>
         await afterAllTests( app );
     } );
 
-    test( 'window loaded', async () =>
+    test.only( 'window loaded', async () =>
     {
         expect( await windowLoaded( app ) ).toBeTruthy();
     } );

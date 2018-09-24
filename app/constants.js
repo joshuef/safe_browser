@@ -215,7 +215,7 @@ export const CLASSES = {
     PERUSE_PAGE               : 'js-peruse__page',
     SPECTRON_AREA             : 'js-spectron-area',
     SPECTRON_AREA__SPOOF_SAVE : 'js-spectron-area__spoof-save',
-    SPECTRON_AREA__SPOOF_READ : 'js-spectron-area__spoof-read',
+    SPECTRON_AREA__SPOOF_LOAD : 'js-spectron-area__spoof-read',
     NOTIFIER_TEXT             : 'js-notifier__text',
     BOOKMARK_PAGE             : 'js-bookmark-page',
     FORWARDS                  : 'js-address__forwards',

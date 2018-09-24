@@ -75,7 +75,7 @@ export const wrapBrowser = ( BrowserComponent, extensionFunctionality = {} ) =>
                           />
                           <button
                               style={spectronAreaButton}
-                              className={ `${CLASSES.SPECTRON_AREA__SPOOF_READ}` }
+                              className={ `${CLASSES.SPECTRON_AREA__SPOOF_LOAD}` }
                               onClick={ this.handleSpectronTestReadState }
                           />
                       </div>

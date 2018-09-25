@@ -88,7 +88,8 @@ export const logout = async ( app, authTabIndex ) =>
         tabIndex = await newTab( app );
         await setClientToMainBrowserWindow( app );
         await navigateTo( app, 'safe-auth://home' );
-        // await delay( 2500 );
+        await delay( 2500 );
+        console.log('gone to page')
     }
     await client.windowByIndex( tabIndex );
     await delay( 2500 );

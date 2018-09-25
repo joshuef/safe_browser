@@ -18,7 +18,7 @@ const authingStates = [
  */
 const handleLogoutActions = ( store ) =>
 {
-    manageLogout( store );
+    // manageLogout( store );
 }
 
 

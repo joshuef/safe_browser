@@ -58,7 +58,6 @@ export const remoteCallApis =  {
         logger.verbose('Handling logout call from webview.')
         await theAuthApi.logout( );
 
-        // theStore.dispatch( peruseAppActions.setAppStatus( SAFE.APP_STATUS.LOGGED_OUT ) );
         clearAppObj();
         theStore.dispatch( uiActions.resetStore() );
         theStore.dispatch( peruseAppActions.setNetworkStatus(SAFE.NETWORK_STATE.CONNECTED) );

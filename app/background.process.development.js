@@ -10,7 +10,6 @@ import { onInitBgProcess, getExtensionReduxMiddleware }  from './extensions';
 import setupServer from './server';
 import { remote } from 'electron';
 
-logger.info('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa', startedRunningMock)
 window.thisIsTheBackgroundProcess = true;
 
 const initSafeServer = ( store ) =>

@@ -24,6 +24,7 @@ export const createAccountDetails = () => ({
 
 export const createAccount = async ( app, secret, password, authTabIndex ) =>
 {
+    console.warn('FYI, Dear Tester. New accounts allow apps to reauth without notification by default. So dont wait everytime...')
     const { client } = app;
     let ourSecret = secret;
     let ourPassword = password;
@@ -110,6 +111,7 @@ export const login = async ( app, secret, password, authTabIndex ) =>
 
     if( !tabIndex)
     {
+        console.log('----------> logg inn no tab')
         tabIndex = await newTab( app );
         await setClientToMainBrowserWindow( app );
         await navigateTo( app, 'safe-auth://home' );
@@ -118,7 +120,6 @@ export const login = async ( app, secret, password, authTabIndex ) =>
     await delay( 2500 );
     await client.windowByIndex( tabIndex );
 
-    console.log('----------> logg inn for tab')
     // await setAppToAuthTab( app );
     await client.waitForExist( `.${AUTH_UI_CLASSES.AUTH_FORM}` );
     await client.click( `.${AUTH_UI_CLASSES.AUTH_SECRET_INPUT}` );

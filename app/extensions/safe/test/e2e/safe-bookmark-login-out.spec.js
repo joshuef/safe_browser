@@ -101,36 +101,36 @@ describe( 'SAFE network webFetch operation', async () =>
             console.log('saveddd deeetss')
             await delay( 1500 );
             console.log('---------before logout here')
-            // await logout( app, authTab );
+            await logout( app, authTab );
             console.log('------after logout here')
             await delay( 1500 );
 
             await login( app, secret, password );
-            await delay( 4500 );
+            await delay( 1500 );
 
             // WHY NOT LOGGED IN w second window?
-            // Why no auth pop up on second login?
 
-            // await setClientToMainBrowserWindow( app );
-            //
+            await setClientToMainBrowserWindow( app );
+
+            console.log('waiting for auth note, but it wont come as new acocutns reauth automatically')
             // await client.waitForExist( BROWSER_UI.NOTIFICATION__ACCEPT, WAIT_FOR_EXIST_TIMEOUT );
             // await client.click( BROWSER_UI.NOTIFICATION__ACCEPT );
             // await delay( 3000 );
-            //
-            //
-            // await navigateTo( app, 'peruse:bookmarks' );
-            // // fetch browser config
-            // await client.waitForExist( BROWSER_UI.SPECTRON_AREA, WAIT_FOR_EXIST_TIMEOUT );
-            // await client.click( BROWSER_UI.SPECTRON_AREA__SPOOF_LOAD );
-            // await delay( 2000 );
-            //
-            // console.log('--Checking bookmarks after login')
-            // await delay( 1500 );
-            // const bookmarks = await client.getText( '.urlList__table' );
-            // console.log('received:::', bookmarks)
-            // // bookmarks is an array
-            // expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
-            // await delay( 1500 );
+
+
+            await navigateTo( app, 'peruse:bookmarks' );
+            // fetch browser config
+            await client.waitForExist( BROWSER_UI.SPECTRON_AREA, WAIT_FOR_EXIST_TIMEOUT );
+            await client.click( BROWSER_UI.SPECTRON_AREA__SPOOF_LOAD );
+            await delay( 5000 );
+
+            console.log('--Checking bookmarks after login')
+            await delay( 1500 );
+            const bookmarks = await client.getText( '.urlList__table' );
+            console.log('received:::', bookmarks)
+            // bookmarks is an array
+            expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
+            await delay( 1500 );
 
         } );
 

@@ -30,12 +30,14 @@ let previousAppStatus;
  */
 const manageLogout = async ( store ) =>
 {
+
+    logger.verbose('Mange logout stufffffff')
     const state = store.getState();
 
-    if ( state.peruseApp.appStatus === SAFE.NETWORK_STATE.LOGGED_OUT )
+    if ( state.peruseApp.appStatus === SAFE.APP_STATUS.LOGGED_OUT )
     {
-        logger.verbose('Performing logout cleanup.')
-        store.dispatch( peruseAppActions.setAppStatus( SAFE.APP_STATUS.LOGGED_OUT ) );
+        logger.verbose('!!!!!!!!!!!!!!!Performing logout cleanup.')
+        // store.dispatch( peruseAppActions.setAppStatus( SAFE.APP_STATUS.LOGGED_OUT ) );
         clearAppObj();
         store.dispatch( uiActions.resetStore() );
     }

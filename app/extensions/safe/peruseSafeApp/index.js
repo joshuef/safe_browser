@@ -8,6 +8,7 @@ import {
     APP_INFO,
     CONFIG,
     PROTOCOLS,
+    startedRunningMock,
     isCI,
     isRunningSpectronTestProcessingPackagedApp
 } from 'appConstants';
@@ -69,12 +70,14 @@ const callingArray = [];
 const requestPeruseAppAuthentication = async ( peruseStateObject ) =>
 {
     logger.verbose( 'Requesting PeruseApp auth.', process.mainModule.filename );
+
     try
     {
         const isMock = peruseStateObject.isMock;
+        logger.info('request peruse app authhhh, isMock???', isMock, startedRunningMock)
         peruseAppObj = await initialiseApp( APP_INFO.info, null, {
             libPath      : CONFIG.SAFE_NODE_LIB_PATH,
-            forceUseMock : isMock
+            forceUseMock : isMock || startedRunningMock
         } );
 
         const authReq = await peruseAppObj.auth.genAuthUri( APP_INFO.permissions, APP_INFO.opts );
@@ -199,6 +202,7 @@ const manageAuthorisationActions = async ( store ) =>
 
     debouncedPassAuthUriToStore = debouncedPassAuthUriToStore || _.debounce( ( responseUri ) =>
     {
+        logger.info('****************************************************************passAuthUri to store...')
         store.dispatch( peruseAppActions.receivedAuthResponse( '' ) );
         authFromStoreResponse( responseUri, store );
         isAuthing = false;
@@ -206,6 +210,8 @@ const manageAuthorisationActions = async ( store ) =>
 
     if ( peruse.appStatus === SAFE.APP_STATUS.TO_AUTH && !isAuthing )
     {
+        logger.info('2222222222222222222222222222222222222222222222222****setting is authing againnnn...')
+
         // cannot rely solely on store as can change in other ways
         // before this is updated properly. This prevents that.
         isAuthing = true;
@@ -273,12 +279,14 @@ const manageReadStateActions = async ( store ) =>
         return;
     }
 
+
     if ( !peruseIsAuthed( ) )
     {
         // come back when authed.
         store.dispatch( peruseAppActions.setAppStatus( SAFE.APP_STATUS.TO_AUTH ) );
         return;
     }
+    logger.info('Managing a READ action')
 
     if ( !peruseIsConnected() )
     {

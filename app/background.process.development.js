@@ -2,7 +2,7 @@
 import logger from 'logger';
 import { configureStore } from 'store/configureStore';
 import i18n from 'i18n';
-import { I18N_CONFIG } from 'appConstants';
+import { I18N_CONFIG, startedRunningMock } from 'appConstants';
 
 
 import manageRemoteCalls from './background.manageRemoteCalls';
@@ -10,6 +10,7 @@ import { onInitBgProcess, getExtensionReduxMiddleware }  from './extensions';
 import setupServer from './server';
 import { remote } from 'electron';
 
+logger.info('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa', startedRunningMock)
 window.thisIsTheBackgroundProcess = true;
 
 const initSafeServer = ( store ) =>

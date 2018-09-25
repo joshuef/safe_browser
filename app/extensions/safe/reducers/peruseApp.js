@@ -4,7 +4,7 @@ import initialAppState from './initialAppState';
 import logger from 'logger';
 
 import { CONFIG } from 'appConstants';
-import { SAFE } from 'extensions/safe/constants';
+import { SAFE, startedRunningMock } from 'extensions/safe/constants';
 
 const initialState = initialAppState.peruseApp;
 
@@ -89,7 +89,8 @@ export default function peruseApp( state = initialState, action )
         }
         case TYPES.RESET_STORE:
         {
-            return { ...initialState };
+            logger.info('RESETTING STORRREEEE', startedRunningMock)
+            return { ...initialState, isMock: startedRunningMock };
         }
 
         default:

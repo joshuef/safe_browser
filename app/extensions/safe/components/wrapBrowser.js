@@ -52,7 +52,7 @@ export const wrapBrowser = ( BrowserComponent, extensionFunctionality = {} ) =>
       {
           const { setReadConfigStatus } = this.props;
 
-          setSaveConfigStatus( SAFE.SAVE_STATUS.TO_READ );
+          setReadConfigStatus( SAFE.READ_STATUS.TO_READ );
       }
 
       render() {

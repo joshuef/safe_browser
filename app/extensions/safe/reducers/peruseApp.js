@@ -89,8 +89,7 @@ export default function peruseApp( state = initialState, action )
         }
         case TYPES.RESET_STORE:
         {
-            logger.info('RESETTING STORRREEEE', startedRunningMock)
-            return { ...initialState, isMock: startedRunningMock };
+            return { ...initialState, isMock: state.isMock };
         }
 
         default:

@@ -53,7 +53,7 @@ describe( 'SAFE network webFetch operation', async () =>
     } );
 
 
-    test( 'window loaded', async () =>
+    test.only( 'window loaded', async () =>
     {
         expect( await windowLoaded( app ) ).toBeTruthy()
     });

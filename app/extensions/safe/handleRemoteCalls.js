@@ -24,6 +24,7 @@ export const handleRemoteCalls = ( store, allAPICalls, theCall ) =>
         {
             if ( theCall.name === 'setNetworkListener' )
             {
+                logger.info('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ SET AUTH NETSTATE', args )
                 store.dispatch( authActions.setAuthNetworkStatus( args ) );
 
                 const authenticatorHandle = allAPICalls.getAuthenticatorHandle();

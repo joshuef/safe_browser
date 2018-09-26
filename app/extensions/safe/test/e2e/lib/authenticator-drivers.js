@@ -97,8 +97,17 @@ export const logout = async ( app, authTabIndex ) =>
 
     await client.waitForExist( `.${AUTH_UI_CLASSES.AUTH_LOGOUT_BUTTON}` );
     console.log('----------> logged outs waitng')
-    await delay( 2500 );
     await client.click( `.${AUTH_UI_CLASSES.AUTH_LOGOUT_BUTTON}` );
+<<<<<<< 49643c2e0d63968fad06def9999dac641fe5e440
+=======
+    await delay( 2500 );
+    console.log('----------> logged out clicked')
+    await delay( 3500 );
+    console.log('---------->  post logged out clicked delayyyyyyy')
+
+    // await client.waitForExist( `.${AUTH_UI_CLASSES.AUTH_LOGIN_BUTTON}` );
+    console.log('----------> logged outdone')
+>>>>>>> Why do you show up as needing to relad?
 };
 
 
@@ -113,18 +122,26 @@ export const login = async ( app, secret, password, authTabIndex ) =>
     {
         console.log('----------> logg inn no tab')
         tabIndex = await newTab( app );
+        console.log('----------> new tab made.... tab')
         await setClientToMainBrowserWindow( app );
+
+        await delay(3000);
+        console.log('----------> client is main')
         await navigateTo( app, 'safe-auth://home' );
+        console.log('----------> going to page')
     }
 
     await delay( 2500 );
     await client.windowByIndex( tabIndex );
+    console.log('----------> set to windowwww to page')
 
     // await setAppToAuthTab( app );
     await client.waitForExist( `.${AUTH_UI_CLASSES.AUTH_FORM}` );
     await client.click( `.${AUTH_UI_CLASSES.AUTH_SECRET_INPUT}` );
+    console.log('----------> set to clickerrrrr to page')
     await client.keys( secret );
     await client.click( `.${AUTH_UI_CLASSES.AUTH_PASSWORD_INPUT}` );
+    console.log('----------> set to clickerrrrr to page')
     await client.keys( password );
     await client.click( `.${AUTH_UI_CLASSES.AUTH_LOGIN_BUTTON}` );
     console.log('----------> logg inn for done')

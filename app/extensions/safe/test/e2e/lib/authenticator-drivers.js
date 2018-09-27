@@ -44,15 +44,15 @@ export const createAccount = async ( app, secret, password, authTabIndex ) =>
         ourSecret = newAccount.secret;
         ourPassword = newAccount.password;
     }
-
     await client.waitForExist( BROWSER_UI.ADDRESS_INPUT, WAIT_FOR_EXIST_TIMEOUT );
-
     await delay( 2500 );
 
     await client.windowByIndex( tabIndex );
 ;
     await client.waitForExist( `.${AUTH_UI_CLASSES.AUTH_FORM}` );
+    console.log('JOSH: authenticator-drivers.js line 53: last log in this function prior to error.');
     await client.click( `.${AUTH_UI_CLASSES.CREATE_ACCOUNT_BUTTON}` );
+    console.log('JOSH: this log will not be printed');
     await client.click( `.${AUTH_UI_CLASSES.AUTH_CREATE_ACCOUNT_CONTINUE}` );
 
     await client.click( `.${AUTH_UI_CLASSES.AUTH_INVITE_CODE_INPUT}` );
@@ -90,24 +90,11 @@ export const logout = async ( app, authTabIndex ) =>
         await setClientToMainBrowserWindow( app );
         await navigateTo( app, 'safe-auth://home' );
         await delay( 2500 );
-        console.log('gone to page')
     }
     await client.windowByIndex( tabIndex );
     await delay( 2500 );
-
     await client.waitForExist( `.${AUTH_UI_CLASSES.AUTH_LOGOUT_BUTTON}` );
-    console.log('----------> logged outs waitng')
     await client.click( `.${AUTH_UI_CLASSES.AUTH_LOGOUT_BUTTON}` );
-<<<<<<< 49643c2e0d63968fad06def9999dac641fe5e440
-=======
-    await delay( 2500 );
-    console.log('----------> logged out clicked')
-    await delay( 3500 );
-    console.log('---------->  post logged out clicked delayyyyyyy')
-
-    // await client.waitForExist( `.${AUTH_UI_CLASSES.AUTH_LOGIN_BUTTON}` );
-    console.log('----------> logged outdone')
->>>>>>> Why do you show up as needing to relad?
 };
 
 

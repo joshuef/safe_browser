@@ -63,11 +63,14 @@ describe( 'SAFE network webFetch operation', async () =>
         console.log('Creating authed app with deets: ', secret, password)
         it( 'can save and reaccess browser bookmark data.', async ( ) =>
         {
-            const { client } = app;
-
+	    // JOSH: This test is passing
             expect.assertions( 2 );
+            const { client } = app;
+            await delay( 2500 );
+
             const bookmarkTab = await newTab( app );
             await navigateTo( app, 'shouldsavetobookmarks.com' );
+            await client.waitForExist( BROWSER_UI.ADDRESS_INPUT, WAIT_FOR_EXIST_TIMEOUT );
             await delay( 2500 );
             await bookmarkActiveTabPage( app );
 
@@ -98,39 +101,34 @@ describe( 'SAFE network webFetch operation', async () =>
 
             await client.waitForExist( BROWSER_UI.NOTIFICATION__ACCEPT, WAIT_FOR_EXIST_TIMEOUT );
             await client.click( BROWSER_UI.NOTIFICATION__ACCEPT );
-            // console.log('saveddd deeetss')
-            // await delay( 1500 );
-            // console.log('---------before logout here')
-            // await logout( app, authTab );
-            // console.log('------after logout here')
-            // await delay( 1500 );
-            //
-            // await login( app, secret, password );
-            // await delay( 1500 );
-            //
-            // // WHY NOT LOGGED IN w second window?
-            //
-            // await setClientToMainBrowserWindow( app );
-            //
-            // console.log('waiting for auth note, but it wont come as new acocutns reauth automatically')
-            // // await client.waitForExist( BROWSER_UI.NOTIFICATION__ACCEPT, WAIT_FOR_EXIST_TIMEOUT );
-            // // await client.click( BROWSER_UI.NOTIFICATION__ACCEPT );
-            // // await delay( 3000 );
-            //
-            //
-            // await navigateTo( app, 'peruse:bookmarks' );
-            // // fetch browser config
-            // await client.waitForExist( BROWSER_UI.SPECTRON_AREA, WAIT_FOR_EXIST_TIMEOUT );
-            // await client.click( BROWSER_UI.SPECTRON_AREA__SPOOF_LOAD );
-            // await delay( 5000 );
-            //
-            // console.log('--Checking bookmarks after login')
-            // await delay( 1500 );
-            // const bookmarks = await client.getText( '.urlList__table' );
-            // console.log('received:::', bookmarks)
-            // // bookmarks is an array
-            // expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
-            // await delay( 1500 );
+            await delay( 1500 );
+
+            await logout( app, authTab );
+            await delay( 1500 );
+            
+            await login( app, secret, password );
+            await delay( 1500 );
+            
+            // WHY NOT LOGGED IN w second window?
+            
+            await setClientToMainBrowserWindow( app );
+            
+            await client.waitForExist( BROWSER_UI.NOTIFICATION__ACCEPT, WAIT_FOR_EXIST_TIMEOUT );
+            await client.click( BROWSER_UI.NOTIFICATION__ACCEPT );
+            await delay( 3000 );
+            
+            
+            await navigateTo( app, 'peruse:bookmarks' );
+            // fetch browser config
+            await client.waitForExist( BROWSER_UI.SPECTRON_AREA, WAIT_FOR_EXIST_TIMEOUT );
+            await client.click( BROWSER_UI.SPECTRON_AREA__SPOOF_LOAD );
+            await delay( 5000 );
+            
+            await delay( 1500 );
+            const bookmarks = await client.getText( '.urlList__table' );
+            // bookmarks is an array
+            expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
+            await delay( 1500 );
 
         } );
         //
@@ -172,62 +170,54 @@ describe( 'SAFE network webFetch operation', async () =>
         it('login with a new account cannot after logout of old, cannot access prev account data.', async () =>
         {
             const { client } = app;
-
-            await setClientToMainBrowserWindow( app );
-
-            // await delay( 1500 );
-            console.log('THAT BIG CHECKKKKKKKKKKKKKKKKKKKKKKK')
-            // const authTab = await newTab( app );
-            // await navigateTo( app, 'safe-auth://home' );
             await delay( 1500 );
 
-            await login( app, secret, password );
+            const authTab = await newTab( app );
+            await navigateTo( app, 'safe-auth://home' );
+            await delay( 1500 );
+
+            await login( app, secret, password, authTab );
             await delay( 1500 );
 
             await setClientToMainBrowserWindow( app );
-            console.log('LAST TESTTT')
-            // fetch browser config
-            await client.waitForExist( BROWSER_UI.SPECTRON_AREA, WAIT_FOR_EXIST_TIMEOUT );
-            await client.click( BROWSER_UI.SPECTRON_AREA__SPOOF_LOAD );
-            await delay( 7000 );
-
-            await navigateTo( app, 'peruse:bookmarks' );
-
-            console.log('--Checking bookmarks after login')
-            await delay( 1500 );
-            const bookmarks = await client.getText( '.urlList__table' );
-
-            // bookmarks is an array
-            // expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
-
-            await logout( app );
-
-            console.log('POST LOGOUT login')
-
-            await delay( 6500 );
-
-            await createAccount( app );
-            console.log('Created ACCT after bookmarks after login')
 
             await client.waitForExist( BROWSER_UI.NOTIFICATION__ACCEPT, WAIT_FOR_EXIST_TIMEOUT );
             await client.click( BROWSER_UI.NOTIFICATION__ACCEPT );
-            console.log('NEW ACCOUNT CHECK. accepted')
             await delay( 1500 );
 
-            await setClientToMainBrowserWindow( app );
+            // fetch browser config
+            await client.waitForExist( BROWSER_UI.SPECTRON_AREA, WAIT_FOR_EXIST_TIMEOUT );
+            await client.click( BROWSER_UI.SPECTRON_AREA__SPOOF_LOAD );
+            await delay( 5000 );
+
+            await newTab( app );
+            await navigateTo( app, 'peruse:bookmarks' );
+            //await setClientToMainBrowserWindow( app );
+            await client.waitForExist( BROWSER_UI.ADDRESS_INPUT, WAIT_FOR_EXIST_TIMEOUT );
+            await delay( 1500 );
+            const bookmarks = await client.getText( '.urlList__table' );
+            expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
+            await delay( 1500 );
+            await logout( app, authTab );
+            await delay( 2500 );
+            console.log('JOSH: this is the last log in this test prior to error.');
+            await createAccount( app );
+	    console.log('JOSH: this will not log.');
+            await delay( 1500 );
+            await client.waitForExist( BROWSER_UI.NOTIFICATION__ACCEPT, WAIT_FOR_EXIST_TIMEOUT );
+            await client.click( BROWSER_UI.NOTIFICATION__ACCEPT );
+            await delay( 1500 );
 
             // again the bookmarks
             // fetch browser config
             await client.waitForExist( BROWSER_UI.SPECTRON_AREA, WAIT_FOR_EXIST_TIMEOUT );
             await client.click( BROWSER_UI.SPECTRON_AREA__SPOOF_LOAD );
-            await delay( 3000 );
+            await delay( 5000 );
 
             await navigateTo( app, 'peruse:bookmarks' );
-            console.log('Checking bookmarks after login with FRESH')
-
+            await client.waitForExist( BROWSER_UI.ADDRESS_INPUT, WAIT_FOR_EXIST_TIMEOUT );
             await delay( 1500 );
             const bookmarksFinalCheck = await client.getText( '.urlList__table' );
-            console.log('Checking bookmarks after login with FRESH:', bookmarksFinalCheck)
 
             // bookmarksFinalCheck is an array
             expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );

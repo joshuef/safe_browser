@@ -198,8 +198,10 @@ describe( 'SAFE network webFetch operation', async () =>
             const bookmarks = await client.getText( '.urlList__table' );
             expect( bookmarks ).toMatch( 'shouldsavetobookmarks' );
             await delay( 1500 );
+
             await logout( app, authTab );
-            await delay( 2500 );
+            await delay( 19500 );
+
             console.log('JOSH: this is the last log in this test prior to error.');
             await createAccount( app );
 	    console.log('JOSH: this will not log.');
@@ -221,8 +223,6 @@ describe( 'SAFE network webFetch operation', async () =>
 
             // bookmarksFinalCheck is an array
             expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
-
-
         });
     } );
 

@@ -5,6 +5,7 @@ import { push } from 'connected-react-router';
 import Login from '../components/login';
 import {
   login,
+  setIsAuthorised,
   clearAuthLoader,
   clearError,
   hideLibErrPopup } from '../actions/auth';
@@ -26,6 +27,7 @@ const mapDispatchToProps = (dispatch) => (
     login,
     clearAuthLoader,
     clearError,
+    setIsAuthorised,
     hideLibErrPopup }, dispatch)
  }
 );

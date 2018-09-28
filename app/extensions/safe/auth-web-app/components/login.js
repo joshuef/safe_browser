@@ -10,12 +10,13 @@ import Popup from './popup';
 export default class Login extends Component
 {
   static propTypes = {
-      isAuthorised : PropTypes.bool,
-      libErrPopup  : PropTypes.bool,
-      loading      : PropTypes.bool,
-      error        : PropTypes.string,
-      login        : PropTypes.func,
-      clearError   : PropTypes.func
+      isAuthorised    : PropTypes.bool,
+      libErrPopup     : PropTypes.bool,
+      loading         : PropTypes.bool,
+      error           : PropTypes.string,
+      login           : PropTypes.func,
+      clearError      : PropTypes.func,
+      setIsAuthorised : PropTypes.bool
   };
 
   static contextTypes = {
@@ -72,10 +73,30 @@ export default class Login extends Component
       input.type = ( input.type === 'text' ) ? 'password' : 'text';
   }
 
+  registerIsAuthorisedListener( cb )
+  {
+      if ( window.safeAuthenticator && window.safeAuthenticator.setIsAuthorisedListener )
+      {
+          window.safeAuthenticator.setIsAuthorisedListener( cb );
+      }
+  }
+  
+  isAuthorisedListenerCb( err, state )
+  {
+      const { setIsAuthorised } = this.props;
+      console.log('------------------------------ isAuthorisedListenerCb being called, state ---------------......:', state);
+      if ( err )
+      {
+          throw new Error( err );
+      }
+      this.registerIsAuthorisedListener( this.isAuthorisedListenerCb );
+      return setIsAuthorised( state );
+  }
+
   handleSubmit( e )
   {
       e.preventDefault();
-      const { login, clearError } = this.props;
+      const { login, clearError, isAuthorised } = this.props;
       clearError();
       const secret = this.secretEle.value.trim();
       const password = this.passwordEle.value.trim();
@@ -84,6 +105,7 @@ export default class Login extends Component
           return;
       }
       login( secret, password );
+      this.isAuthorisedListenerCb( null, isAuthorised );
   }
 
   render()

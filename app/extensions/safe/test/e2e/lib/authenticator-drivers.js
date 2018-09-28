@@ -34,7 +34,7 @@ export const createAccount = async ( app, secret, password, authTabIndex ) =>
     if( !tabIndex)
     {
         tabIndex = await newTab( app );
-        await setClientToMainBrowserWindow( app );
+        //await setClientToMainBrowserWindow( app );
         await navigateTo( app, 'safe-auth://home' );
     }
 

@@ -354,6 +354,7 @@ class Authenticator extends SafeLib
                 }
 
                 this.registeredClientHandle = null;
+                logger.info('====== _isAuthorisedListener broadcast on logout');
                 this[_isAuthorisedListener].broadcast( null, false );
                 resolve();
 

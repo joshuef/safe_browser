@@ -28,7 +28,7 @@ export default class App extends Component {
   }
 
   getHeaderOptions() {
-    const { isAuthorised, logout } = this.props;
+    const { isAuthorised, logout, setIsAuthorised } = this.props;
     if (!isAuthorised) {
       return null;
     }
@@ -38,6 +38,7 @@ export default class App extends Component {
           type="button"
           className={`logout ${AUTH_UI_CLASSES.AUTH_LOGOUT_BUTTON}`}
           onClick={() => {
+            setIsAuthorised( false );
             logout();
           }}
         >Logout</button>
@@ -60,6 +61,7 @@ export default class App extends Component {
         'safe-auth-icon': !isAuthorised
       }
     );
+    console.log('-------------------------- isAuthorised: ', isAuthorised);
 
     return (
       <div className="root">

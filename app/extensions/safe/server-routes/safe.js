@@ -1,5 +1,5 @@
 import logger from 'logger';
-import { getPeruseAppObj } from 'extensions/safe/network';
+import { getSafeBrowserAppObject } from 'extensions/safe/safeBrowserApplication';
 import { setWebFetchStatus } from 'extensions/safe/actions/web_fetch_actions';
 import { addTab, closeTab } from 'actions/tabs_actions';
 import { rangeStringToArray, generateResponseStr } from '../utils/safeHelpers';
@@ -15,7 +15,7 @@ const safeRoute = ( store ) => ( {
         {
             const link = request.url.substr( 1 ); // remove initial /
 
-            const app = getPeruseAppObj() || {};
+            const app = getSafeBrowserAppObject() || {};
             const headers = request.headers;
             let isRangeReq = false;
             let multipartReq = false;
@@ -69,10 +69,10 @@ const safeRoute = ( store ) => ( {
                                        error.code === errConsts.ERR_REQUEST_TIMEOUT.code;
                 if ( shouldTryAgain )
                 {
-                    const peruseApp = store.getState().peruseApp;
+                    const safeBrowserApp = store.getState().safeBrowserApp;
                     const unsubscribe = store.subscribe( () =>
                     {
-                        if ( peruseApp.networkStatus === SAFE.NETWORK_STATE.CONNECTED )
+                        if ( safeBrowserApp.networkStatus === SAFE.NETWORK_STATE.CONNECTED )
                         {
                             store.getState().tabs.forEach( ( tab ) =>
                             {

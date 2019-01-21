@@ -49,6 +49,7 @@ export default merge.smart( baseConfig, {
     output : {
         publicPath : `http://localhost:${port}/dist/`
     },
+    stats : 'errors-only',
 
     plugins : [
         new webpack.DllReferencePlugin( {

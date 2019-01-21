@@ -38,6 +38,7 @@ export default merge.smart( baseConfig, {
 
     target : 'electron-renderer',
     mode   : 'development',
+    stats : 'errors-only',
 
     entry : [
         'react-hot-loader/patch',

@@ -13,6 +13,7 @@ module.exports = {
         libraryTarget : 'commonjs2'
     },
     mode : 'development',
+    stats : 'errors-only',
 
     module : {
         // Use base + development loaders, but exclude 'babel-loader'

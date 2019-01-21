@@ -6,7 +6,7 @@ os:
 - windows
 
 env:
-  global
+  global:
     - YARN_GPG=no
 - NODE_ENV=dev
 - NODE_ENV=prod

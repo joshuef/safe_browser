@@ -1,7 +1,7 @@
 /* eslint global-require: 1, flowtype-errors/show-errors: 0 */
 import logger from 'logger';
-import { onRemoteCallInBgProcess, getRemoteCallApis } from 'extensions';
-import * as remoteCallActions from 'actions/remoteCall_actions';
+import { onRemoteCallInBgProcess, getRemoteCallApis } from '@Extensions';
+import * as remoteCallActions from '@Actions/remoteCall_actions';
 
 let cachedRemoteCallArray = [];
 const pendingCallIds = {};
@@ -17,7 +17,7 @@ const allApiCalls = {
  * updating the remoteCall.
  * @param  {[type]}  store Redux store
  */
-const manageRemoteCalls = async store =>
+const manageRemoteCalls = async store => 
 {
     const state = store.getState();
     const remoteCalls = state.remoteCalls;
@@ -27,8 +27,8 @@ const manageRemoteCalls = async store =>
 
         if ( !remoteCalls.length ) return;
 
-        remoteCalls.forEach( async theCall =>
-        {
+        remoteCalls.forEach( async theCall => 
+{
             if ( !theCall.inProgress && !pendingCallIds[theCall.id] )
             {
                 // hack to prevent multi store triggering.
@@ -37,8 +37,13 @@ const manageRemoteCalls = async store =>
 
                 if ( allApiCalls[theCall.name] )
                 {
-                    logger.verbose( 'Remote Calling: ', theCall.name );
-                    store.dispatch( remoteCallActions.updateRemoteCall( { ...theCall, inProgress: true } ) );
+                    logger.log( 'Remote Calling: ', theCall.name );
+                    store.dispatch(
+                        remoteCallActions.updateRemoteCall( {
+                            ...theCall,
+                            inProgress : true
+                        } )
+                    );
                     const theArgs = theCall.args;
 
                     onRemoteCallInBgProcess( store, allApiCalls, theCall );
@@ -54,12 +59,25 @@ const manageRemoteCalls = async store =>
                         const argsForCalling = theArgs || [];
 
                         // TODO: Refactor APIs to expect store as first arg?
-                        const response = await allApiCalls[theCall.name]( ...argsForCalling );
-                        store.dispatch( remoteCallActions.updateRemoteCall( { ...theCall, done: true, response } ) );
+                        const response = await allApiCalls[theCall.name](
+                            ...argsForCalling
+                        );
+                        store.dispatch(
+                            remoteCallActions.updateRemoteCall( {
+                                ...theCall,
+                                done : true,
+                                response
+                            } )
+                        );
                     }
                     catch ( e )
                     {
-                        store.dispatch( remoteCallActions.updateRemoteCall( { ...theCall, error: e.message || e } ) );
+                        store.dispatch(
+                            remoteCallActions.updateRemoteCall( {
+                                ...theCall,
+                                error : e.message || e
+                            } )
+                        );
                     }
                 }
                 else

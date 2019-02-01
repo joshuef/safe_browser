@@ -1,20 +1,21 @@
-import { urlIsAllowedBySafe,
+import {
+    urlIsAllowedBySafe,
     generateBoundaryStr,
     generateResponseStr,
     rangeStringToArray
-} from 'extensions/safe/utils/safeHelpers';
+} from '@Extensions/safe/utils/safeHelpers';
 
-describe( 'Safe Extension', () =>
+describe( 'Safe Extension', () => 
 {
-    describe( 'URL is allowed', () =>
-    {
-        test( 'it exists', () =>
-        {
+    describe( 'URL is allowed', () => 
+{
+        test( 'it exists', () => 
+{
             expect( urlIsAllowedBySafe ).not.toBeNull();
         } );
 
-        test( 'it does not allow non-local urls', () =>
-        {
+        test( 'it does not allow non-local urls', () => 
+{
             const goog = 'http://google.com';
             const googs = 'https://google.com';
             const lala = 'lala://google.com';
@@ -40,33 +41,34 @@ describe( 'Safe Extension', () =>
         } );
     } );
 
-    describe( 'Generate boundary string for multirange server response header', () =>
-    {
-        test( 'it exists', () =>
-        {
+    describe( 'Generate boundary string for multirange server response header', () => 
+{
+        test( 'it exists', () => 
+{
             expect( generateBoundaryStr ).not.toBeNull();
         } );
 
-        test( 'it generates 13 character string', () =>
-        {
+        test( 'it generates 13 character string', () => 
+{
             const testValue = generateBoundaryStr();
             expect( testValue.length ).toBe( 13 );
             expect( typeof testValue ).toBe( 'string' );
         } );
     } );
 
-    describe( 'Generate response string for multirange server response', () =>
-    {
-        test( 'it exists', () =>
-        {
+    describe( 'Generate response string for multirange server response', () => 
+{
+        test( 'it exists', () => 
+{
             expect( generateResponseStr ).not.toBeNull();
         } );
 
-        test( 'returns response string', () =>
-        {
-            const fileData = Buffer.from( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' );
-            const parts =
-            [
+        test( 'returns response string', () => 
+{
+            const fileData = Buffer.from(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+            );
+            const parts = [
                 {
                     body    : fileData.slice( 3, 9 ),
                     headers : {
@@ -89,13 +91,11 @@ describe( 'Safe Extension', () =>
                     }
                 }
             ];
-            const data =
-            {
-                headers :
-              {
-                  'Content-Type'   : 'multipart/byteranges',
-                  'Content-Length' : JSON.stringify( parts ).length
-              },
+            const data = {
+                headers : {
+                    'Content-Type'   : 'multipart/byteranges',
+                    'Content-Length' : JSON.stringify( parts ).length
+                },
                 parts
             };
             const testValue = generateResponseStr( data );
@@ -103,19 +103,18 @@ describe( 'Safe Extension', () =>
         } );
     } );
 
-    describe( 'Parse range request string as array of range objects', () =>
-    {
-        test( 'it exists', () =>
-        {
+    describe( 'Parse range request string as array of range objects', () => 
+{
+        test( 'it exists', () => 
+{
             expect( rangeStringToArray ).not.toBeNull();
         } );
 
-        test( 'returns array of range objects', () =>
-        {
+        test( 'returns array of range objects', () => 
+{
             const rangeString = 'bytes=4-6,14-20,40-53';
             const testValue = rangeStringToArray( rangeString );
-            const expectedValue =
-            [
+            const expectedValue = [
                 { start: 4, end: 6 },
                 { start: 14, end: 20 },
                 { start: 40, end: 53 }

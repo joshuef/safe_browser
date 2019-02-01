@@ -1,30 +1,30 @@
 /* eslint-disable func-names */
-import safeBrowserApp from 'extensions/safe/reducers/safeBrowserApp';
-import { TYPES } from 'extensions/safe/actions/safeBrowserApplication_actions';
-import initialState from 'extensions/safe/reducers/initialAppState';
-import { CONFIG } from 'appConstants';
-import { SAFE } from 'extensions/safe/constants';
+import safeBrowserApp from '@Extensions/safe/reducers/safeBrowserApp';
+import { TYPES } from '@Extensions/safe/actions/safeBrowserApplication_actions';
+import initialState from '@Extensions/safe/reducers/initialAppState';
+import { CONFIG } from '@Constants';
+import { SAFE } from '@Extensions/safe/constants';
 
 const safeInitialState = initialState.safeBrowserApp;
 
 // https://github.com/facebook/jest/issues/3552
-jest.mock( 'extensions/safe/safeBrowserApplication', () =>
-    ( {
-        getWebIds : () => []
-    } ) );
+jest.mock( 'extensions/safe/safeBrowserApplication', () => ( {
+    getWebIds : () => []
+} ) );
 
-describe( 'SafeBrowserApp App reducer', () =>
+describe( 'SafeBrowserApp App reducer', () => 
 {
-    it( 'should return the initial state', () =>
-    {
-        expect( safeBrowserApp( undefined, {} ) ).toEqual( initialState.safeBrowserApp );
+    it( 'should return the initial state', () => 
+{
+        expect( safeBrowserApp( undefined, {} ) ).toEqual(
+            initialState.safeBrowserApp
+        );
     } );
 
-
-    describe( 'SET_APP_STATUS', () =>
-    {
-        it( 'should handle app authorisation', () =>
-        {
+    describe( 'SET_APP_STATUS', () => 
+{
+        it( 'should handle app authorisation', () => 
+{
             const payload = SAFE.APP_STATUS.AUTHORISING;
 
             expect(
@@ -33,16 +33,15 @@ describe( 'SafeBrowserApp App reducer', () =>
                     payload
                 } )
             ).toMatchObject( {
-                appStatus : SAFE.APP_STATUS.AUTHORISING,
+                appStatus : SAFE.APP_STATUS.AUTHORISING
             } );
         } );
     } );
 
-
-    describe( 'ENABLE_EXPERIMENTS', () =>
-    {
-        it( 'should handle enabling experiments', () =>
-        {
+    describe( 'ENABLE_EXPERIMENTS', () => 
+{
+        it( 'should handle enabling experiments', () => 
+{
             expect(
                 safeBrowserApp( safeInitialState, {
                     type : TYPES.ENABLE_EXPERIMENTS
@@ -53,11 +52,10 @@ describe( 'SafeBrowserApp App reducer', () =>
         } );
     } );
 
-
-    describe( 'DISABLE_EXPERIMENTS', () =>
-    {
-        it( 'should handle disabling experiments', () =>
-        {
+    describe( 'DISABLE_EXPERIMENTS', () => 
+{
+        it( 'should handle disabling experiments', () => 
+{
             expect(
                 safeBrowserApp( safeInitialState, {
                     type : TYPES.DISABLE_EXPERIMENTS
@@ -68,11 +66,10 @@ describe( 'SafeBrowserApp App reducer', () =>
         } );
     } );
 
-
-    describe( 'SET_NETWORK_STATUS', () =>
-    {
-        it( 'should handle network status updates', () =>
-        {
+    describe( 'SET_NETWORK_STATUS', () => 
+{
+        it( 'should handle network status updates', () => 
+{
             const payload = CONFIG.NET_STATUS_CONNECTED;
 
             expect(
@@ -86,10 +83,10 @@ describe( 'SafeBrowserApp App reducer', () =>
         } );
     } );
 
-    describe( 'SET_SAVE_CONFIG_STATUS', () =>
-    {
-        it( 'should handle saving browser', () =>
-        {
+    describe( 'SET_SAVE_CONFIG_STATUS', () => 
+{
+        it( 'should handle saving browser', () => 
+{
             const payload = SAFE.SAVE_STATUS.TO_SAVE;
 
             expect(
@@ -101,11 +98,10 @@ describe( 'SafeBrowserApp App reducer', () =>
         } );
     } );
 
-
-    describe( 'RECEIVED_AUTH_RESPONSE', () =>
-    {
-        it( 'should handle saving browser', () =>
-        {
+    describe( 'RECEIVED_AUTH_RESPONSE', () => 
+{
+        it( 'should handle saving browser', () => 
+{
             const payload = 'URLofAUTHResponse';
 
             expect(
@@ -117,11 +113,10 @@ describe( 'SafeBrowserApp App reducer', () =>
         } );
     } );
 
-
-    describe( 'SHOW_WEB_ID_DROPDOWN', () =>
-    {
-        it( 'should handle updating the icon status', () =>
-        {
+    describe( 'SHOW_WEB_ID_DROPDOWN', () => 
+{
+        it( 'should handle updating the icon status', () => 
+{
             const payload = true;
             const newState = safeBrowserApp( safeInitialState, {
                 type : TYPES.SHOW_WEB_ID_DROPDOWN,

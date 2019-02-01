@@ -1,12 +1,9 @@
 import logger from 'logger';
 
-import {
-    default as safeWrapBrowser
-} from 'extensions/safe/components/wrapBrowser';
-import safeWrapAddressBarButtonsLHS from 'extensions/safe/components/wrapAddressBarButtonsLHS';
-import safeWrapAddressBarButtonsRHS from 'extensions/safe/components/wrapAddressBarButtonsRHS';
-import safeWrapAddressBarInput from 'extensions/safe/components/wrapAddressBarInput';
-
+import { default as safeWrapBrowser } from '@Extensions/safe/components/wrapBrowser';
+import safeWrapAddressBarButtonsLHS from '@Extensions/safe/components/wrapAddressBarButtonsLHS';
+import safeWrapAddressBarButtonsRHS from '@Extensions/safe/components/wrapAddressBarButtonsRHS';
+import safeWrapAddressBarInput from '@Extensions/safe/components/wrapAddressBarInput';
 
 const allBrowserExtensions = [safeWrapBrowser];
 const allAddressBarButtonLHSExtensions = [safeWrapAddressBarButtonsLHS];
@@ -21,16 +18,16 @@ const allAddressBarInputExtensions = [safeWrapAddressBarInput];
  * @param  {React Component} Browser Browser react component
  * @param  {React Component} Browser Browser react component
  */
-export const wrapBrowserComponent = Browser =>
+export const wrapBrowserComponent = Browser => 
 {
     try
     {
-        logger.verbose( 'Wrapping browser' );
+        logger.log( 'Wrapping browser' );
 
         let WrappedBrowser = Browser;
 
-        allBrowserExtensions.forEach( wrapper =>
-        {
+        allBrowserExtensions.forEach( wrapper => 
+{
             WrappedBrowser = wrapper( Browser );
         } );
 
@@ -38,7 +35,9 @@ export const wrapBrowserComponent = Browser =>
     }
     catch ( e )
     {
-        console.error( 'Problem with extension wrapping of the Browser component' );
+        console.error(
+            'Problem with extension wrapping of the Browser component'
+        );
         throw new Error( e );
     }
 };
@@ -51,15 +50,15 @@ export const wrapBrowserComponent = Browser =>
  * @param  {React Component} AddressBar AddressBar react component
  * @param  {React Component} AddressBar AddressBar react component
  */
-export const wrapAddressBarButtonsLHS = Buttons =>
+export const wrapAddressBarButtonsLHS = Buttons => 
 {
     try
     {
-        logger.verbose( 'Wrapping Address bar buttons LHS' );
+        logger.log( 'Wrapping Address bar buttons LHS' );
         let WrappedAddressBarButtonsLHS = Buttons;
 
-        allAddressBarButtonLHSExtensions.forEach( wrapper =>
-        {
+        allAddressBarButtonLHSExtensions.forEach( wrapper => 
+{
             WrappedAddressBarButtonsLHS = wrapper( Buttons );
         } );
 
@@ -67,7 +66,9 @@ export const wrapAddressBarButtonsLHS = Buttons =>
     }
     catch ( e )
     {
-        console.error( 'Problem with extension wrapping of Addressbar Buttons component' );
+        console.error(
+            'Problem with extension wrapping of Addressbar Buttons component'
+        );
         throw new Error( e );
     }
 };
@@ -79,15 +80,15 @@ export const wrapAddressBarButtonsLHS = Buttons =>
  * @param  {React Component} AddressBar AddressBar react component
  * @param  {React Component} AddressBar AddressBar react component
  */
-export const wrapAddressBarButtonsRHS = Buttons =>
+export const wrapAddressBarButtonsRHS = Buttons => 
 {
     try
     {
-        logger.verbose( 'Wrapping Address bar buttons RHS' );
+        logger.log( 'Wrapping Address bar buttons RHS' );
         let WrappedAddressBarButtonsRHS = Buttons;
 
-        allAddressBarButtonRHSExtensions.forEach( wrapper =>
-        {
+        allAddressBarButtonRHSExtensions.forEach( wrapper => 
+{
             WrappedAddressBarButtonsRHS = wrapper( Buttons );
         } );
 
@@ -95,7 +96,9 @@ export const wrapAddressBarButtonsRHS = Buttons =>
     }
     catch ( e )
     {
-        console.error( 'Problem with extension wrapping of Addressbar Buttons RHS component' );
+        console.error(
+            'Problem with extension wrapping of Addressbar Buttons RHS component'
+        );
         throw new Error( e );
     }
 };
@@ -107,15 +110,15 @@ export const wrapAddressBarButtonsRHS = Buttons =>
  *
  * @param  {React Component} AddressBar react component
  */
-export const wrapAddressBarInput = AddressBarInput =>
+export const wrapAddressBarInput = AddressBarInput => 
 {
     try
     {
-        logger.verbose( 'Wrapping Address bar input' );
+        logger.log( 'Wrapping Address bar input' );
         let WrappedAddressBarInput = AddressBarInput;
 
-        allAddressBarInputExtensions.forEach( wrapper =>
-        {
+        allAddressBarInputExtensions.forEach( wrapper => 
+{
             WrappedAddressBarInput = wrapper( AddressBarInput );
         } );
 
@@ -123,7 +126,9 @@ export const wrapAddressBarInput = AddressBarInput =>
     }
     catch ( e )
     {
-        console.error( 'Problem with extension wrapping of Addressbar input component' );
+        console.error(
+            'Problem with extension wrapping of Addressbar input component'
+        );
         throw new Error( e );
     }
 };

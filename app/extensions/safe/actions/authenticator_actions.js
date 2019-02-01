@@ -1,7 +1,7 @@
 import { createActions } from 'redux-actions';
 import { createAliasedAction } from 'electron-redux';
-import { callIPC } from 'extensions/safe/ffi/ipc';
-import AUTH_CONSTANTS from 'extensions/safe/auth-constants';
+import { callIPC } from '@Extensions/safe/ffi/ipc';
+import AUTH_CONSTANTS from '@Extensions/safe/auth-constants';
 
 import logger from 'logger';
 
@@ -24,7 +24,6 @@ export const {
     removeAuthRequest,
     setReAuthoriseState,
     setIsAuthorisedState
-
 } = createActions(
     TYPES.SET_AUTH_LIB_STATUS,
     TYPES.SET_AUTH_HANDLE,
@@ -35,20 +34,19 @@ export const {
     TYPES.SET_IS_AUTHORISED_STATE
 );
 
-const triggerAuthDecoding = reqObject =>
+const triggerAuthDecoding = reqObject => 
 {
-    if ( !window || !window.thisIsTheBackgroundProcess ) return;
+    if ( typeof window === 'undefined' || !window.thisIsTheBackgroundProcess ) return;
 
-    logger.info( 'Handling an AuthReq in BG process:', reqObject );
+    logger.log( 'Handling an AuthReq in BG process:', reqObject );
     callIPC.enqueueRequest( reqObject );
 };
 
 export const handleAuthUrl = createAliasedAction(
     TYPES.HANDLE_AUTH_URL,
-    reqObject => (
-        {
+    reqObject => ( {
         // the real action
-            type    : TYPES.HANDLE_AUTH_URL,
-            payload : triggerAuthDecoding( reqObject ),
-        } ),
+        type    : TYPES.HANDLE_AUTH_URL,
+        payload : triggerAuthDecoding( reqObject )
+    } )
 );

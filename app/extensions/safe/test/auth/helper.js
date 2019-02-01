@@ -2,16 +2,19 @@ import crypto from 'crypto';
 import client from '../../ffi/authenticator';
 
 /* eslint-disable import/prefer-default-export */
-export const getRandomCredentials = () => (
-    /* eslint-disable import/prefer-default-export */
-    {
-        locator : crypto.randomBytes( 32 ).toString( 'hex' ).slice( 0, 15 ),
-        secret  : crypto.randomBytes( 32 ).toString( 'hex' ).slice( 0, 15 ),
-        invite  : crypto.randomBytes( 10 ).toString( 'hex' )
-    }
-);
+export const getRandomCredentials = () => ( {
+    locator : crypto
+        .randomBytes( 32 )
+        .toString( 'hex' )
+        .slice( 0, 15 ),
+    secret : crypto
+        .randomBytes( 32 )
+        .toString( 'hex' )
+        .slice( 0, 15 ),
+    invite : crypto.randomBytes( 10 ).toString( 'hex' )
+} );
 
-export const createRandomAccount = async () =>
+export const createRandomAccount = async () => 
 {
     const randomCredentials = getRandomCredentials();
 
@@ -30,7 +33,7 @@ export const createRandomAccount = async () =>
     }
 };
 
-export const clearAccount = async () =>
+export const clearAccount = async () => 
 {
     const out = await client.logout();
     return out;

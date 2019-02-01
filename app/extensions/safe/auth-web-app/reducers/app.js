@@ -25,7 +25,7 @@ const initialState = {
     fetchingAccountInfo : false,
     searchResult        : []
 };
-const app = ( state = initialState, action ) =>
+const app = ( state = initialState, action ) => 
 {
     switch ( action.type )
     {
@@ -68,10 +68,10 @@ const app = ( state = initialState, action ) =>
         case SEARCH_APP: {
             return {
                 ...state,
-                searchResult : state.authorisedApps.filter( apps => (
-                    parseAppName( apps.app_info.name ).toLowerCase()
+                searchResult : state.authorisedApps.filter(
+                    apps => parseAppName( apps.app_info.name )
+                        .toLowerCase()
                         .indexOf( action.value.toLowerCase() ) >= 0
-                )
                 )
             };
         }

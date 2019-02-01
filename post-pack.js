@@ -27,21 +27,46 @@ if ( platform === OSX )
     CONTAINING_FOLDER = path.resolve( targetDir, 'mac' );
     const PERUSE_FOLDER = path.resolve( CONTAINING_FOLDER, 'SAFE Browser.app' );
     const PERUSE_CONTENTS_FOLDER = path.resolve( PERUSE_FOLDER, 'Contents' );
-    const PERUSE_RESOURCES_FOLDER = path.resolve( PERUSE_CONTENTS_FOLDER, 'Resources' );
-    const PERUSE_CONFIG_FOLDER = path.resolve( PERUSE_FOLDER, 'Contents/Frameworks/SAFE Browser Helper.app/Contents/MacOS' );
+    const PERUSE_RESOURCES_FOLDER = path.resolve(
+        PERUSE_CONTENTS_FOLDER,
+        'Resources'
+    );
+    const PERUSE_CONFIG_FOLDER = path.resolve(
+        PERUSE_FOLDER,
+        'Contents/Frameworks/SAFE Browser Helper.app/Contents/MacOS'
+    );
 
     const LOGS = 'log.toml';
 
-    fs.copySync( path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' ), path.resolve( PERUSE_CONFIG_FOLDER, 'SAFE Browser Helper.crust.config' ), { overwrite: true } );
-    fs.copySync( path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' ), path.resolve( PERUSE_CONTENTS_FOLDER, 'SAFE Browser.crust.config' ), { overwrite: true } );
-    fs.copySync( path.resolve( PERUSE_RESOURCES_FOLDER, LOGS ), path.resolve( PERUSE_CONFIG_FOLDER, LOGS ), { overwrite: true } );
-    fs.copySync( path.resolve( PERUSE_RESOURCES_FOLDER, LOGS ), path.resolve( PERUSE_CONTENTS_FOLDER, LOGS ), { overwrite: true } );
+    fs.copySync(
+        path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' ),
+        path.resolve( PERUSE_CONFIG_FOLDER, 'SAFE Browser Helper.crust.config' ),
+        { overwrite: true }
+    );
+    fs.copySync(
+        path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' ),
+        path.resolve( PERUSE_CONTENTS_FOLDER, 'SAFE Browser.crust.config' ),
+        { overwrite: true }
+    );
+    fs.copySync(
+        path.resolve( PERUSE_RESOURCES_FOLDER, LOGS ),
+        path.resolve( PERUSE_CONFIG_FOLDER, LOGS ),
+        { overwrite: true }
+    );
+    fs.copySync(
+        path.resolve( PERUSE_RESOURCES_FOLDER, LOGS ),
+        path.resolve( PERUSE_CONTENTS_FOLDER, LOGS ),
+        { overwrite: true }
+    );
 
     PLATFORM_NAME = 'osx';
 
     if ( isBuildingDev )
     {
-        fs.writeFileSync( path.resolve( PERUSE_RESOURCES_FOLDER, 'startAsMock' ), 'unimportantContents' );
+        fs.writeFileSync(
+            path.resolve( PERUSE_RESOURCES_FOLDER, 'startAsMock' ),
+            'unimportantContents'
+        );
     }
 }
 
@@ -55,30 +80,52 @@ if ( platform === LINUX )
 if ( platform === WINDOWS )
 {
     CONTAINING_FOLDER = path.resolve( targetDir, 'win-unpacked' );
-    const PERUSE_RESOURCES_FOLDER = path.resolve( CONTAINING_FOLDER, 'resources' );
-    fs.copySync( path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' ), path.resolve( CONTAINING_FOLDER, 'SAFE Browser.crust.config' ), { overwrite: true } );
+    const PERUSE_RESOURCES_FOLDER = path.resolve(
+        CONTAINING_FOLDER,
+        'resources'
+    );
+    fs.copySync(
+        path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' ),
+        path.resolve( CONTAINING_FOLDER, 'SAFE Browser.crust.config' ),
+        { overwrite: true }
+    );
     fs.unlinkSync( path.resolve( CONTAINING_FOLDER, 'safe-browser.crust.config' ) );
-    fs.unlinkSync( path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' ) );
+    fs.unlinkSync(
+        path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' )
+    );
     PLATFORM_NAME = 'win';
 }
 
 if ( isBuildingDev && ( platform === WINDOWS || platform === LINUX ) )
 {
-    fs.writeFileSync( path.resolve( CONTAINING_FOLDER, 'resources', 'startAsMock' ), 'unimportantContents' );
+    fs.writeFileSync(
+        path.resolve( CONTAINING_FOLDER, 'resources', 'startAsMock' ),
+        'unimportantContents'
+    );
 }
-
 
 // add version file
 fs.outputFileSync( path.resolve( CONTAINING_FOLDER, 'version' ), pkg.version );
 
 // remove licenses
-const removalArray = ['LICENSE.electron.txt', 'LICENSES.chromium.html', 'LICENSE'];
+const removalArray = [
+    'LICENSE.electron.txt',
+    'LICENSES.chromium.html',
+    'LICENSE'
+];
 
-removalArray.forEach( file =>
+removalArray.forEach( file => 
 {
     fs.removeSync( `${ CONTAINING_FOLDER }/${ file }` );
 } );
 
-console.log( 'Renaming package to:', path.resolve( targetDir, `${ RELEASE_FOLDER_NAME }` ) );
+console.log(
+    'Renaming package to:',
+    path.resolve( targetDir, `${ RELEASE_FOLDER_NAME }` )
+);
 // rename release folder
-fs.moveSync( CONTAINING_FOLDER, path.resolve( targetDir, `${ RELEASE_FOLDER_NAME }` ), { overwrite: true } );
+fs.moveSync(
+    CONTAINING_FOLDER,
+    path.resolve( targetDir, `${ RELEASE_FOLDER_NAME }` ),
+    { overwrite: true }
+);

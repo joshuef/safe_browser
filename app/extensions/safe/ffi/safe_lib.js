@@ -39,6 +39,7 @@ export default class SafeLib
     /* eslint-disable no-unused-vars */
     drop( safeLib )
     {}
+
     /* eslint-enable no-unused-vars */
     fnsToRegister()
     {}

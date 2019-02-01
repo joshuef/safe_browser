@@ -9,7 +9,7 @@ const initialState = {
     state : CONSTANTS.NETWORK_STATUS.CONNECTING
 };
 
-const networkState = ( state = initialState, action ) =>
+const networkState = ( state = initialState, action ) => 
 {
     switch ( action.type )
     {

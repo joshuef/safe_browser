@@ -1,4 +1,4 @@
-// import * as safeBrowserAppActions from 'extensions/safe/actions/safeBrowserApplication_actions';
+// import * as safeBrowserAppActions from '@Extensions/safe/actions/safeBrowserApplication_actions';
 
 // safeBrowserAppActions.getWebIds = jest.fn();
 

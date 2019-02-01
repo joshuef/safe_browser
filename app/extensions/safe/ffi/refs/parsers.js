@@ -2,7 +2,7 @@ import ref from 'ref';
 import ArrayType from 'ref-array';
 import * as types from './types';
 
-export const parseArray = ( type, arrayBuf, len ) =>
+export const parseArray = ( type, arrayBuf, len ) => 
 {
     if ( len === 0 )
     {
@@ -20,26 +20,31 @@ export const parseAppExchangeInfo = appExchangeInfo => ( {
     vendor : appExchangeInfo.vendor
 } );
 
-const parsePermissionSet = perms => (
-    {
-        read               : perms.read,
-        insert             : perms.insert,
-        update             : perms.update,
-        delete             : perms.delete,
-        manage_permissions : perms.manage_permissions
-    }
-);
+const parsePermissionSet = perms => ( {
+    read               : perms.read,
+    insert             : perms.insert,
+    update             : perms.update,
+    delete             : perms.delete,
+    manage_permissions : perms.manage_permissions
+} );
 
 export const parseContainerPermissions = containerPermissions => ( {
     cont_name : containerPermissions.cont_name,
     access    : parsePermissionSet( containerPermissions.access )
 } );
 
-export const parseContainerPermissionsArray = ( containerPermissionsArray, len ) =>
+export const parseContainerPermissionsArray = (
+    containerPermissionsArray,
+    len
+) => 
 {
     const res = [];
     let i = 0;
-    const contArr = parseArray( types.ContainerPermissions, containerPermissionsArray, len );
+    const contArr = parseArray(
+        types.ContainerPermissions,
+        containerPermissionsArray,
+        len
+    );
     for ( i = 0; i < contArr.length; i++ )
     {
         res.push( parseContainerPermissions( contArr[i] ) );
@@ -47,21 +52,25 @@ export const parseContainerPermissionsArray = ( containerPermissionsArray, len )
     return res;
 };
 
-export const parseRegisteredApp = registeredApp => (
-    {
-        app_info   : parseAppExchangeInfo( registeredApp.app_info ),
-        containers : parseContainerPermissionsArray( registeredApp.containers,
-            registeredApp.containers_len ),
-        containers_len : registeredApp.containers_len,
-        containers_cap : registeredApp.containers_cap
-    }
-);
+export const parseRegisteredApp = registeredApp => ( {
+    app_info   : parseAppExchangeInfo( registeredApp.app_info ),
+    containers : parseContainerPermissionsArray(
+        registeredApp.containers,
+        registeredApp.containers_len
+    ),
+    containers_len : registeredApp.containers_len,
+    containers_cap : registeredApp.containers_cap
+} );
 
-export const parseRegisteredAppArray = ( registeredAppArray, len ) =>
+export const parseRegisteredAppArray = ( registeredAppArray, len ) => 
 {
     const res = [];
     let i = 0;
-    const registeredApps = parseArray( types.RegisteredApp, registeredAppArray, len );
+    const registeredApps = parseArray(
+        types.RegisteredApp,
+        registeredAppArray,
+        len
+    );
     for ( i = 0; i < registeredApps.length; i++ )
     {
         res.push( parseRegisteredApp( registeredApps[i] ) );
@@ -69,27 +78,28 @@ export const parseRegisteredAppArray = ( registeredAppArray, len ) =>
     return res;
 };
 
-export const parseAuthReq = authReq => (
-    {
-        app            : parseAppExchangeInfo( authReq.app ),
-        app_container  : authReq.app_container,
-        containers     : parseContainerPermissionsArray( authReq.containers, authReq.containers_len ),
-        containers_len : authReq.containers_len,
-        containers_cap : authReq.containers_cap
-    }
-);
+export const parseAuthReq = authReq => ( {
+    app           : parseAppExchangeInfo( authReq.app ),
+    app_container : authReq.app_container,
+    containers    : parseContainerPermissionsArray(
+        authReq.containers,
+        authReq.containers_len
+    ),
+    containers_len : authReq.containers_len,
+    containers_cap : authReq.containers_cap
+} );
 
-export const parseContainerReq = containersReq => (
-    {
-        app        : parseAppExchangeInfo( containersReq.app ),
-        containers : parseContainerPermissionsArray( containersReq.containers,
-            containersReq.containers_len ),
-        containers_len : containersReq.containers_len,
-        containers_cap : containersReq.containers_cap
-    }
-);
+export const parseContainerReq = containersReq => ( {
+    app        : parseAppExchangeInfo( containersReq.app ),
+    containers : parseContainerPermissionsArray(
+        containersReq.containers,
+        containersReq.containers_len
+    ),
+    containers_len : containersReq.containers_len,
+    containers_cap : containersReq.containers_cap
+} );
 
-const parseXorName = str =>
+const parseXorName = str => 
 {
     const b = new Buffer( str );
     if ( b.length !== 32 ) throw Error( 'XOR Names _must be_ 32 bytes long.' );
@@ -97,15 +107,13 @@ const parseXorName = str =>
     return new Buffer( name ).toString( 'hex' );
 };
 
-const parseShareMData = shareMData => (
-    {
-        type_tag : shareMData.type_tag,
-        name     : parseXorName( shareMData.name ),
-        perms    : parsePermissionSet( shareMData.perms )
-    }
-);
+const parseShareMData = shareMData => ( {
+    type_tag : shareMData.type_tag,
+    name     : parseXorName( shareMData.name ),
+    perms    : parsePermissionSet( shareMData.perms )
+} );
 
-const parseSharedMDataArray = ( shareMData, len ) =>
+const parseSharedMDataArray = ( shareMData, len ) => 
 {
     const res = [];
     let i = 0;
@@ -117,21 +125,18 @@ const parseSharedMDataArray = ( shareMData, len ) =>
     return res;
 };
 
-
-export const parseShareMDataReq = shareMDataReq => (
-    {
-        app       : parseAppExchangeInfo( shareMDataReq.app ),
-        mdata     : parseSharedMDataArray( shareMDataReq.mdata, shareMDataReq.mdata_len ),
-        mdata_len : shareMDataReq.mdata_len
-    }
-);
+export const parseShareMDataReq = shareMDataReq => ( {
+    app       : parseAppExchangeInfo( shareMDataReq.app ),
+    mdata     : parseSharedMDataArray( shareMDataReq.mdata, shareMDataReq.mdata_len ),
+    mdata_len : shareMDataReq.mdata_len
+} );
 
 const parseUserMetaData = meta => ( {
     name        : meta.name,
     description : meta.description
 } );
 
-export const parseUserMetaDataArray = ( metaArr, len ) =>
+export const parseUserMetaDataArray = ( metaArr, len ) => 
 {
     const res = [];
     let i = 0;
@@ -143,20 +148,20 @@ export const parseUserMetaDataArray = ( metaArr, len ) =>
     return res;
 };
 
-const parseAppAccessInfo = appAccess =>
+const parseAppAccessInfo = appAccess => 
 {
     let signKey = types.U8Array( new Buffer( appAccess.sign_key ) );
     signKey = new Buffer( signKey ).toString( 'hex' );
     return {
         sign_key    : signKey,
         permissions : parsePermissionSet( appAccess.permissions ),
-        app         : appAccess.name,
-    // TODO: Why does uncommenting the following line break shareMData requests?
-    // app_id: appAccess.app_id
+        app         : appAccess.name
+        // TODO: Why does uncommenting the following line break shareMData requests?
+        // app_id: appAccess.app_id
     };
 };
 
-export const parseAppAccess = ( appAccess, len ) =>
+export const parseAppAccess = ( appAccess, len ) => 
 {
     const res = [];
     let i = 0;

@@ -1,38 +1,42 @@
 import logger from 'logger';
+import { isCI, isRunningSpectronTestProcessingPackagedApp } from '@Constants';
 import {
-    isCI,
-    isRunningSpectronTestProcessingPackagedApp
-} from 'appConstants';
-import { addNotification, clearNotification } from 'actions/notification_actions';
+    addNotification,
+    clearNotification
+} from '@Actions/notification_actions';
 
-const tryConnect = async res =>
+const tryConnect = async res => 
 {
     let safeBrowserAppObject;
 
     try
     {
-        safeBrowserAppObject = await safeBrowserAppObject.auth.loginFromUri( res );
+        safeBrowserAppObject = await safeBrowserAppObject.auth.loginFromUri(
+            res
+        );
         store.dispatch( clearNotification() );
 
         return safeBrowserAppObject;
     }
     catch ( err )
     {
-        setTimeout( () =>
-        {
+        setTimeout( () => 
+{
             tryConnect( res );
         }, 5000 );
     }
 };
 
-const authFromInternalResponse = async ( res, store ) =>
+const authFromInternalResponse = async ( res, store ) => 
 {
     let safeBrowserAppObject;
 
     try
     {
         // for webFetch app only
-        safeBrowserAppObject = await safeBrowserAppObject.auth.loginFromUri( res );
+        safeBrowserAppObject = await safeBrowserAppObject.auth.loginFromUri(
+            res
+        );
     }
     catch ( err )
     {
@@ -48,7 +52,9 @@ const authFromInternalResponse = async ( res, store ) =>
             // TODO: Remove check when network is opened up
             if ( isRunningSpectronTestProcessingPackagedApp || isCI ) return;
 
-            store.dispatch( addNotification( { text: message, onDismiss: clearNotification } ) );
+            store.dispatch(
+                addNotification( { text: message, onDismiss: clearNotification } )
+            );
             safeBrowserAppObject = tryConnect( res );
         }
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
+import { ConnectedRouter } from 'connected-react-router';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { I18n } from 'react-redux-i18n';
 import App from './containers/app';
 import AppDetails from './containers/app_details';
 import Login from './containers/login';
 import CreateAccount from './containers/create_account';
 import Home from './containers/app_list';
-import { ConnectedRouter } from 'connected-react-router';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { I18n } from 'react-redux-i18n';
 import { configureStore, history } from './store';
 import CONSTANTS from './constants';
 import { fetchReAuthoriseState, isUserAuthorised } from './utils';
@@ -21,7 +21,12 @@ import {
 } from './actions/network_state';
 
 import { setAppList, setReAuthoriseState } from './actions/app';
-import { setInviteCode, toggleInvitePopup, showLibErrPopup, setIsAuthorised } from './actions/auth';
+import {
+    setInviteCode,
+    toggleInvitePopup,
+    showLibErrPopup,
+    setIsAuthorised
+} from './actions/auth';
 
 const store = configureStore();
 
@@ -30,16 +35,19 @@ if ( !window.safeAuthenticator.getLibStatus() )
     store.dispatch( showLibErrPopup() );
 }
 
-const registerNetworkStateListener = cb =>
+const registerNetworkStateListener = cb => 
 {
     // set network listener
-    if ( window.safeAuthenticator && window.safeAuthenticator.setNetworkListener )
+    if (
+        window.safeAuthenticator
+        && window.safeAuthenticator.setNetworkListener
+    )
     {
         window.safeAuthenticator.setNetworkListener( cb );
     }
 };
 
-const networkStateListenerCb = ( err, state ) =>
+const networkStateListenerCb = ( err, state ) => 
 {
     if ( err )
     {
@@ -63,15 +71,18 @@ const networkStateListenerCb = ( err, state ) =>
     }
 };
 
-const registerIsAuthorisedListener = cb =>
+const registerIsAuthorisedListener = cb => 
 {
-    if ( window.safeAuthenticator && window.safeAuthenticator.setIsAuthorisedListener )
+    if (
+        window.safeAuthenticator
+        && window.safeAuthenticator.setIsAuthorisedListener
+    )
     {
         window.safeAuthenticator.setIsAuthorisedListener( cb );
     }
 };
 
-const isAuthorisedListenerCb = ( err, state ) =>
+const isAuthorisedListenerCb = ( err, state ) => 
 {
     if ( err )
     {
@@ -81,15 +92,18 @@ const isAuthorisedListenerCb = ( err, state ) =>
     return store.dispatch( setIsAuthorised( state ) );
 };
 
-const registerAppListUpdateListener = cb =>
+const registerAppListUpdateListener = cb => 
 {
-    if ( window.safeAuthenticator && window.safeAuthenticator.setAppListUpdateListener )
+    if (
+        window.safeAuthenticator
+        && window.safeAuthenticator.setAppListUpdateListener
+    )
     {
         window.safeAuthenticator.setAppListUpdateListener( cb );
     }
 };
 
-const appListUpdateListenerCb = ( err, apps ) =>
+const appListUpdateListenerCb = ( err, apps ) => 
 {
     if ( err )
     {
@@ -107,16 +121,25 @@ isAuthorisedListenerCb( null, state.auth.isAuthorised );
 
 // check Reauthorise state
 const reAuthoriseState = fetchReAuthoriseState();
-store.dispatch( setReAuthoriseState( ( reAuthoriseState === null ) ?
-    CONSTANTS.RE_AUTHORISE.STATE.LOCK : reAuthoriseState ) );
+store.dispatch(
+    setReAuthoriseState(
+        reAuthoriseState === null
+            ? CONSTANTS.RE_AUTHORISE.STATE.LOCK
+            : reAuthoriseState
+    )
+);
 window.safeAuthenticator.setReAuthoriseState( reAuthoriseState );
 
-window.addEventListener( 'message', evt =>
+window.addEventListener(
+    'message',
+    evt => 
 {
-    console.warn( 'Invitation code ::', evt.data );
-    store.dispatch( setInviteCode( evt.data ) );
-    store.dispatch( toggleInvitePopup() );
-}, false );
+        console.warn( 'Invitation code ::', evt.data );
+        store.dispatch( setInviteCode( evt.data ) );
+        store.dispatch( toggleInvitePopup() );
+    },
+    false
+);
 
 render(
     <Provider store={ store }>

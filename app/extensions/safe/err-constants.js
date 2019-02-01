@@ -1,7 +1,8 @@
 module.exports = {
     ERR_ROUTING_INTERFACE_ERROR : {
         code : -11,
-        msg  : 'Unable to navigate to site. Will automatically reload when network is connected...'
+        msg  :
+            'Unable to navigate to site. Will automatically reload when network is connected...'
     },
     ERR_OPERATION_ABORTED : {
         code : -14

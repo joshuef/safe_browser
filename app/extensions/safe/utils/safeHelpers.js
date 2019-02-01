@@ -1,26 +1,28 @@
-import pkg from 'appPackage';
-import { CONFIG } from 'appConstants';
+import pkg from '@Package';
+import { CONFIG } from '@Constants';
 import url from 'url';
 import logger from 'logger';
 
-export const isForSafeServer = parsedUrlObject =>
-    parsedUrlObject.host === `localhost:${ CONFIG.PORT }`;
+export const isForSafeServer = parsedUrlObject => parsedUrlObject.host === `localhost:${ CONFIG.PORT }`;
 
-
-export const urlIsAllowedBySafe = testUrl =>
+export const urlIsAllowedBySafe = testUrl => 
 {
-    logger.verbose( 'Checking urlIsAllowedBySafe', testUrl );
+    logger.log( 'Checking urlIsAllowedBySafe', testUrl );
     const urlObj = url.parse( testUrl );
 
     const validProtocols = pkg.build.protocols.schemes || ['http'];
     const adaptedProtocols = validProtocols.map( proto => `${ proto }:` );
 
-
     // TODO: locally server appspot files to avoid reqs thereto.
-    if ( adaptedProtocols.includes( urlObj.protocol ) || isForSafeServer( urlObj ) ||
-        urlObj.protocol === 'chrome-devtools:' || urlObj.protocol === 'file:' ||
-        urlObj.protocol === 'blob:' || urlObj.protocol === 'chrome-extension:' ||
-        urlObj.host === 'chrome-devtools-frontend.appspot.com' )
+    if (
+        adaptedProtocols.includes( urlObj.protocol )
+        || isForSafeServer( urlObj )
+        || urlObj.protocol === 'chrome-devtools:'
+        || urlObj.protocol === 'file:'
+        || urlObj.protocol === 'blob:'
+        || urlObj.protocol === 'chrome-extension:'
+        || urlObj.host === 'chrome-devtools-frontend.appspot.com'
+    )
     {
         return true;
     }
@@ -33,7 +35,7 @@ export const urlIsAllowedBySafe = testUrl =>
     return false;
 };
 
-export const generateBoundaryStr = () =>
+export const generateBoundaryStr = () => 
 {
     let text = '';
     const charSet = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -46,53 +48,53 @@ export const generateBoundaryStr = () =>
     return text;
 };
 
-export const rangeStringToArray = rangeString =>
+export const rangeStringToArray = rangeString => 
 {
     const BYTES = 'bytes=';
-    return rangeString.substring( BYTES.length, rangeString.length )
+    return rangeString
+        .substring( BYTES.length, rangeString.length )
         .split( ',' )
-        .map( part =>
-        {
+        .map( part => 
+{
             const partObj = {};
-            part.split( '-' )
-                .forEach( ( int, i ) =>
+            part.split( '-' ).forEach( ( int, i ) => 
+{
+                if ( i === 0 )
                 {
-                    if ( i === 0 )
+                    if ( Number.isInteger( parseInt( int, 10 ) ) )
                     {
-                        if ( Number.isInteger( parseInt( int, 10 ) ) )
-                        {
-                            partObj.start = parseInt( int, 10 );
-                        }
-                        else
-                        {
-                            partObj.start = null;
-                        }
+                        partObj.start = parseInt( int, 10 );
                     }
-                    else if ( i === 1 )
+                    else
                     {
-                        if ( Number.isInteger( parseInt( int, 10 ) ) )
-                        {
-                            partObj.end = parseInt( int, 10 );
-                        }
-                        else
-                        {
-                            partObj.end = null;
-                        }
+                        partObj.start = null;
                     }
-                } );
+                }
+                else if ( i === 1 )
+                {
+                    if ( Number.isInteger( parseInt( int, 10 ) ) )
+                    {
+                        partObj.end = parseInt( int, 10 );
+                    }
+                    else
+                    {
+                        partObj.end = null;
+                    }
+                }
+            } );
             return partObj;
         } );
 };
 
-export const generateResponseStr = data =>
+export const generateResponseStr = data => 
 {
     const boundaryStr = generateBoundaryStr();
     const crlf = '\r\n';
     let responseStr = `HTTP/1.1 206 Partial Content${ crlf }`;
     responseStr += `Content-Type: multipart/byteranges; boundary=${ boundaryStr }${ crlf }`;
     responseStr += `Content-Length:${ data.headers['Content-Length'] }${ crlf }`;
-    data.parts.forEach( part =>
-    {
+    data.parts.forEach( part => 
+{
         responseStr += `--${ boundaryStr }${ crlf }`;
         responseStr += `Content-Type:${ part.headers['Content-Type'] }${ crlf }`;
         responseStr += `Content-Range: ${ part.headers['Content-Range'] }${ crlf }`;
@@ -101,7 +103,6 @@ export const generateResponseStr = data =>
     responseStr += `--${ boundaryStr }--`;
     return responseStr;
 };
-
 
 export function parseSafeAuthUrl( safeUrl, isClient )
 {
@@ -113,7 +114,9 @@ export function parseSafeAuthUrl( safeUrl, isClient )
     const safeAuthUrl = {};
     const parsedUrl = url.parse( safeUrl );
 
-    if ( !( /^(\/\/)*(bundle.js|home|bundle.js.map)(\/)*$/.test( parsedUrl.hostname ) ) )
+    if (
+        !/^(\/\/)*(bundle.js|home|bundle.js.map)(\/)*$/.test( parsedUrl.hostname )
+    )
     {
         return { action: 'auth' };
     }

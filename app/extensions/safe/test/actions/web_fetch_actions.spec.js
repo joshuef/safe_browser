@@ -1,16 +1,15 @@
-import * as webFetch from 'extensions/safe/actions/web_fetch_actions';
+import * as webFetch from '@Extensions/safe/actions/web_fetch_actions';
 
 jest.mock( 'extensions/safe/ffi/ipc' );
-jest.mock( 'electron-redux', () =>
-    ( {
-        createAliasedAction : () =>
-        {}
-    } ) );
+jest.mock( 'electron-redux', () => ( {
+    createAliasedAction : () => 
+{}
+} ) );
 
-describe( 'webFetch actions', () =>
+describe( 'webFetch actions', () => 
 {
-    it( 'should set status of web fetch', () =>
-    {
+    it( 'should set status of web fetch', () => 
+{
         const payload = { fetching: false, options: '' };
         const expectedAction = {
             type : webFetch.TYPES.SET_WEB_FETCH_STATUS,

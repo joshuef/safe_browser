@@ -1,17 +1,17 @@
 import { parse } from 'url';
 import path from 'path';
-import pkg from 'appPackage';
+import pkg from '@Package';
 import logger from 'logger';
-import { PROTOCOLS } from 'appConstants';
+import { PROTOCOLS } from '@Constants';
 
-export const isInternalPage = tab =>
+export const isInternalPage = tab => 
 {
     const urlObj = parse( tab.url );
 
     return urlObj.protocol === `${ PROTOCOLS.INTERNAL_PAGES }:`;
 };
 
-export const removeTrailingSlash = url =>
+export const removeTrailingSlash = url => 
 {
     if ( url )
     {
@@ -21,7 +21,7 @@ export const removeTrailingSlash = url =>
     return url;
 };
 
-export const removeLeadingSlash = url =>
+export const removeLeadingSlash = url => 
 {
     if ( url )
     {
@@ -31,15 +31,14 @@ export const removeLeadingSlash = url =>
     return url;
 };
 
-export const trimSlashes = url =>
+export const trimSlashes = url => 
 {
     let newUrl = removeLeadingSlash( url );
     newUrl = removeTrailingSlash( newUrl );
     return newUrl;
 };
 
-
-export const addTrailingSlashIfNeeded = url =>
+export const addTrailingSlashIfNeeded = url => 
 {
     const urlObj = parse( url );
     const urlPath = urlObj.path;
@@ -60,10 +59,9 @@ export const addTrailingSlashIfNeeded = url =>
     return slashedUrl;
 };
 
-export const removeTrailingHash = url =>
-    url.replace( /\#$/, '' );
+export const removeTrailingHash = url => url.replace( /\#$/, '' );
 
-export const removeTrailingRedundancies = url =>
+export const removeTrailingRedundancies = url => 
 {
     let newUrl = removeTrailingSlash( url );
     newUrl = removeTrailingHash( newUrl );
@@ -77,7 +75,7 @@ export const removeTrailingRedundancies = url =>
     return removeTrailingRedundancies( newUrl );
 };
 
-export const urlHasChanged = ( src, newUrl ) =>
+export const urlHasChanged = ( src, newUrl ) => 
 {
     const strippedSrcUrl = removeTrailingRedundancies( src );
     const strippedNewUrl = removeTrailingRedundancies( newUrl );
@@ -93,16 +91,23 @@ export const urlHasChanged = ( src, newUrl ) =>
         return false;
     }
 
-    if ( parsedSrc.protocol !== parsedNew.protocol ||
-        parsedSrc.host !== parsedNew.host ||
-        removeTrailingSlash( parsedSrc.path ) !== removeTrailingSlash( parsedNew.path ) )
+    if (
+        parsedSrc.protocol !== parsedNew.protocol
+        || parsedSrc.host !== parsedNew.host
+        || removeTrailingSlash( parsedSrc.path )
+            !== removeTrailingSlash( parsedNew.path )
+    )
     {
         return true;
     }
 
     // here we leave the slashes on hashes up to the app/user
-    const srcHash = parsedSrc.hash ? trimSlashes( parsedSrc.hash.replace( '#', '' ) ) : '';
-    const newHash = parsedNew.hash ? trimSlashes( parsedNew.hash.replace( '#', '' ) ) : '';
+    const srcHash = parsedSrc.hash
+        ? trimSlashes( parsedSrc.hash.replace( '#', '' ) )
+        : '';
+    const newHash = parsedNew.hash
+        ? trimSlashes( parsedNew.hash.replace( '#', '' ) )
+        : '';
 
     if ( srcHash !== newHash )
     {
@@ -112,7 +117,7 @@ export const urlHasChanged = ( src, newUrl ) =>
     return false;
 };
 
-const getProtocolPosition = ( url, inputProtocol ) =>
+const getProtocolPosition = ( url, inputProtocol ) => 
 {
     const fullProto = '://';
     const shortProto = ':';
@@ -138,7 +143,7 @@ const getProtocolPosition = ( url, inputProtocol ) =>
  * @param  {String} input address bar input
  * @return {String}       full url with protocol and any trailing (eg: http:// / .com)
  */
-export const makeValidAddressBarUrl = input =>
+export const makeValidAddressBarUrl = input => 
 {
     if ( !input )
     {
@@ -148,7 +153,9 @@ export const makeValidAddressBarUrl = input =>
 
     const validProtocols = pkg.build.protocols.schemes || ['http'];
     const parsedURL = parse( input );
-    const inputProtocol = parsedURL.protocol ? parsedURL.protocol.replace( ':', '' ) : '';
+    const inputProtocol = parsedURL.protocol
+        ? parsedURL.protocol.replace( ':', '' )
+        : '';
 
     let finalProtocol;
     let everythingAfterProtocol = '';
@@ -158,9 +165,7 @@ export const makeValidAddressBarUrl = input =>
     {
         finalProtocol = inputProtocol;
 
-        everythingAfterProtocol = input.substring(
-            protocolPos,
-            input.length );
+        everythingAfterProtocol = input.substring( protocolPos, input.length );
     }
     else if ( !inputProtocol )
     {
@@ -176,9 +181,12 @@ export const makeValidAddressBarUrl = input =>
 
         everythingAfterProtocol = input.substring(
             protocolPos + port.length + lengthOfSemiColon,
-            input.length );
+            input.length
+        );
 
-        everythingAfterProtocol = `localhost:${ parsedURL.hostname }/${ everythingAfterProtocol }`;
+        everythingAfterProtocol = `localhost:${
+            parsedURL.hostname
+        }/${ everythingAfterProtocol }`;
     }
     else if ( inputProtocol )
     {

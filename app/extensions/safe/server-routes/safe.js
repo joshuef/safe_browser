@@ -10,20 +10,22 @@ import errConsts from '@Extensions/safe/err-constants';
 import { rangeStringToArray, generateResponseStr } from '../utils/safeHelpers';
 import { SAFE } from '../constants';
 
-const safeRoute = store => ({
-    method: 'GET',
-    path: /safe:\//,
-    handler: async (request, res) => {
-        const link = request.url.substr(1); // remove initial /
-        const sendErrResponse = (error, errSubHeader) =>
+const safeRoute = store => ( {
+    method  : 'GET',
+    path    : /safe:\//,
+    handler : async ( request, res ) =>
+    {
+        const link = request.url.substr( 1 ); // remove initial /
+        const sendErrResponse = ( error, errSubHeader ) =>
             res.send(
                 ReactDOMServer.renderToStaticMarkup(
-                    <Error error={{ header: error, subHeader: errSubHeader }} />
+                    <Error error={ { header: error, subHeader: errSubHeader } } />
                 )
             );
 
-        try {
-            const link = request.url.substr(1); // remove initial /
+        try
+        {
+            const link = request.url.substr( 1 ); // remove initial /
 
             const app = getSafeBrowserAppObject() || {};
             const headers = request.headers;
@@ -34,17 +36,20 @@ const safeRoute = store => ({
             let end;
             let rangeArray;
 
-            logger.log(`Handling SAFE req: ${link}`);
+            logger.log( `Handling SAFE req: ${ link }` );
 
-            if (!app) {
-                return res.send('SAFE not connected yet');
+            if ( !app )
+            {
+                return res.send( 'SAFE not connected yet' );
             }
 
-            if (headers.range) {
+            if ( headers.range )
+            {
                 isRangeReq = true;
-                rangeArray = rangeStringToArray(headers.range);
+                rangeArray = rangeStringToArray( headers.range );
 
-                if (rangeArray.length > 1) {
+                if ( rangeArray.length > 1 )
+                {
                     multipartReq = true;
                 }
             }
@@ -52,85 +57,97 @@ const safeRoute = store => ({
             // setup opts object
             const options = { headers };
 
-            if (isRangeReq) {
+            if ( isRangeReq )
+            {
                 options.range = rangeArray;
             }
             store.dispatch(
-                setWebFetchStatus({
-                    fetching: true,
+                setWebFetchStatus( {
+                    fetching : true,
                     link,
-                    options: JSON.stringify(options)
-                })
+                    options  : JSON.stringify( options )
+                } )
             );
 
             let data = null;
-            try {
-                data = await app.webFetch(link, options);
-            } catch (error) {
-                logger.error('SAFE Fetch error:', error.code, error.message);
+            try
+            {
+                data = await app.webFetch( link, options );
+            }
+            catch ( error )
+            {
+                logger.error( 'SAFE Fetch error:', error.code, error.message );
                 store.dispatch(
-                    setWebFetchStatus({ fetching: false, error, options: '' })
+                    setWebFetchStatus( { fetching: false, error, options: '' } )
                 );
-                const shouldTryAgain =
-                    error.code === errConsts.ERR_OPERATION_ABORTED.code ||
-                    error.code === errConsts.ERR_ROUTING_INTERFACE_ERROR.code ||
-                    error.code === errConsts.ERR_REQUEST_TIMEOUT.code;
-                if (shouldTryAgain) {
+                const shouldTryAgain = error.code === errConsts.ERR_OPERATION_ABORTED.code
+                    || error.code === errConsts.ERR_ROUTING_INTERFACE_ERROR.code
+                    || error.code === errConsts.ERR_REQUEST_TIMEOUT.code;
+                if ( shouldTryAgain )
+                {
                     const safeBrowserApp = store.getState().safeBrowserApp;
                     if (
-                        safeBrowserApp.networkStatus ===
-                        SAFE.NETWORK_STATE.CONNECTED
-                    ) {
-                        store.getState().tabs.forEach(tab => {
-                            logger.log(tab.url, link, link.includes(tab.url));
-                            if (link.includes(tab.url) && !tab.isActive) {
-                                store.dispatch(closeTab({ index: tab.index }));
+                        safeBrowserApp.networkStatus
+                        === SAFE.NETWORK_STATE.CONNECTED
+                    )
+                    {
+                        store.getState().tabs.forEach( tab =>
+                        {
+                            logger.log( tab.url, link, link.includes( tab.url ) );
+                            if ( link.includes( tab.url ) && !tab.isActive )
+                            {
+                                store.dispatch( closeTab( { index: tab.index } ) );
                             }
-                        });
+                        } );
                         store.dispatch(
-                            addTab({ url: link, isActiveTab: true })
+                            addTab( { url: link, isActiveTab: true } )
                         );
                     }
 
                     error.message = errConsts.ERR_ROUTING_INTERFACE_ERROR.msg;
-                    return sendErrResponse(error.message);
+                    return sendErrResponse( error.message );
                 }
-                return sendErrResponse(error.message || error);
+                return sendErrResponse( error.message || error );
             }
-            store.dispatch(setWebFetchStatus({ fetching: false, options: '' }));
+            store.dispatch( setWebFetchStatus( { fetching: false, options: '' } ) );
 
-            if (isRangeReq && multipartReq) {
-                const responseStr = generateResponseStr(data);
-                return res.send(responseStr);
+            if ( isRangeReq && multipartReq )
+            {
+                const responseStr = generateResponseStr( data );
+                return res.send( responseStr );
             }
-            if (isRangeReq) {
+            if ( isRangeReq )
+            {
                 return res
-                    .status(206)
-                    .set({
-                        'Content-Type': data.headers['Content-Type'],
-                        'Content-Range': data.headers['Content-Range'],
-                        'Content-Length': data.headers['Content-Length']
-                    })
-                    .send(data.body);
+                    .status( 206 )
+                    .set( {
+                        'Content-Type'   : data.headers['Content-Type'],
+                        'Content-Range'  : data.headers['Content-Range'],
+                        'Content-Length' : data.headers['Content-Length']
+                    } )
+                    .send( data.body );
             }
 
             return res
-                .set({
-                    'Content-Type': data.headers['Content-Type'],
-                    'Content-Range': data.headers['Content-Range'],
-                    'Transfer-Encoding': 'chunked',
-                    'Accept-Ranges': 'bytes'
-                })
-                .send(data.body);
-        } catch (e) {
-            logger.error(e);
+                .set( {
+                    'Content-Type'      : data.headers['Content-Type'],
+                    'Content-Range'     : data.headers['Content-Range'],
+                    'Transfer-Encoding' : 'chunked',
+                    'Accept-Ranges'     : 'bytes'
+                } )
+                .send( data.body );
+        }
+        catch ( e )
+        {
+            logger.error( e );
 
-            if (e.code && e.code === -302) {
-                return res.status(416).send('Requested Range Not Satisfiable');
+            if ( e.code && e.code === -302 )
+            {
+                return res.status( 416 ).send( 'Requested Range Not Satisfiable' );
             }
-            return sendErrResponse(e.message || e);
+            return sendErrResponse( e.message || e );
         }
     }
-});
+} );
 
 export default safeRoute;

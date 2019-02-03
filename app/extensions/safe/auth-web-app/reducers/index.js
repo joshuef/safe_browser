@@ -9,11 +9,11 @@ import networkState from './network_state';
 // import { combineReducers } from 'redux'
 
 export default history =>
-    combineReducers({
-        router: connectRouter(history),
+    combineReducers( {
+        router : connectRouter( history ),
         app,
         auth,
         networkState,
         routing,
-        i18n: i18nReducer
-    });
+        i18n   : i18nReducer
+    } );

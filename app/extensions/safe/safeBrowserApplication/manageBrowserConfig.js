@@ -30,10 +30,12 @@ let isSaving = false;
  * based upon the application stateToSave
  * @param  {Object} state Application state (from redux)
  */
-export const manageReadStateActions = async store => {
+export const manageReadStateActions = async store =>
+{
     // Hack as store is actually unreliable.
     // TODO: Rework this to use aliased funcs.
-    if (isReading) {
+    if ( isReading )
+    {
         return;
     }
 
@@ -41,39 +43,43 @@ export const manageReadStateActions = async store => {
 
     // if its not to save, or isnt authed yet...
     if (
-        safeBrowserAppState.readStatus !== SAFE.READ_STATUS.TO_READ ||
-        safeBrowserAppIsAuthing() ||
-        safeBrowserAppAuthFailed()
-    ) {
+        safeBrowserAppState.readStatus !== SAFE.READ_STATUS.TO_READ
+        || safeBrowserAppIsAuthing()
+        || safeBrowserAppAuthFailed()
+    )
+    {
         // do nothing
         return;
     }
 
-    if (!safeBrowserAppIsAuthed()) {
+    if ( !safeBrowserAppIsAuthed() )
+    {
         // come back when authed.
         store.dispatch(
-            safeBrowserAppActions.setAppStatus(SAFE.APP_STATUS.TO_AUTH)
+            safeBrowserAppActions.setAppStatus( SAFE.APP_STATUS.TO_AUTH )
         );
         return;
     }
-    logger.log('Managing a READ action');
+    logger.log( 'Managing a READ action' );
 
-    if (!safeBrowserAppIsConnected()) {
+    if ( !safeBrowserAppIsConnected() )
+    {
         return;
     }
 
     isReading = true;
 
-    logger.log('Attempting to READ SafeBrowserApp state from network');
+    logger.log( 'Attempting to READ SafeBrowserApp state from network' );
     store.dispatch(
-        safeBrowserAppActions.setReadConfigStatus(SAFE.READ_STATUS.READING)
+        safeBrowserAppActions.setReadConfigStatus( SAFE.READ_STATUS.READING )
     );
 
-    readConfigFromSafe(store)
-        .then(savedState => {
+    readConfigFromSafe( store )
+        .then( savedState =>
+        {
             // store.dispatch( safeBrowserAppActions.receivedConfig( savedState ) );
-            store.dispatch(bookmarksActions.updateBookmarks(savedState));
-            store.dispatch(tabsActions.updateTabs(savedState));
+            store.dispatch( bookmarksActions.updateBookmarks( savedState ) );
+            store.dispatch( tabsActions.updateTabs( savedState ) );
             store.dispatch(
                 safeBrowserAppActions.setReadConfigStatus(
                     SAFE.READ_STATUS.READ_SUCCESSFULLY
@@ -82,17 +88,18 @@ export const manageReadStateActions = async store => {
 
             isReading = false;
             return null;
-        })
-        .catch(e => {
+        } )
+        .catch( e =>
+        {
             isReading = false;
-            logger.error(e);
+            logger.error( e );
             store.dispatch(
                 safeBrowserAppActions.setSaveConfigStatus(
                     SAFE.SAVE_STATUS.FAILED_TO_READ
                 )
             );
-            throw new Error(e);
-        });
+            throw new Error( e );
+        } );
 };
 
 /**
@@ -100,10 +107,12 @@ export const manageReadStateActions = async store => {
  * based upon the application stateToSave
  * @param  {Object} state Application state (from redux)
  */
-export const manageSaveStateActions = async store => {
+export const manageSaveStateActions = async store =>
+{
     // Hack as store is actually unreliable.
     // TODO: Rework this to use aliased funcs.
-    if (isSaving) {
+    if ( isSaving )
+    {
         return;
     }
 
@@ -111,38 +120,42 @@ export const manageSaveStateActions = async store => {
 
     // if its not to save, or isnt authed yet...
     if (
-        safeBrowserApp.saveStatus !== SAFE.SAVE_STATUS.TO_SAVE ||
-        safeBrowserAppIsAuthing() ||
-        safeBrowserAppAuthFailed()
-    ) {
+        safeBrowserApp.saveStatus !== SAFE.SAVE_STATUS.TO_SAVE
+        || safeBrowserAppIsAuthing()
+        || safeBrowserAppAuthFailed()
+    )
+    {
         // do nothing
         return;
     }
 
     // if it auth didnt happen, and hasnt failed...
     // previously... we can try again (we're in TO SAVE, not SAVING.)
-    if (!safeBrowserAppIsAuthed()) {
+    if ( !safeBrowserAppIsAuthed() )
+    {
         // come back when authed.
         store.dispatch(
-            safeBrowserAppActions.setAppStatus(SAFE.APP_STATUS.TO_AUTH)
+            safeBrowserAppActions.setAppStatus( SAFE.APP_STATUS.TO_AUTH )
         );
         return;
     }
 
-    if (!safeBrowserAppIsConnected()) {
+    if ( !safeBrowserAppIsConnected() )
+    {
         return;
     }
 
     // lets scrap read for now.
     if (
-        safeBrowserApp.readStatus !== SAFE.READ_STATUS.READ_SUCCESSFULLY &&
-        safeBrowserApp.readStatus !== SAFE.READ_STATUS.READ_BUT_NONEXISTANT &&
-        safeBrowserApp.readStatus !== SAFE.READ_STATUS.TO_READ &&
-        safeBrowserApp.readStatus !== SAFE.READ_STATUS.READING
-    ) {
-        logger.log("Can't save state, not read yet... Triggering a read.");
+        safeBrowserApp.readStatus !== SAFE.READ_STATUS.READ_SUCCESSFULLY
+        && safeBrowserApp.readStatus !== SAFE.READ_STATUS.READ_BUT_NONEXISTANT
+        && safeBrowserApp.readStatus !== SAFE.READ_STATUS.TO_READ
+        && safeBrowserApp.readStatus !== SAFE.READ_STATUS.READING
+    )
+    {
+        logger.log( "Can't save state, not read yet... Triggering a read." );
         store.dispatch(
-            safeBrowserAppActions.setReadConfigStatus(SAFE.READ_STATUS.TO_READ)
+            safeBrowserAppActions.setReadConfigStatus( SAFE.READ_STATUS.TO_READ )
         );
 
         return;
@@ -150,12 +163,13 @@ export const manageSaveStateActions = async store => {
 
     isSaving = true;
 
-    logger.log('Attempting to SAVE SafeBrowserApp state to network');
+    logger.log( 'Attempting to SAVE SafeBrowserApp state to network' );
     store.dispatch(
-        safeBrowserAppActions.setSaveConfigStatus(SAFE.SAVE_STATUS.SAVING)
+        safeBrowserAppActions.setSaveConfigStatus( SAFE.SAVE_STATUS.SAVING )
     );
-    saveConfigToSafe(store)
-        .then(() => {
+    saveConfigToSafe( store )
+        .then( () =>
+        {
             isSaving = false;
             store.dispatch(
                 safeBrowserAppActions.setSaveConfigStatus(
@@ -164,10 +178,11 @@ export const manageSaveStateActions = async store => {
             );
 
             return null;
-        })
-        .catch(e => {
+        } )
+        .catch( e =>
+        {
             isSaving = false;
-            logger.error(e);
+            logger.error( e );
 
             // TODO: Handle errors across the store in a separate error watcher?
             store.dispatch(
@@ -175,8 +190,8 @@ export const manageSaveStateActions = async store => {
                     SAFE.SAVE_STATUS.FAILED_TO_SAVE
                 )
             );
-            throw new Error(e);
-        });
+            throw new Error( e );
+        } );
 };
 
 /**
@@ -186,98 +201,119 @@ export const manageSaveStateActions = async store => {
  * @param  { Bool } quit  to quit or not to quit...
  * @return {[type]}       Promise
  */
-export const saveConfigToSafe = (store, quit) => {
+export const saveConfigToSafe = ( store, quit ) =>
+{
     const state = store.getState();
 
     // TODO: Better to opt in?
     const stateToSave = {
         ...state,
-        safeBrowserApp: {},
-        authenticator: {},
-        remoteCalls: []
+        safeBrowserApp : {},
+        authenticator  : {},
+        remoteCalls    : []
     };
-    const JSONToSave = JSON.stringify(stateToSave);
+    const JSONToSave = JSON.stringify( stateToSave );
 
-    return new Promise(async (resolve, reject) => {
+    return new Promise( async ( resolve, reject ) =>
+    {
         const safeBrowserAppObject = getSafeBrowserAppObject();
 
         let mData;
         let mdEntries;
 
-        if (!safeBrowserAppObject) {
+        if ( !safeBrowserAppObject )
+        {
             store.dispatch(
-                setSaveConfigStatus(SAFE.SAVE_STATUS.FAILED_TO_SAVE)
+                setSaveConfigStatus( SAFE.SAVE_STATUS.FAILED_TO_SAVE )
             );
-            logger.error('Not authorised to save to the network.');
-            return reject('Not authorised to save data');
+            logger.error( 'Not authorised to save to the network.' );
+            return reject( 'Not authorised to save data' );
         }
 
-        try {
+        try
+        {
             const container = await safeBrowserAppObject.auth.getOwnContainer();
             const mut = await safeBrowserAppObject.mutableData.newMutation();
-            const encryptedKey = await container.encryptKey(CONFIG.STATE_KEY);
-            const encryptedData = await container.encryptValue(JSONToSave);
+            const encryptedKey = await container.encryptKey( CONFIG.STATE_KEY );
+            const encryptedData = await container.encryptValue( JSONToSave );
 
             let createdNewEntry = false;
             let previousEntry;
             let version;
 
-            try {
+            try
+            {
                 mdEntries = await container.getEntries();
-            } catch (e) {
-                logger.log('Saved Data not found. Creating.');
+            }
+            catch ( e )
+            {
+                logger.log( 'Saved Data not found. Creating.' );
 
-                if (e.code === SAFE_APP_ERROR_CODES.ERR_DATA_NOT_FOUND) {
-                    mut.insert(encryptedKey, encryptedData);
+                if ( e.code === SAFE_APP_ERROR_CODES.ERR_DATA_NOT_FOUND )
+                {
+                    mut.insert( encryptedKey, encryptedData );
                     createdNewEntry = true;
-                    container.applyEntriesMutation(mut);
-                } else {
-                    reject(e);
+                    container.applyEntriesMutation( mut );
+                }
+                else
+                {
+                    reject( e );
                 }
             }
 
-            try {
-                logger.log('checking prev entry.');
-                previousEntry = await container.get(encryptedKey);
-            } catch (e) {
-                if (e.code === SAFE_APP_ERROR_CODES.ERR_NO_SUCH_ENTRY) {
-                    logger.log('Previous didnt exist, creating...');
-                    mut.insert(encryptedKey, encryptedData);
+            try
+            {
+                logger.log( 'checking prev entry.' );
+                previousEntry = await container.get( encryptedKey );
+            }
+            catch ( e )
+            {
+                if ( e.code === SAFE_APP_ERROR_CODES.ERR_NO_SUCH_ENTRY )
+                {
+                    logger.log( 'Previous didnt exist, creating...' );
+                    mut.insert( encryptedKey, encryptedData );
                     createdNewEntry = true;
-                    container.applyEntriesMutation(mut);
-                } else {
-                    reject(e);
+                    container.applyEntriesMutation( mut );
+                }
+                else
+                {
+                    reject( e );
                 }
             }
 
             if (
-                !createdNewEntry &&
-                previousEntry &&
-                typeof previousEntry.version !== 'undefined'
-            ) {
-                logger.log('Previous entry exists, updating...');
+                !createdNewEntry
+                && previousEntry
+                && typeof previousEntry.version !== 'undefined'
+            )
+            {
+                logger.log( 'Previous entry exists, updating...' );
 
                 version = previousEntry.version + 1;
-                await mut.update(encryptedKey, encryptedData, version);
-                container.applyEntriesMutation(mut);
+                await mut.update( encryptedKey, encryptedData, version );
+                container.applyEntriesMutation( mut );
             }
 
-            logger.log('Data saved successfully');
+            logger.log( 'Data saved successfully' );
             resolve();
-        } catch (e) {
-            logger.error('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-            logger.error(e.message || e);
-            logger.error(e.code);
-            logger.error('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-            reject(e);
         }
-    });
+        catch ( e )
+        {
+            logger.error( 'xxxxxxxxxxxxxxxxxxxxxxxxxx' );
+            logger.error( e.message || e );
+            logger.error( e.code );
+            logger.error( 'xxxxxxxxxxxxxxxxxxxxxxxxxx' );
+            reject( e );
+        }
+    } );
 };
 
-function delay(t) {
-    return new Promise(resolve => {
-        setTimeout(resolve, t);
-    });
+function delay( t )
+{
+    return new Promise( resolve =>
+    {
+        setTimeout( resolve, t );
+    } );
 }
 
 /**
@@ -285,51 +321,60 @@ function delay(t) {
  * @param  {[type]} app SafeApp reference, with handle and authUri
  */
 export const readConfigFromSafe = store =>
-    new Promise(async (resolve, reject) => {
+    new Promise( async ( resolve, reject ) =>
+    {
         const safeBrowserAppObject = getSafeBrowserAppObject();
-        if (!safeBrowserAppObject) {
-            reject('Not authorised to read from the network.');
+        if ( !safeBrowserAppObject )
+        {
+            reject( 'Not authorised to read from the network.' );
         }
 
         // FIXME: we add a delay here to prevent a deadlock known in the node-ffi
         // logic when dealing with the callbacks.
         // Research and remove this ASAP.
-        await delay(5000);
+        await delay( 5000 );
 
-        try {
+        try
+        {
             const container = await safeBrowserAppObject.auth.getOwnContainer();
-            const encryptedKey = await container.encryptKey(CONFIG.STATE_KEY);
-            const encryptedValue = await container.get(encryptedKey);
-            const decryptedValue = await container.decrypt(encryptedValue.buf);
-            const browserState = await JSON.parse(decryptedValue.toString());
+            const encryptedKey = await container.encryptKey( CONFIG.STATE_KEY );
+            const encryptedValue = await container.get( encryptedKey );
+            const decryptedValue = await container.decrypt( encryptedValue.buf );
+            const browserState = await JSON.parse( decryptedValue.toString() );
 
-            logger.log('State retrieved: ', browserState);
-            resolve(browserState);
-        } catch (e) {
+            logger.log( 'State retrieved: ', browserState );
+            resolve( browserState );
+        }
+        catch ( e )
+        {
             if (
-                e.code === SAFE_APP_ERROR_CODES.ERR_NO_SUCH_ENTRY ||
-                e.code === SAFE_APP_ERROR_CODES.ERR_DATA_NOT_FOUND
-            ) {
+                e.code === SAFE_APP_ERROR_CODES.ERR_NO_SUCH_ENTRY
+                || e.code === SAFE_APP_ERROR_CODES.ERR_DATA_NOT_FOUND
+            )
+            {
                 const state = store.getState();
 
                 // only error if we're only reading
                 if (
                     state.safeBrowserApp.saveStatus !== SAFE.SAVE_STATUS.TO_SAVE
-                ) {
+                )
+                {
                     store.dispatch(
-                        addNotification({
-                            text: 'No browser data found on the network.',
-                            type: 'error'
-                        })
+                        addNotification( {
+                            text : 'No browser data found on the network.',
+                            type : 'error'
+                        } )
                     );
                 }
 
                 store.dispatch(
-                    setReadConfigStatus(SAFE.READ_STATUS.READ_BUT_NONEXISTANT)
+                    setReadConfigStatus( SAFE.READ_STATUS.READ_BUT_NONEXISTANT )
                 );
-            } else {
-                logger.error(e);
-                reject(e);
+            }
+            else
+            {
+                logger.error( e );
+                reject( e );
             }
         }
-    });
+    } );

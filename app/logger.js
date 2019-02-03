@@ -19,16 +19,19 @@ import fileLogger from 'electron-log';
 
 let processLog = log;
 
-if (inBgProcess) {
-    processLog = processLog.create({ name: 'background' });
+if ( inBgProcess )
+{
+    processLog = processLog.create( { name: 'background' } );
 }
-if (fileLogger.transports) {
+if ( fileLogger.transports )
+{
     // Log level
     // error, warn, log, log, debug, silly
     // fileLogger.transports.console.level = 'silly';
     fileLogger.transports.file.level = 'silly';
 
-    if (!isRunningDebug && isRunningPackaged) {
+    if ( !isRunningDebug && isRunningPackaged )
+    {
         // fileLogger.transports.console.level = 'warn';
         fileLogger.transports.file.level = 'warn';
     }
@@ -50,46 +53,51 @@ if (fileLogger.transports) {
 }
 
 const combinedLogger = {
-    info: (...args) => {
-        processLog.log(...args);
-        fileLogger.info(...args);
+    info : ( ...args ) =>
+    {
+        processLog.log( ...args );
+        fileLogger.info( ...args );
     },
-    log: (...args) => {
-        processLog.log(...args);
-        fileLogger.info(...args);
+    log : ( ...args ) =>
+    {
+        processLog.log( ...args );
+        fileLogger.info( ...args );
     },
-    error: (...args) => {
-        fileLogger.error(...args);
-        processLog.error(...args);
+    error : ( ...args ) =>
+    {
+        fileLogger.error( ...args );
+        processLog.error( ...args );
     },
-    warn: (...args) => {
-        fileLogger.warn(...args);
-        processLog.warn(...args);
+    warn : ( ...args ) =>
+    {
+        fileLogger.warn( ...args );
+        processLog.warn( ...args );
     }
 };
 
 export default combinedLogger;
 
 // HACK: for jest
-if (inMainProcess) {
+if ( inMainProcess )
+{
     // TODO: add buld ID if prod. Incase you're opening up, NOT THIS BUILD.
-    combinedLogger.log('');
-    combinedLogger.log('');
-    combinedLogger.log('');
-    combinedLogger.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    combinedLogger.log(`      Started with node env: ${env}`);
+    combinedLogger.log( '' );
+    combinedLogger.log( '' );
+    combinedLogger.log( '' );
+    combinedLogger.log( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
+    combinedLogger.log( `      Started with node env: ${ env }` );
     // combinedLogger.log( '       Log location:', combinedLogger.transports.file.file );
-    combinedLogger.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    combinedLogger.log('Running with derived constants:');
-    combinedLogger.log('');
-    combinedLogger.log('isCI?', isCI);
-    combinedLogger.log('TESTENV?', TESTENV);
-    combinedLogger.log('isRunningDebug?', isRunningDebug);
-    combinedLogger.log('isRunningUnpacked?', isRunningUnpacked);
-    combinedLogger.log('isRunningPackaged?', isRunningPackaged);
-    combinedLogger.log('inMainProcess?', inMainProcess);
-    combinedLogger.log('startedRunningProduction?', startedRunningProduction);
-    combinedLogger.log('startedRunningMock?', startedRunningMock);
+    combinedLogger.log( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
+    combinedLogger.log( 'Running with derived constants:' );
+    combinedLogger.log( '' );
+    combinedLogger.log( 'isCI?', isCI );
+    combinedLogger.log( 'TESTENV?', TESTENV );
+    combinedLogger.log( 'isRunningDebug?', isRunningDebug );
+    combinedLogger.log( 'isRunningUnpacked?', isRunningUnpacked );
+    combinedLogger.log( 'isRunningPackaged?', isRunningPackaged );
+    combinedLogger.log( 'inMainProcess?', inMainProcess );
+    combinedLogger.log( 'startedRunningProduction?', startedRunningProduction );
+    combinedLogger.log( 'startedRunningMock?', startedRunningMock );
     combinedLogger.log(
         'isRunningSpectronTestProcess?',
         isRunningSpectronTestProcess
@@ -98,37 +106,40 @@ if (inMainProcess) {
         'isRunningSpectronTestProcessingPackagedApp?',
         isRunningSpectronTestProcessingPackagedApp
     );
-    combinedLogger.log('');
-    combinedLogger.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    combinedLogger.log('');
+    combinedLogger.log( '' );
+    combinedLogger.log( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
+    combinedLogger.log( '' );
 
-    process.on('uncaughtTypeError', err => {
+    process.on( 'uncaughtTypeError', err =>
+    {
         combinedLogger.error(
             '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
         );
-        combinedLogger.error('whoops! there was an uncaught type error:');
-        combinedLogger.error(err);
-        combinedLogger.error(err.file);
-        combinedLogger.error(err.line);
+        combinedLogger.error( 'whoops! there was an uncaught type error:' );
+        combinedLogger.error( err );
+        combinedLogger.error( err.file );
+        combinedLogger.error( err.line );
         combinedLogger.error(
             '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
         );
-    });
+    } );
 
-    process.on('uncaughtException', err => {
+    process.on( 'uncaughtException', err =>
+    {
         combinedLogger.error(
             '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
         );
-        combinedLogger.error('whoops! there was an uncaught error:');
-        combinedLogger.error(err);
-        combinedLogger.error(err.file);
-        combinedLogger.error(err.line);
+        combinedLogger.error( 'whoops! there was an uncaught error:' );
+        combinedLogger.error( err );
+        combinedLogger.error( err.file );
+        combinedLogger.error( err.line );
         combinedLogger.error(
             '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
         );
-    });
+    } );
 
-    process.on('unhandledRejection', (reason, p) => {
+    process.on( 'unhandledRejection', ( reason, p ) =>
+    {
         combinedLogger.error(
             '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
         );
@@ -136,9 +147,9 @@ if (inMainProcess) {
             'Unhandled Rejection. Reason:',
             reason.message || reason
         );
-        combinedLogger.error('At:', p);
+        combinedLogger.error( 'At:', p );
         combinedLogger.error(
             '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
         );
-    });
+    } );
 }

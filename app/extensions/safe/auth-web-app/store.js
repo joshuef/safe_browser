@@ -23,31 +23,32 @@ const actionCreators = {
     push
 };
 
-const logger = createLogger({
-    level: 'info',
-    collapsed: true
-});
+const logger = createLogger( {
+    level     : 'info',
+    collapsed : true
+} );
 
 export const history = createHashHistory();
 
-const router = routerMiddleware(history);
+const router = routerMiddleware( history );
 
 const enhancer = compose(
-    applyMiddleware(thunk, router, logger, promise()),
+    applyMiddleware( thunk, router, logger, promise() ),
     window.devToolsExtension
-        ? window.devToolsExtension({ actionCreators })
+        ? window.devToolsExtension( { actionCreators } )
         : noop => noop
 );
 
-export function configureStore(initialState) {
+export function configureStore( initialState )
+{
     const store = createStore(
-        createRootReducer(history), // root reducer with router state
+        createRootReducer( history ), // root reducer with router state
         initialState,
         enhancer
     );
 
-    syncTranslationWithStore(store);
-    store.dispatch(loadTranslations(translationsObject));
-    store.dispatch(setLocale('en'));
+    syncTranslationWithStore( store );
+    store.dispatch( loadTranslations( translationsObject ) );
+    store.dispatch( setLocale( 'en' ) );
     return store;
 }

@@ -13,81 +13,93 @@ import logger from 'logger';
 
 let theStore;
 
-export const handleRemoteCalls = (store, allAPICalls, theCall) => {
+export const handleRemoteCalls = ( store, allAPICalls, theCall ) =>
+{
     theStore = store;
 
-    logger.log('Handling remote call in extension', theCall);
-    if (theCall && theCall.isListener) {
+    logger.log( 'Handling remote call in extension', theCall );
+    if ( theCall && theCall.isListener )
+    {
         // register listener with auth
-        allAPICalls[theCall.name]((error, args) => {
-            if (theCall.name === 'setNetworkListener') {
-                store.dispatch(authActions.setAuthNetworkStatus(args));
+        allAPICalls[theCall.name]( ( error, args ) =>
+        {
+            if ( theCall.name === 'setNetworkListener' )
+            {
+                store.dispatch( authActions.setAuthNetworkStatus( args ) );
 
                 const authenticatorHandle = allAPICalls.getAuthenticatorHandle();
-                store.dispatch(authActions.setAuthHandle(authenticatorHandle));
+                store.dispatch( authActions.setAuthHandle( authenticatorHandle ) );
             }
 
             store.dispatch(
-                remoteCallActions.updateRemoteCall({
+                remoteCallActions.updateRemoteCall( {
                     ...theCall,
-                    done: true,
-                    response: args
-                })
+                    done     : true,
+                    response : args
+                } )
             );
-        });
+        } );
     }
 };
 
 export const remoteCallApis = {
     ...theAuthApi,
-    createAccount: async (secret, password, invitation) => {
-        logger.log('Handling create account call from webview.');
-        await theAuthApi.createAccount(secret, password, invitation);
+    createAccount : async ( secret, password, invitation ) =>
+    {
+        logger.log( 'Handling create account call from webview.' );
+        await theAuthApi.createAccount( secret, password, invitation );
         theStore.dispatch(
-            safeBrowserAppActions.setNetworkStatus(SAFE.NETWORK_STATE.LOGGED_IN)
+            safeBrowserAppActions.setNetworkStatus( SAFE.NETWORK_STATE.LOGGED_IN )
         );
         theStore.dispatch(
-            safeBrowserAppActions.setAppStatus(SAFE.APP_STATUS.TO_AUTH)
-        );
-    },
-    login: async (secret, password) => {
-        logger.log('Handling login call from webview.');
-        await theAuthApi.login(secret, password);
-        theStore.dispatch(
-            safeBrowserAppActions.setNetworkStatus(SAFE.NETWORK_STATE.LOGGED_IN)
-        );
-        theStore.dispatch(
-            safeBrowserAppActions.setAppStatus(SAFE.APP_STATUS.TO_AUTH)
+            safeBrowserAppActions.setAppStatus( SAFE.APP_STATUS.TO_AUTH )
         );
     },
-    logout: async (secret, password) => {
-        logger.log('Handling logout call from webview.');
+    login : async ( secret, password ) =>
+    {
+        logger.log( 'Handling login call from webview.' );
+        await theAuthApi.login( secret, password );
+        theStore.dispatch(
+            safeBrowserAppActions.setNetworkStatus( SAFE.NETWORK_STATE.LOGGED_IN )
+        );
+        theStore.dispatch(
+            safeBrowserAppActions.setAppStatus( SAFE.APP_STATUS.TO_AUTH )
+        );
+    },
+    logout : async ( secret, password ) =>
+    {
+        logger.log( 'Handling logout call from webview.' );
 
-        try {
+        try
+        {
             await theAuthApi.logout();
-        } catch (e) {
-            logger.error('ERROR AT LOGOUT', e);
+        }
+        catch ( e )
+        {
+            logger.error( 'ERROR AT LOGOUT', e );
             throw e;
         }
 
         clearAppObj();
-        theStore.dispatch(uiActions.resetStore());
+        theStore.dispatch( uiActions.resetStore() );
         theStore.dispatch(
-            safeBrowserAppActions.setNetworkStatus(SAFE.NETWORK_STATE.CONNECTED)
+            safeBrowserAppActions.setNetworkStatus( SAFE.NETWORK_STATE.CONNECTED )
         );
-        theStore.dispatch(setIsAuthorisedState(false));
+        theStore.dispatch( setIsAuthorisedState( false ) );
     },
     /**
      * Handle auth URI calls from webview processes. Should take an authURI, decode, handle auth and reply
      * with auth respnose.
      * @type {[type]}
      */
-    authenticateFromUriObject: async authUriObject => {
-        logger.log('Authenticating a webapp via remote call.');
+    authenticateFromUriObject : async authUriObject =>
+    {
+        logger.log( 'Authenticating a webapp via remote call.' );
 
-        return new Promise((resolve, reject) => {
-            setAuthCallbacks(authUriObject, resolve, reject);
-            callIPC.enqueueRequest(authUriObject, CONSTANTS.CLIENT_TYPES.WEB);
-        });
+        return new Promise( ( resolve, reject ) =>
+        {
+            setAuthCallbacks( authUriObject, resolve, reject );
+            callIPC.enqueueRequest( authUriObject, CONSTANTS.CLIENT_TYPES.WEB );
+        } );
     }
 };

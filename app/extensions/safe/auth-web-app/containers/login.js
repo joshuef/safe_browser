@@ -10,16 +10,16 @@ import {
     hideLibErrPopup
 } from '../actions/auth';
 
-const mapStateToProps = state => ({
-    networkState: state.networkState.state,
-    error: state.auth.error,
-    loading: state.auth.loading,
-    isAuthorised: state.auth.isAuthorised,
-    libErrPopup: state.auth.libErrPopup
-});
+const mapStateToProps = state => ( {
+    networkState : state.networkState.state,
+    error        : state.auth.error,
+    loading      : state.auth.loading,
+    isAuthorised : state.auth.isAuthorised,
+    libErrPopup  : state.auth.libErrPopup
+} );
 
-const mapDispatchToProps = dispatch => ({
-    push: path => dispatch(push(path)),
+const mapDispatchToProps = dispatch => ( {
+    push : path => dispatch( push( path ) ),
     ...bindActionCreators(
         {
             login,
@@ -29,11 +29,11 @@ const mapDispatchToProps = dispatch => ({
         },
         dispatch
     )
-});
+} );
 
 export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(Login)
+    )( Login )
 );

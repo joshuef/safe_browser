@@ -18,22 +18,27 @@ const allAddressBarInputExtensions = [safeWrapAddressBarInput];
  * @param  {React Component} Browser Browser react component
  * @param  {React Component} Browser Browser react component
  */
-export const wrapBrowserComponent = Browser => {
-    try {
-        logger.log('Wrapping browser');
+export const wrapBrowserComponent = Browser =>
+{
+    try
+    {
+        logger.log( 'Wrapping browser' );
 
         let WrappedBrowser = Browser;
 
-        allBrowserExtensions.forEach(wrapper => {
-            WrappedBrowser = wrapper(Browser);
-        });
+        allBrowserExtensions.forEach( wrapper =>
+        {
+            WrappedBrowser = wrapper( Browser );
+        } );
 
         return WrappedBrowser;
-    } catch (e) {
+    }
+    catch ( e )
+    {
         console.error(
             'Problem with extension wrapping of the Browser component'
         );
-        throw new Error(e);
+        throw new Error( e );
     }
 };
 
@@ -45,21 +50,26 @@ export const wrapBrowserComponent = Browser => {
  * @param  {React Component} AddressBar AddressBar react component
  * @param  {React Component} AddressBar AddressBar react component
  */
-export const wrapAddressBarButtonsLHS = Buttons => {
-    try {
-        logger.log('Wrapping Address bar buttons LHS');
+export const wrapAddressBarButtonsLHS = Buttons =>
+{
+    try
+    {
+        logger.log( 'Wrapping Address bar buttons LHS' );
         let WrappedAddressBarButtonsLHS = Buttons;
 
-        allAddressBarButtonLHSExtensions.forEach(wrapper => {
-            WrappedAddressBarButtonsLHS = wrapper(Buttons);
-        });
+        allAddressBarButtonLHSExtensions.forEach( wrapper =>
+        {
+            WrappedAddressBarButtonsLHS = wrapper( Buttons );
+        } );
 
         return WrappedAddressBarButtonsLHS;
-    } catch (e) {
+    }
+    catch ( e )
+    {
         console.error(
             'Problem with extension wrapping of Addressbar Buttons component'
         );
-        throw new Error(e);
+        throw new Error( e );
     }
 };
 /**
@@ -70,21 +80,26 @@ export const wrapAddressBarButtonsLHS = Buttons => {
  * @param  {React Component} AddressBar AddressBar react component
  * @param  {React Component} AddressBar AddressBar react component
  */
-export const wrapAddressBarButtonsRHS = Buttons => {
-    try {
-        logger.log('Wrapping Address bar buttons RHS');
+export const wrapAddressBarButtonsRHS = Buttons =>
+{
+    try
+    {
+        logger.log( 'Wrapping Address bar buttons RHS' );
         let WrappedAddressBarButtonsRHS = Buttons;
 
-        allAddressBarButtonRHSExtensions.forEach(wrapper => {
-            WrappedAddressBarButtonsRHS = wrapper(Buttons);
-        });
+        allAddressBarButtonRHSExtensions.forEach( wrapper =>
+        {
+            WrappedAddressBarButtonsRHS = wrapper( Buttons );
+        } );
 
         return WrappedAddressBarButtonsRHS;
-    } catch (e) {
+    }
+    catch ( e )
+    {
         console.error(
             'Problem with extension wrapping of Addressbar Buttons RHS component'
         );
-        throw new Error(e);
+        throw new Error( e );
     }
 };
 
@@ -95,20 +110,25 @@ export const wrapAddressBarButtonsRHS = Buttons => {
  *
  * @param  {React Component} AddressBar react component
  */
-export const wrapAddressBarInput = AddressBarInput => {
-    try {
-        logger.log('Wrapping Address bar input');
+export const wrapAddressBarInput = AddressBarInput =>
+{
+    try
+    {
+        logger.log( 'Wrapping Address bar input' );
         let WrappedAddressBarInput = AddressBarInput;
 
-        allAddressBarInputExtensions.forEach(wrapper => {
-            WrappedAddressBarInput = wrapper(AddressBarInput);
-        });
+        allAddressBarInputExtensions.forEach( wrapper =>
+        {
+            WrappedAddressBarInput = wrapper( AddressBarInput );
+        } );
 
         return WrappedAddressBarInput;
-    } catch (e) {
+    }
+    catch ( e )
+    {
         console.error(
             'Problem with extension wrapping of Addressbar input component'
         );
-        throw new Error(e);
+        throw new Error( e );
     }
 };

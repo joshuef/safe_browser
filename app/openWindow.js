@@ -12,7 +12,8 @@ import { selectAddressBar } from './actions/ui_actions';
 
 const browserWindowArray = [];
 
-function getNewWindowPosition(mainWindowState) {
+function getNewWindowPosition( mainWindowState )
+{
     // for both x and y, we start at 0
     const defaultWindowPosition = 0;
 
@@ -21,108 +22,123 @@ function getNewWindowPosition(mainWindowState) {
 
     let newWindowPosition;
 
-    if (noOfBrowserWindows === 0) {
+    if ( noOfBrowserWindows === 0 )
+    {
         newWindowPosition = { x: mainWindowState.x, y: mainWindowState.y };
-    } else {
+    }
+    else
+    {
         newWindowPosition = {
-            x:
-                defaultWindowPosition +
-                windowCascadeSpacing * noOfBrowserWindows,
-            y: defaultWindowPosition + windowCascadeSpacing * noOfBrowserWindows
+            x :
+                defaultWindowPosition
+                + windowCascadeSpacing * noOfBrowserWindows,
+            y : defaultWindowPosition + windowCascadeSpacing * noOfBrowserWindows
         };
     }
 
     return newWindowPosition;
 }
 
-const openWindow = store => {
-    const mainWindowState = windowStateKeeper({
-        defaultWidth: 2048,
-        defaultHeight: 1024
-    });
+const openWindow = store =>
+{
+    const mainWindowState = windowStateKeeper( {
+        defaultWidth  : 2048,
+        defaultHeight : 1024
+    } );
 
-    let appIcon = path.join(__dirname, '../resources/safeicon.png');
+    let appIcon = path.join( __dirname, '../resources/safeicon.png' );
 
-    if (process.platform === 'win32') {
-        appIcon = path.join(__dirname, '../resources/icon.ico');
+    if ( process.platform === 'win32' )
+    {
+        appIcon = path.join( __dirname, '../resources/icon.ico' );
     }
 
-    const newWindowPosition = getNewWindowPosition(mainWindowState);
+    const newWindowPosition = getNewWindowPosition( mainWindowState );
     const browserWindowConfig = {
-        show: false,
-        x: newWindowPosition.x,
-        y: newWindowPosition.y,
-        width: mainWindowState.width,
-        height: mainWindowState.height,
-        titleBarStyle: 'hiddenInset',
-        icon: appIcon,
-        webPreferences: {
-            partition: 'persist:safe-tab'
+        show           : false,
+        x              : newWindowPosition.x,
+        y              : newWindowPosition.y,
+        width          : mainWindowState.width,
+        height         : mainWindowState.height,
+        titleBarStyle  : 'hiddenInset',
+        icon           : appIcon,
+        webPreferences : {
+            partition : 'persist:safe-tab'
             // preload : path.join( __dirname, 'browserPreload.js' )
             //  isRunningUnpacked ?
             // `http://localhost:${devPort}/webPreload.js` : `file://${ __dirname }/browserPreload.js`;
         }
     };
 
-    let mainWindow = new BrowserWindow(browserWindowConfig);
+    let mainWindow = new BrowserWindow( browserWindowConfig );
 
-    mainWindowState.manage(mainWindow);
+    mainWindowState.manage( mainWindow );
 
-    mainWindow.loadURL(`file://${__dirname}/app.html`);
+    mainWindow.loadURL( `file://${ __dirname }/app.html` );
 
     // @TODO: Use 'ready-to-show' event
     //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
 
-    mainWindow.webContents.on('did-finish-load', () => {
-        if (!mainWindow) {
-            throw new Error('"mainWindow" is not defined');
+    mainWindow.webContents.on( 'did-finish-load', () =>
+    {
+        if ( !mainWindow )
+        {
+            throw new Error( '"mainWindow" is not defined' );
         }
 
-        onOpenLoadExtensions(store);
+        onOpenLoadExtensions( store );
 
         // before show lets load state
         mainWindow.show();
         mainWindow.focus();
 
-        if (isRunningDebug && !isRunningSpectronTestProcess) {
-            mainWindow.openDevTools({ mode: 'undocked' });
+        if ( isRunningDebug && !isRunningSpectronTestProcess )
+        {
+            mainWindow.openDevTools( { mode: 'undocked' } );
         }
 
         const webContentsId = mainWindow.webContents.id;
-        if (browserWindowArray.length === 1) {
+        if ( browserWindowArray.length === 1 )
+        {
             const allTabs = store.getState().tabs;
-            const orphanedTabs = allTabs.filter(tab => !tab.windowId);
-            orphanedTabs.forEach(orphan => {
+            const orphanedTabs = allTabs.filter( tab => !tab.windowId );
+            orphanedTabs.forEach( orphan =>
+            {
                 store.dispatch(
-                    updateTab({ index: orphan.index, windowId: webContentsId })
+                    updateTab( { index: orphan.index, windowId: webContentsId } )
                 );
-            });
-        } else {
+            } );
+        }
+        else
+        {
             store.dispatch(
-                addTab({
-                    url: 'about:blank',
-                    windowId: webContentsId,
-                    isActiveTab: true
-                })
+                addTab( {
+                    url         : 'about:blank',
+                    windowId    : webContentsId,
+                    isActiveTab : true
+                } )
             );
-            store.dispatch(selectAddressBar());
+            store.dispatch( selectAddressBar() );
         }
-    });
+    } );
 
-    mainWindow.on('closed', () => {
-        const index = browserWindowArray.indexOf(mainWindow);
+    mainWindow.on( 'closed', () =>
+    {
+        const index = browserWindowArray.indexOf( mainWindow );
         mainWindow = null;
-        if (index > -1) {
-            browserWindowArray.splice(index, 1);
+        if ( index > -1 )
+        {
+            browserWindowArray.splice( index, 1 );
         }
-        if (process.platform !== 'darwin' && browserWindowArray.length === 0) {
+        if ( process.platform !== 'darwin' && browserWindowArray.length === 0 )
+        {
             app.quit();
         }
-    });
+    } );
 
-    browserWindowArray.push(mainWindow);
+    browserWindowArray.push( mainWindow );
 
-    const menuBuilder = new MenuBuilder(mainWindow, openWindow, store);
+    const menuBuilder = new MenuBuilder( mainWindow, openWindow, store );
     menuBuilder.buildMenu();
 
     return mainWindow;
@@ -130,13 +146,16 @@ const openWindow = store => {
 
 export default openWindow;
 
-ipcMain.on('command:close-window', () => {
+ipcMain.on( 'command:close-window', () =>
+{
     const win = BrowserWindow.getFocusedWindow();
 
-    if (win) {
+    if ( win )
+    {
         win.close();
     }
-    if (process.platform !== 'darwin' && browserWindowArray.length === 0) {
+    if ( process.platform !== 'darwin' && browserWindowArray.length === 0 )
+    {
         app.quit();
     }
-});
+} );

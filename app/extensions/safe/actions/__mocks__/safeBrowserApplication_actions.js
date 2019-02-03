@@ -73,7 +73,7 @@ export const {
     TYPES.SHOW_WEB_ID_DROPDOWN
 );
 
-const triggerGetWebIds = async () => 
+const triggerGetWebIds = async () =>
 {
     if ( !window || !window.thisIsTheBackgroundProcess ) return;
 

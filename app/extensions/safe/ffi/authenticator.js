@@ -42,7 +42,7 @@ const _decodeReqPool = Symbol( 'decodeReqPool' );
  * characters or symbols which are not valid for a URL like '=' sign,
  * and making it lower case.
  */
-const genAppUri = str => 
+const genAppUri = str =>
 {
     const urlSafeBase64 = new Buffer( str )
         .toString( 'base64' )
@@ -72,8 +72,8 @@ class Authenticator extends SafeLib
         this[_netDisconnectCb] = ffi.Callback(
             types.Void,
             [types.voidPointer, types.int32, types.int32],
-            () => 
-{
+            () =>
+            {
                 this._pushNetworkState( CONSTANTS.NETWORK_STATUS.DISCONNECTED );
             }
         );
@@ -285,8 +285,8 @@ class Authenticator extends SafeLib
 
     reconnect()
     {
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             if ( !this.registeredClientHandle )
             {
                 return reject( new Error( i18n.__( 'messages.unauthorised' ) ) );
@@ -297,8 +297,8 @@ class Authenticator extends SafeLib
                     ffi.Callback(
                         types.Void,
                         [types.voidPointer, types.FfiResultPointer],
-                        ( userData, resultPtr ) => 
-{
+                        ( userData, resultPtr ) =>
+                        {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )
                             {
@@ -327,8 +327,8 @@ class Authenticator extends SafeLib
 
     createAccount( locator, secret, invitation )
     {
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             const validationErr = this._isUserCredentialsValid( locator, secret );
             if ( validationErr )
             {
@@ -358,8 +358,8 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.ClientHandlePointer
                         ],
-                        ( userData, resultPtr, clientHandle ) => 
-{
+                        ( userData, resultPtr, clientHandle ) =>
+                        {
                             const result = resultPtr.deref();
                             if (
                                 result.error_code !== 0
@@ -377,8 +377,8 @@ class Authenticator extends SafeLib
                     )
                 );
 
-                const onResult = ( err, res ) => 
-{
+                const onResult = ( err, res ) =>
+                {
                     if ( err || res !== 0 )
                     {
                         return reject( err );
@@ -404,8 +404,8 @@ class Authenticator extends SafeLib
 
     login( locator, secret )
     {
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             const validationErr = this._isUserCredentialsValid( locator, secret );
             if ( validationErr )
             {
@@ -422,8 +422,8 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.ClientHandlePointer
                         ],
-                        ( userData, resultPtr, clientHandle ) => 
-{
+                        ( userData, resultPtr, clientHandle ) =>
+                        {
                             const result = resultPtr.deref();
                             if (
                                 result.error_code !== 0
@@ -444,8 +444,8 @@ class Authenticator extends SafeLib
                     )
                 );
 
-                const onResult = ( err, res ) => 
-{
+                const onResult = ( err, res ) =>
+                {
                     if ( err || res !== 0 )
                     {
                         this[_isAuthorisedListener].broadcast( err );
@@ -473,8 +473,8 @@ class Authenticator extends SafeLib
 
     logout()
     {
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             try
             {
                 this._pushNetworkState( CONSTANTS.NETWORK_STATUS.DISCONNECTED );
@@ -501,8 +501,8 @@ class Authenticator extends SafeLib
     {
         logger.log( 'Authenticator.js decoding request', uri );
 
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             if ( !uri )
             {
                 return reject( new Error( errConst.INVALID_URI.msg ) );
@@ -525,8 +525,8 @@ class Authenticator extends SafeLib
                 ffi.Callback(
                     types.Void,
                     [types.voidPointer, types.u32, types.AuthReqPointer],
-                    ( userData, reqId, req ) => 
-{
+                    ( userData, reqId, req ) =>
+                    {
                         if (
                             !(
                                 this[_authReqListener]
@@ -547,8 +547,8 @@ class Authenticator extends SafeLib
                             result
                         );
                         return this._isAlreadyAuthorised( authReq ).then(
-                            resolved => 
-{
+                            resolved =>
+                            {
                                 if ( resolved.isAuthorised )
                                 {
                                     result.isAuthorised = true;
@@ -570,8 +570,8 @@ class Authenticator extends SafeLib
                 ffi.Callback(
                     types.Void,
                     [types.voidPointer, types.u32, types.ContainersReqPointer],
-                    ( userData, reqId, req ) => 
-{
+                    ( userData, reqId, req ) =>
+                    {
                         if (
                             !(
                                 this[_containerReqListener]
@@ -596,8 +596,8 @@ class Authenticator extends SafeLib
                         );
 
                         return this._isAlreadyAuthorisedContainer( contReq ).then(
-                            isAuthorised => 
-{
+                            isAuthorised =>
+                            {
                                 if ( isAuthorised )
                                 {
                                     result.isAuthorised = true;
@@ -618,8 +618,8 @@ class Authenticator extends SafeLib
                         types.ShareMDataReqPointer,
                         'pointer'
                     ],
-                    async ( userData, reqId, req, meta ) => 
-{
+                    async ( userData, reqId, req, meta ) =>
+                    {
                         const mDataReq = typeParser.parseShareMDataReq(
                             req.deref()
                         );
@@ -647,14 +647,14 @@ class Authenticator extends SafeLib
                         }
 
                         await Promise.all(
-                            tempArr.map( i => 
-{
+                            tempArr.map( i =>
+                            {
                                 const mdata = mDataReq.mdata[i];
                                 return this._appsAccessingMData(
                                     mdata.name,
                                     mdata.type_tag
-                                ).then( res => 
-{
+                                ).then( res =>
+                                {
                                     appAccess[i] = res;
                                 } );
                             } )
@@ -674,8 +674,8 @@ class Authenticator extends SafeLib
                 ffi.Callback(
                     types.Void,
                     [types.voidPointer, types.FfiResultPointer, types.CString],
-                    ( userData, resultPtr ) => 
-{
+                    ( userData, resultPtr ) =>
+                    {
                         const result = resultPtr.deref();
                         if (
                             !(
@@ -715,8 +715,8 @@ class Authenticator extends SafeLib
 
     encodeAuthResp( req, isAllowed )
     {
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             logger.log(
                 'authenticator.js: encoding auth response',
                 req,
@@ -756,8 +756,8 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.CString
                         ],
-                        ( userData, resultPtr, res ) => 
-{
+                        ( userData, resultPtr, res ) =>
+                        {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )
                             {
@@ -797,8 +797,8 @@ class Authenticator extends SafeLib
 
     encodeContainersResp( req, isAllowed )
     {
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             if ( !this.registeredClientHandle )
             {
                 return reject( new Error( i18n.__( 'messages.unauthorised' ) ) );
@@ -831,8 +831,8 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.CString
                         ],
-                        ( userData, resultPtr, res ) => 
-{
+                        ( userData, resultPtr, res ) =>
+                        {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )
                             {
@@ -866,8 +866,8 @@ class Authenticator extends SafeLib
 
     encodeMDataResp( req, isAllowed )
     {
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             if ( !this.registeredClientHandle )
             {
                 return reject( new Error( i18n.__( 'messages.unauthorised' ) ) );
@@ -901,8 +901,8 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.CString
                         ],
-                        ( userData, resultPtr, res ) => 
-{
+                        ( userData, resultPtr, res ) =>
+                        {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )
                             {
@@ -936,8 +936,8 @@ class Authenticator extends SafeLib
 
     revokeApp( appId )
     {
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             if ( !this.registeredClientHandle )
             {
                 return reject( new Error( i18n.__( 'messages.unauthorised' ) ) );
@@ -986,8 +986,8 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.CString
                         ],
-                        ( userData, resultPtr, res ) => 
-{
+                        ( userData, resultPtr, res ) =>
+                        {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )
                             {
@@ -1015,8 +1015,8 @@ class Authenticator extends SafeLib
 
     getRegisteredApps()
     {
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             if ( !this.registeredClientHandle )
             {
                 return reject( new Error( i18n.__( 'messages.unauthorised' ) ) );
@@ -1031,8 +1031,8 @@ class Authenticator extends SafeLib
                         types.RegisteredAppPointer,
                         types.usize
                     ],
-                    ( userData, resultPtr, appList, len ) => 
-{
+                    ( userData, resultPtr, appList, len ) =>
+                    {
                         const result = resultPtr.deref();
                         this._deleteFromCb( cb );
                         if ( result.error_code !== 0 )
@@ -1065,8 +1065,8 @@ class Authenticator extends SafeLib
 
     getAccountInfo()
     {
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             if ( !this.registeredClientHandle )
             {
                 return reject( new Error( i18n.__( 'messages.unauthorised' ) ) );
@@ -1079,8 +1079,8 @@ class Authenticator extends SafeLib
                         types.FfiResultPointer,
                         types.AccountInfoPointer
                     ],
-                    ( userData, resultPtr, accInfo ) => 
-{
+                    ( userData, resultPtr, accInfo ) =>
+                    {
                         const result = resultPtr.deref();
                         if ( result.error_code !== 0 )
                         {
@@ -1113,8 +1113,8 @@ class Authenticator extends SafeLib
     _appsAccessingMData( name, typeTag )
     {
         const nameBuf = types.XorName( Buffer.from( name, 'hex' ) ).buffer;
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             if ( !this.registeredClientHandle )
             {
                 return reject( new Error( i18n.__( 'messages.unauthorised' ) ) );
@@ -1128,8 +1128,8 @@ class Authenticator extends SafeLib
                         types.AppAccessPointer,
                         types.usize
                     ],
-                    ( userData, resultPtr, appAccess, len ) => 
-{
+                    ( userData, resultPtr, appAccess, len ) =>
+                    {
                         const result = resultPtr.deref();
                         if ( result.error_code !== 0 )
                         {
@@ -1184,8 +1184,8 @@ class Authenticator extends SafeLib
 
     _updateAppList()
     {
-        this.getRegisteredApps().then( apps => 
-{
+        this.getRegisteredApps().then( apps =>
+        {
             if (
                 this[_appListUpdateListener]
                 && this[_appListUpdateListener].len() !== 0
@@ -1209,8 +1209,8 @@ class Authenticator extends SafeLib
             ffi.Callback(
                 types.Void,
                 [types.voidPointer, types.FfiResultPointer, types.CString],
-                () => 
-{
+                () =>
+                {
                     reject( new Error( errConst.UNAUTHORISED.msg ) );
                 }
             )
@@ -1233,8 +1233,8 @@ class Authenticator extends SafeLib
 
     _encodeUnRegisteredResp( reqId, appId )
     {
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             try
             {
                 const encodeCb = this._pushCb(
@@ -1245,8 +1245,8 @@ class Authenticator extends SafeLib
                             types.FfiResultPointer,
                             types.CString
                         ],
-                        ( userData, resultPtr, res ) => 
-{
+                        ( userData, resultPtr, res ) =>
+                        {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 && !res )
                             {
@@ -1277,8 +1277,8 @@ class Authenticator extends SafeLib
             ffi.Callback(
                 types.Void,
                 [types.voidPointer, types.u32, types.u8Pointer, types.usize],
-                ( userData, reqId, appIdPtr, appIdLen ) => 
-{
+                ( userData, reqId, appIdPtr, appIdLen ) =>
+                {
                     if ( !reqId || appIdLen <= 0 )
                     {
                         return reject(
@@ -1298,16 +1298,16 @@ class Authenticator extends SafeLib
     _isAlreadyAuthorised( request )
     {
         const req = lodash.cloneDeep( request );
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             try
             {
                 this.getRegisteredApps()
-                    .then( authorisedApps => 
-{
+                    .then( authorisedApps =>
+                    {
                         let previouslyAuthorisedContainers;
-                        const isAuthorised = authorisedApps.some( app => 
-{
+                        const isAuthorised = authorisedApps.some( app =>
+                        {
                             const appIsPresent = lodash.isEqual(
                                 app.app_info,
                                 req.app
@@ -1336,12 +1336,12 @@ class Authenticator extends SafeLib
     {
         const req = lodash.cloneDeep( request );
         let app = null;
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             try
             {
-                this.getRegisteredApps().then( authorisedApps => 
-{
+                this.getRegisteredApps().then( authorisedApps =>
+                {
                     app = authorisedApps.filter( apps => lodash.isEqual( apps.app_info, req.app ) );
                     // Return false if no apps found match with requested app
                     if ( app.length === 0 )

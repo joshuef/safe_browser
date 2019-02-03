@@ -1,5 +1,5 @@
-import { BROWSER_UI } from './constants';
 import { parse as urlParse } from 'url';
+import { BROWSER_UI } from './constants';
 
 
 let peruseBrowserWindowIndex;
@@ -7,8 +7,7 @@ let peruseBgWindowIndex;
 
 export const delay = time => new Promise( resolve => setTimeout( resolve, time ) );
 
-export const setClientToMainBrowserWindow = async app =>
-{
+export const setClientToMainBrowserWindow = async app => {
     const { client } = app;
     const windows = await client.getWindowCount();
 
@@ -36,8 +35,7 @@ export const setClientToMainBrowserWindow = async app =>
     await client.windowByIndex( peruseBrowserWindowIndex );
 };
 
-export const setClientToBackgroundProcessWindow = async app =>
-{
+export const setClientToBackgroundProcessWindow = async app => {
     const { client } = app;
     const windows = await client.getWindowCount();
 
@@ -57,8 +55,7 @@ export const setClientToBackgroundProcessWindow = async app =>
 };
 
 
-export const setAddress = async ( app, url ) =>
-{
+export const setAddress = async ( app, url ) => {
     const { client } = app;
 
     await client.pause( 800 );
@@ -71,8 +68,7 @@ export const setAddress = async ( app, url ) =>
     await client.pause( 500 );
 };
 
-export const navigateTo = async ( app, url ) =>
-{
+export const navigateTo = async ( app, url ) => {
     const { client } = app;
 
     // TODO set tab + then...
@@ -81,8 +77,7 @@ export const navigateTo = async ( app, url ) =>
     await client.pause( 1500 );
 };
 
-export const newTab = async app =>
-{
+export const newTab = async app => {
     const { client } = app;
 
     const windows = await client.getWindowCount();
@@ -103,8 +98,7 @@ export const newTab = async app =>
 };
 
 
-export const bookmarkActiveTabPage = async app =>
-{
+export const bookmarkActiveTabPage = async app => {
     const { client } = app;
     await client.waitForExist( BROWSER_UI.BOOKMARK_PAGE );
     await client.click( BROWSER_UI.BOOKMARK_PAGE );

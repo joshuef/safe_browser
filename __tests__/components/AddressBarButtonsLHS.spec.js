@@ -24,15 +24,13 @@ jest.mock( '@maidsafe/safe-node-app', () => jest.fn() );
 jest.mock( 'extensions/safe/actions/safeBrowserApplication_actions' );
 
 
-describe( 'AddressBarButtonsLHS', () =>
-{
+describe( 'AddressBarButtonsLHS', () => {
     let wrapper;
     let instance;
     let props;
     let store;
 
-    beforeEach( () =>
-    {
+    beforeEach( () => {
         props = {
             windowId           : 1,
             address            : 'about:blank',
@@ -51,21 +49,19 @@ describe( 'AddressBarButtonsLHS', () =>
         };
     } );
 
-    describe( 'constructor( props )', () =>
-    {
-        beforeEach( () =>
-        {
+    describe( 'constructor( props )', () => {
+        beforeEach( () => {
             store = mockStore( props );
 
             wrapper = shallow(
-                <Provider store={ store } >
+                <Provider store={ store }>
                     <AddressBarButtonsLHS { ...props } />
-                </Provider> ).dive();
+                </Provider>
+            ).dive();
             instance = wrapper.instance(); instance = wrapper.instance();
         } );
 
-        it( 'should have name AddressBarButtonsLHS', () =>
-        {
+        it( 'should have name AddressBarButtonsLHS', () => {
             expect( instance.constructor.name ).toMatch( 'ButtonsLHS' );
         } );
     } );

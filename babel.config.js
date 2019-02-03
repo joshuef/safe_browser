@@ -1,4 +1,4 @@
-    /* eslint global-require: off */
+/* eslint global-require: off */
 const developmentEnvironments = ['development', 'test'];
 
 const developmentPlugins = [require( 'react-hot-loader/babel' )];
@@ -14,8 +14,7 @@ const productionPlugins = [
 
 const aliases = require( './.aliases.js' );
 
-module.exports = api =>
-{
+module.exports = api => {
     // see docs about api at https://babeljs.io/docs/en/config-files#apicache
 
     const development = api.env( developmentEnvironments );

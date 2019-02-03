@@ -20,7 +20,7 @@ export const addAuthNotification = (
     app,
     sendAuthDecision,
     store
-) => 
+) =>
 {
     if ( !store )
     {
@@ -44,22 +44,22 @@ export const addAuthNotification = (
         reqType = REQ_TYPES.MDATA;
     }
 
-    const ignoreRequest = () => 
-{
+    const ignoreRequest = () =>
+    {
         logger.log( 'replace these ipcRenderer.send calls' );
         sendAuthDecision( false, authReqData, reqType );
         clearNotification();
     };
 
-    const success = () => 
-{
+    const success = () =>
+    {
         logger.log( 'success happeninng' );
         sendAuthDecision( true, authReqData, reqType );
         clearNotification();
     };
 
-    const denial = () => 
-{
+    const denial = () =>
+    {
         logger.log( 'deny happeninng' );
         sendAuthDecision( false, authReqData, reqType );
         clearNotification();
@@ -83,8 +83,8 @@ export const addAuthNotification = (
     addNotification( theNotification );
 
     // now we listen....
-    const stopListening = store.subscribe( () => 
-{
+    const stopListening = store.subscribe( () =>
+    {
         logger.log( 'Listener for addAuthNotification' );
 
         const state = store.getState();

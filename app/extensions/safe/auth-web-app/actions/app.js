@@ -37,7 +37,7 @@ export const clearSearch = () => ( {
     type : CLEAR_SEARCH
 } );
 
-export const setReAuthoriseState = state => 
+export const setReAuthoriseState = state =>
 {
     storeReAuthoriseState( state );
     window.safeAuthenticator.setReAuthoriseState( state );

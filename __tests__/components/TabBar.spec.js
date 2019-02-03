@@ -6,14 +6,12 @@ import MdAdd from 'react-icons/lib/md/add';
 import { CLASSES } from 'appConstants';
 import { Spinner } from 'nessie-ui';
 
-describe( 'TabBar', () =>
-{
+describe( 'TabBar', () => {
     let wrapper;
     let instance;
     let props;
 
-    beforeEach( () =>
-    {
+    beforeEach( () => {
         props = {
             addTab           : jest.fn(),
             closeTab         : jest.fn(),
@@ -25,54 +23,53 @@ describe( 'TabBar', () =>
         instance = wrapper.instance();
     } );
 
-    describe( 'constructor( props )', () =>
-    {
-        it( 'should have name TabBar', () =>
-        {
+    describe( 'constructor( props )', () => {
+        it( 'should have name TabBar', () => {
             expect( instance.constructor.name ).toBe( 'TabBar' );
         } );
     } );
 
-    describe( 'render() with one tab', () =>
-    {
-        beforeEach( () =>
-        {
-            props = { ...props, tabs: [{ url: 'hello', isActiveTab: true, windowId: 1, favicon: '../../resources/favicon.ico' }] };
+    describe( 'render() with one tab', () => {
+        beforeEach( () => {
+            props = {
+                ...props,
+                tabs : [{
+                    url         : 'hello', isActiveTab : true, windowId    : 1, favicon     : '../../resources/favicon.ico'
+                }]
+            };
             wrapper = shallow( <TabBar { ...props } /> );
         } );
 
-        it( 'should have exactly 1 tab', () =>
-        {
+        it( 'should have exactly 1 tab', () => {
             expect( wrapper.find( `.${ CLASSES.ACTIVE_TAB }` ).length ).toBe( 1 );
             expect( wrapper.find( `.${ CLASSES.TAB }` ).length ).toBe( 1 );
         } );
 
-        it( 'should have exactly 1 favicon', () =>
-        {
+        it( 'should have exactly 1 favicon', () => {
             expect( wrapper.find( '#favicon-img' ).length ).toBe( 1 );
         } );
 
-        it( 'should have exactly 1 MdAdd component', () =>
-        {
+        it( 'should have exactly 1 MdAdd component', () => {
             expect( wrapper.find( MdAdd ).length ).toBe( 1 );
         } );
 
-        it( 'should have exactly 1 MdClose component', () =>
-        {
+        it( 'should have exactly 1 MdClose component', () => {
             expect( wrapper.find( MdClose ).length ).toBe( 1 );
         } );
     } );
 
-    describe( 'render() with one loading tab', () =>
-    {
-        beforeEach( () =>
-        {
-            props = { ...props, tabs: [{ url: 'hello', isActiveTab: true, windowId: 1, isLoading: true }] };
+    describe( 'render() with one loading tab', () => {
+        beforeEach( () => {
+            props = {
+                ...props,
+                tabs : [{
+                    url         : 'hello', isActiveTab : true, windowId    : 1, isLoading   : true
+                }]
+            };
             wrapper = shallow( <TabBar { ...props } /> );
         } );
 
-        it( 'should have exactly 1 tab with loading indicator', () =>
-        {
+        it( 'should have exactly 1 tab with loading indicator', () => {
             expect( wrapper.find( Spinner ).length ).toBe( 1 );
         } );
     } );
@@ -118,12 +115,9 @@ describe( 'TabBar', () =>
     //     })
     // })
 
-    describe( 'props', () =>
-    {
-        describe( 'tabInFocus', () =>
-        {
-            it( 'tabInFocus should be "0" by default', () =>
-            {
+    describe( 'props', () => {
+        describe( 'tabInFocus', () => {
+            it( 'tabInFocus should be "0" by default', () => {
                 expect( instance.props.tabInFocus ).toBe( 0 );
             } );
         } );

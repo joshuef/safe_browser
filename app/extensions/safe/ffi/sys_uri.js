@@ -80,8 +80,8 @@ class SystemUriLoader
         const icon = appInfo.icon;
         const joinedSchemes = schemes.join ? schemes.join( ',' ) : schemes;
 
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             try
             {
                 const cb = this._handleError( resolve, reject );
@@ -110,8 +110,8 @@ class SystemUriLoader
         {
             return;
         }
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             try
             {
                 const cb = this._handleError( resolve, reject );
@@ -129,8 +129,8 @@ class SystemUriLoader
         return ffi.Callback(
             type.Void,
             [type.voidPointer, type.FfiResultPointer],
-            ( userData, resultPtr ) => 
-{
+            ( userData, resultPtr ) =>
+            {
                 const result = resultPtr.deref();
                 if ( result.error_code !== 0 )
                 {

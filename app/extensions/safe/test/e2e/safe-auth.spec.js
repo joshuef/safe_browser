@@ -32,32 +32,32 @@ jest.unmock( 'electron' );
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 75000;
 
-describe( 'safe authenticator protocol', () => 
+describe( 'safe authenticator protocol', () =>
 {
     let app;
 
-    beforeEach( async () => 
-{
+    beforeEach( async () =>
+    {
         app = setupSpectronApp( '--debug' );
 
         await beforeAllTests( app );
     } );
 
-    afterEach( async () => 
-{
+    afterEach( async () =>
+    {
         await afterAllTests( app );
     } );
 
-    test( 'window loaded', async () => 
-{
+    test( 'window loaded', async () =>
+    {
         expect( await windowLoaded( app ) ).toBeTruthy();
     } );
 
     // if( travisOS !== 'linux' )
     if ( process.platform !== 'linux' )
     {
-        it( 'is registered to handle safe-auth/home js requests:', async () => 
-{
+        it( 'is registered to handle safe-auth/home js requests:', async () =>
+        {
             expect.assertions( 2 );
             const { client } = app;
             await delay( 2500 );
@@ -85,8 +85,8 @@ describe( 'safe authenticator protocol', () =>
 
     const { secret, password } = createAccountDetails();
 
-    it( 'can create an account', async () => 
-{
+    it( 'can create an account', async () =>
+    {
         expect.assertions( 1 );
         const { client } = app;
         await delay( 2500 );
@@ -114,8 +114,8 @@ describe( 'safe authenticator protocol', () =>
         expect( 'this to be reached' ).toBe( 'this to be reached' );
     } );
 
-    it( 'can login, log history, logout, and clean up history', async () => 
-{
+    it( 'can login, log history, logout, and clean up history', async () =>
+    {
         expect.assertions( 4 );
         const { client } = app;
         await delay( 2500 );
@@ -164,8 +164,8 @@ describe( 'safe authenticator protocol', () =>
         expect( history ).toMatch( 'Nothing to see here yet' );
     } );
 
-    it( 'renders different messages between first authorisation and reauthorisations', async () => 
-{
+    it( 'renders different messages between first authorisation and reauthorisations', async () =>
+    {
         expect.assertions( 2 );
         const { client } = app;
         await delay( 2500 );
@@ -212,8 +212,8 @@ describe( 'safe authenticator protocol', () =>
     {
         // linux failing with xdg-open
 
-        it( 'peruse app authenticates pops up after creating an account', async () => 
-{
+        it( 'peruse app authenticates pops up after creating an account', async () =>
+        {
             expect.assertions( 1 );
             const { client } = app;
             await delay( 2500 );

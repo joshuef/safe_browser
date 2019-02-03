@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logger from 'logger';
 
-const extendComponent = ( WrappedComponent, extensionWrapperApi ) => 
+const extendComponent = ( WrappedComponent, extensionWrapperApi ) =>
 {
     if ( !WrappedComponent ) throw new Error( 'Must pass a component to wrap.' );
 

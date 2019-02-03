@@ -49,11 +49,11 @@ export default merge.smart( baseConfig, {
     target : 'electron-renderer',
 
     entry : {
-        patch          : 'react-hot-loader/patch',
-        devserver      : `webpack-dev-server/client?http://localhost:${ port }/`,
-        only           : 'webpack/hot/only-dev-server',
-        renderer       : require.resolve( '../app/index' ),
-        background     : require.resolve( '../app/background' )
+        patch      : 'react-hot-loader/patch',
+        devserver  : `webpack-dev-server/client?http://localhost:${ port }/`,
+        only       : 'webpack/hot/only-dev-server',
+        renderer   : require.resolve( '../app/index' ),
+        background : require.resolve( '../app/background' )
         // ,
         // browserPreload : require.resolve( '../app/browserPreload' )
     },

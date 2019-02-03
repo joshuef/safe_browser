@@ -7,8 +7,7 @@ export const SAFE_AUTH_REQ = 'safe-auth:AAAAAIWTDbIAAAAAGwAAAAAAAABuZXQubWFpZHNh
 
 export const BROWSER_UI = GET_DOM_EL_CLASS;
 
-export const COPY =
-{
+export const COPY = {
     BROWSER_APP_NAME        : 'SAFE Browser',
     BROWSER_PLUGIN_FAILURES : 'failures: 0'
 };

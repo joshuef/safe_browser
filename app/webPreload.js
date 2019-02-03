@@ -7,23 +7,20 @@ import { triggerOnWebviewPreload } from '@Extensions';
 const configureStore = require( './store/configureStore' ).configureStore;
 
 // TODO This handling needs to be imported via extension apis more seemlessly
-const store = configureStore()
+const store = configureStore();
 
 
-window.eval = global.eval = () =>
-{
+window.eval = global.eval = () => {
     throw new Error( 'Sorry, peruse does not support window.eval().' );
 };
 
 const pendingCalls = {};
 
-store.subscribe( async () =>
-{
+store.subscribe( async () => {
     const state = store.getState();
     const calls = state.remoteCalls;
 
-    calls.forEach( theCall =>
-{
+    calls.forEach( theCall => {
         if ( theCall === pendingCalls[theCall.id] )
         {
             return;
@@ -91,5 +88,4 @@ window.onerror = function ( error, url, line )
 };
 
 
-
-console.log('THINGS SHOULD BE READY NOW')
+console.log( 'THINGS SHOULD BE READY NOW' );

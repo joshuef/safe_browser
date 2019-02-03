@@ -23,7 +23,7 @@ if ( process.platform === 'win32' )
 
 switch ( arg )
 {
-    case ( 'e2e' ) :
+    case ( 'e2e' ):
     {
         pattern = `__e2e__${ s }.+\\.spec\\.js`;
         argsArray.push( '--bail' );
@@ -31,7 +31,7 @@ switch ( arg )
 
         break;
     }
-    case ( 'exts-e2e' ) :
+    case ( 'exts-e2e' ):
     {
         pattern = `app${ s }extensions${ s }[^${ s }].+e2e${ s }.+\\.spec\\.js$`;
 
@@ -47,7 +47,7 @@ switch ( arg )
 
         break;
     }
-    case ( 'exts-e2e-network' ) :
+    case ( 'exts-e2e-network' ):
     {
         // These tests involve actual log in/out of the netowrk and saving data.
         // eventually to be rolled against the live net (if that makes sense).
@@ -66,7 +66,7 @@ switch ( arg )
 
         break;
     }
-    default :
+    default:
     {
         pattern = `__e2e__${ s }.+\\.spec\\.js`;
         argsArray.push( '--bail' );

@@ -79,7 +79,7 @@ export const {
     TYPES.SHOW_WEB_ID_DROPDOWN
 );
 
-const triggerGetWebIds = async () => 
+const triggerGetWebIds = async () =>
 {
     if ( !window || !window.thisIsTheBackgroundProcess ) return;
 
@@ -101,7 +101,7 @@ export const getAvailableWebIds = createAliasedAction(
  * Get WebIds for the current user
  * @return {Promise} Resolves to Array of webIds
  */
-const getWebIds = async () => 
+const getWebIds = async () =>
 {
     const currentStore = getCurrentStore();
 

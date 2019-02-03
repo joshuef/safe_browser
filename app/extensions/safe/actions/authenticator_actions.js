@@ -34,7 +34,8 @@ export const {
     TYPES.SET_IS_AUTHORISED_STATE
 );
 
-const triggerAuthDecoding = reqObject => {
+const triggerAuthDecoding = reqObject => 
+{
     if ( typeof window === 'undefined' || !window.thisIsTheBackgroundProcess ) return;
 
     logger.log( 'Handling an AuthReq in BG process:', reqObject );

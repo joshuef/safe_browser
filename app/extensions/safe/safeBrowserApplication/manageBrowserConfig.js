@@ -30,7 +30,7 @@ let isSaving = false;
  * based upon the application stateToSave
  * @param  {Object} state Application state (from redux)
  */
-export const manageReadStateActions = async store => 
+export const manageReadStateActions = async store =>
 {
     // Hack as store is actually unreliable.
     // TODO: Rework this to use aliased funcs.
@@ -75,8 +75,8 @@ export const manageReadStateActions = async store =>
     );
 
     readConfigFromSafe( store )
-        .then( savedState => 
-{
+        .then( savedState =>
+        {
             // store.dispatch( safeBrowserAppActions.receivedConfig( savedState ) );
             store.dispatch( bookmarksActions.updateBookmarks( savedState ) );
             store.dispatch( tabsActions.updateTabs( savedState ) );
@@ -89,8 +89,8 @@ export const manageReadStateActions = async store =>
             isReading = false;
             return null;
         } )
-        .catch( e => 
-{
+        .catch( e =>
+        {
             isReading = false;
             logger.error( e );
             store.dispatch(
@@ -107,7 +107,7 @@ export const manageReadStateActions = async store =>
  * based upon the application stateToSave
  * @param  {Object} state Application state (from redux)
  */
-export const manageSaveStateActions = async store => 
+export const manageSaveStateActions = async store =>
 {
     // Hack as store is actually unreliable.
     // TODO: Rework this to use aliased funcs.
@@ -168,8 +168,8 @@ export const manageSaveStateActions = async store =>
         safeBrowserAppActions.setSaveConfigStatus( SAFE.SAVE_STATUS.SAVING )
     );
     saveConfigToSafe( store )
-        .then( () => 
-{
+        .then( () =>
+        {
             isSaving = false;
             store.dispatch(
                 safeBrowserAppActions.setSaveConfigStatus(
@@ -179,8 +179,8 @@ export const manageSaveStateActions = async store =>
 
             return null;
         } )
-        .catch( e => 
-{
+        .catch( e =>
+        {
             isSaving = false;
             logger.error( e );
 
@@ -201,7 +201,7 @@ export const manageSaveStateActions = async store =>
  * @param  { Bool } quit  to quit or not to quit...
  * @return {[type]}       Promise
  */
-export const saveConfigToSafe = ( store, quit ) => 
+export const saveConfigToSafe = ( store, quit ) =>
 {
     const state = store.getState();
 
@@ -214,8 +214,8 @@ export const saveConfigToSafe = ( store, quit ) =>
     };
     const JSONToSave = JSON.stringify( stateToSave );
 
-    return new Promise( async ( resolve, reject ) => 
-{
+    return new Promise( async ( resolve, reject ) =>
+    {
         const safeBrowserAppObject = getSafeBrowserAppObject();
 
         let mData;
@@ -310,8 +310,8 @@ export const saveConfigToSafe = ( store, quit ) =>
 
 function delay( t )
 {
-    return new Promise( resolve => 
-{
+    return new Promise( resolve =>
+    {
         setTimeout( resolve, t );
     } );
 }
@@ -320,7 +320,7 @@ function delay( t )
  * Read the configuration from the netowrk
  * @param  {[type]} app SafeApp reference, with handle and authUri
  */
-export const readConfigFromSafe = store => new Promise( async ( resolve, reject ) => 
+export const readConfigFromSafe = store => new Promise( async ( resolve, reject ) =>
 {
     const safeBrowserAppObject = getSafeBrowserAppObject();
     if ( !safeBrowserAppObject )

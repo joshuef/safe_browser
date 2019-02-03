@@ -5,17 +5,17 @@ import { TYPES as UI_TYPES } from 'actions/ui_actions';
 
 import initialState from 'reducers/initialAppState';
 
-describe( 'notification reducer', () => 
+describe( 'notification reducer', () =>
 {
-    it( 'should return the initial state', () => 
-{
+    it( 'should return the initial state', () =>
+    {
         expect( bookmarks( undefined, {} ) ).toEqual( initialState.bookmarks );
     } );
 
-    describe( 'ADD_BOOKMARK', () => 
-{
-        it( 'should handle adding a bookmark', () => 
-{
+    describe( 'ADD_BOOKMARK', () =>
+    {
+        it( 'should handle adding a bookmark', () =>
+        {
             expect(
                 bookmarks( [], {
                     type    : TYPES.ADD_BOOKMARK,
@@ -25,10 +25,10 @@ describe( 'notification reducer', () =>
         } );
     } );
 
-    describe( 'REMOVE_BOOKMARK', () => 
-{
-        it( 'should handle removing a bookmark', () => 
-{
+    describe( 'REMOVE_BOOKMARK', () =>
+    {
+        it( 'should handle removing a bookmark', () =>
+        {
             expect(
                 bookmarks( [{ url: 'i also should exist' }, { url: 'i should not exist' }, { url: 'i should exist' }],
                     {
@@ -39,10 +39,10 @@ describe( 'notification reducer', () =>
         } );
     } );
 
-    describe( 'UPDATE_BOOKMARK', () => 
-{
-        it( 'should handle updating a bookmark', () => 
-{
+    describe( 'UPDATE_BOOKMARK', () =>
+    {
+        it( 'should handle updating a bookmark', () =>
+        {
             expect(
                 bookmarks( [{ url: 'i should not exist' }], {
                     type    : TYPES.UPDATE_BOOKMARK,
@@ -52,10 +52,10 @@ describe( 'notification reducer', () =>
         } );
     } );
 
-    describe( 'RECEIVED_CONFIG', () => 
-{
-        it( 'should handle receiving the new config', () => 
-{
+    describe( 'RECEIVED_CONFIG', () =>
+    {
+        it( 'should handle receiving the new config', () =>
+        {
             expect(
                 bookmarks( [{ url: 'i should not exist' }], {
                     type    : TYPES.UPDATE_BOOKMARKS,
@@ -64,8 +64,8 @@ describe( 'notification reducer', () =>
             ).toMatchObject( { url: 'updated', index: 0 } );
         } );
 
-        it( 'should merge the new bookmarks with any current, w/o duplicates', () => 
-{
+        it( 'should merge the new bookmarks with any current, w/o duplicates', () =>
+        {
             const newBookmarks = bookmarks( [{ url: 'i should exist' }, { url: 'updated', index: 0 }], {
                 type    : TYPES.UPDATE_BOOKMARKS,
                 payload : { bookmarks: [{ url: 'updated', index: 0 }] }
@@ -76,14 +76,14 @@ describe( 'notification reducer', () =>
         } );
     } );
 
-    describe( 'UI_RESET_STORE', () => 
-{
+    describe( 'UI_RESET_STORE', () =>
+    {
         const bookmarksPostLogout = bookmarks( [{ url: 'i should not exist' }], {
             type : UI_TYPES.RESET_STORE,
         } );
 
-        it( 'should reset bookmarks to inital state', () => 
-{
+        it( 'should reset bookmarks to inital state', () =>
+        {
             expect( bookmarksPostLogout ).toHaveLength( 1 );
             expect( bookmarksPostLogout ).toMatchObject( initialState.bookmarks );
         } );

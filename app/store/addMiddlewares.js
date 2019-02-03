@@ -4,7 +4,8 @@ import promiseMiddleware from 'redux-promise';
 
 import { forwardToRenderer, forwardToMain, triggerAlias } from 'electron-redux';
 
-const addMiddlewares = ( middleware, isBackgroundProcess = false ) => {
+const addMiddlewares = ( middleware, isBackgroundProcess = false ) => 
+{
     middleware.push( thunk );
 
     middleware.unshift( promiseMiddleware );

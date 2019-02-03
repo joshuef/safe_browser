@@ -25,7 +25,8 @@ import {
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = DEFAULT_TIMEOUT_INTERVAL + 40000;
 
-describe( 'SAFE network webFetch operation', async () => {
+describe( 'SAFE network webFetch operation', async () => 
+{
     const appInfo = {
         id     : 'net.peruse.test',
         name   : 'SAFE App Test',
@@ -33,21 +34,25 @@ describe( 'SAFE network webFetch operation', async () => {
     };
     let app;
 
-    beforeEach( async () => {
+    beforeEach( async () => 
+{
         app = setupSpectronApp( '--preload' );
 
         await beforeAllTests( app );
     } );
 
-    afterEach( async () => {
+    afterEach( async () => 
+{
         await afterAllTests( app );
     } );
 
-    test( 'window loaded', async () => {
+    test( 'window loaded', async () => 
+{
         expect( await windowLoaded( app ) ).toBeTruthy();
     } );
 
-    it( 'populates the DOM api in the tab window:', async () => {
+    it( 'populates the DOM api in the tab window:', async () => 
+{
         expect.assertions( 5 );
         await setClientToMainBrowserWindow( app );
 
@@ -95,7 +100,8 @@ describe( 'SAFE network webFetch operation', async () => {
 
     if ( !isTestingPackagedApp )
     {
-        it( 'fetches content from mock network', async () => {
+        it( 'fetches content from mock network', async () => 
+{
             const safeApp = await createSafeApp( appInfo );
             await safeApp.auth.loginForTest();
 
@@ -151,7 +157,8 @@ describe( 'SAFE network webFetch operation', async () => {
         return;
     }
 
-    test( 'triggers a save for the window state', async () => {
+    test( 'triggers a save for the window state', async () => 
+{
         expect.assertions( 1 );
 
         const { client } = app;
@@ -178,7 +185,8 @@ describe( 'SAFE network webFetch operation', async () => {
 
     if ( nodeEnv === 'dev' )
     {
-        it( 'shows error in UI if URL resource does not exist', async () => {
+        it( 'shows error in UI if URL resource does not exist', async () => 
+{
             expect.assertions( 1 );
             const { client } = app;
             await delay( 2500 );
@@ -201,7 +209,8 @@ describe( 'SAFE network webFetch operation', async () => {
 
     if ( isTestingPackagedApp && nodeEnv === 'dev' )
     {
-        it( 'preloaded with API playground for development', async () => {
+        it( 'preloaded with API playground for development', async () => 
+{
             expect.assertions( 2 );
             const { client } = app;
             await delay( 2500 );

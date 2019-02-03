@@ -10,20 +10,20 @@ const configureStore = require( './store/configureStore' ).configureStore;
 const store = configureStore();
 
 
-window.eval = global.eval = () => 
+window.eval = global.eval = () =>
 {
     throw new Error( 'Sorry, peruse does not support window.eval().' );
 };
 
 const pendingCalls = {};
 
-store.subscribe( async () => 
+store.subscribe( async () =>
 {
     const state = store.getState();
     const calls = state.remoteCalls;
 
-    calls.forEach( theCall => 
-{
+    calls.forEach( theCall =>
+    {
         if ( theCall === pendingCalls[theCall.id] )
         {
             return;

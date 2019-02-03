@@ -4,14 +4,16 @@ import { CONFIG, PROTOCOLS } from '@Constants';
 import { remote } from 'electron';
 /* eslint-enable import/extensions */
 
-export const registerSafeAuthProtocol = () => {
+export const registerSafeAuthProtocol = () => 
+{
     logger.log( 'Registering safe-auth scheme' );
     const partition = CONFIG.SAFE_PARTITION;
     const ses = remote.session.fromPartition( partition );
 
     ses.protocol.registerHttpProtocol(
         PROTOCOLS.SAFE_AUTH,
-        ( req, cb ) => {
+        ( req, cb ) => 
+{
             logger.log( `Procotol:: safe-auth:// url being parsed: ${ req.url }` );
 
             // TODO. Sort out when/where with slash
@@ -19,7 +21,8 @@ export const registerSafeAuthProtocol = () => {
 
             cb( { url: newUrl } );
         },
-        err => {
+        err => 
+{
             if ( err )
             {
                 logger.error( 'Problem registering safe-auth', err );

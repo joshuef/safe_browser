@@ -8,7 +8,8 @@ import { urlIsAllowedBySafe } from './utils/safeHelpers';
 // const isForLocalServer = ( parsedUrlObject ) =>
 //     parsedUrlObject.protocol === 'localhost:' || parsedUrlObject.hostname === '127.0.0.1';
 
-const blockNonSAFERequests = () => {
+const blockNonSAFERequests = () => 
+{
     const filter = {
         urls : ['*://*']
     };
@@ -16,7 +17,8 @@ const blockNonSAFERequests = () => {
 
     const safeSession = remote.session.fromPartition( CONFIG.SAFE_PARTITION );
 
-    safeSession.webRequest.onBeforeRequest( filter, ( details, callback ) => {
+    safeSession.webRequest.onBeforeRequest( filter, ( details, callback ) => 
+{
         if ( urlIsAllowedBySafe( details.url ) )
         {
             logger.log( `Allowing url ${ details.url }` );

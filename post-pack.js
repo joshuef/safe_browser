@@ -114,7 +114,8 @@ const removalArray = [
     'LICENSE'
 ];
 
-removalArray.forEach( file => {
+removalArray.forEach( file => 
+{
     fs.removeSync( `${ CONTAINING_FOLDER }/${ file }` );
 } );
 

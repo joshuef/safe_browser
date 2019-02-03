@@ -5,7 +5,8 @@ import logger from 'logger';
 
 export const isForSafeServer = parsedUrlObject => parsedUrlObject.host === `localhost:${ CONFIG.PORT }`;
 
-export const urlIsAllowedBySafe = testUrl => {
+export const urlIsAllowedBySafe = testUrl => 
+{
     logger.log( 'Checking urlIsAllowedBySafe', testUrl );
     const urlObj = url.parse( testUrl );
 
@@ -34,7 +35,8 @@ export const urlIsAllowedBySafe = testUrl => {
     return false;
 };
 
-export const generateBoundaryStr = () => {
+export const generateBoundaryStr = () => 
+{
     let text = '';
     const charSet = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -46,14 +48,17 @@ export const generateBoundaryStr = () => {
     return text;
 };
 
-export const rangeStringToArray = rangeString => {
+export const rangeStringToArray = rangeString => 
+{
     const BYTES = 'bytes=';
     return rangeString
         .substring( BYTES.length, rangeString.length )
         .split( ',' )
-        .map( part => {
+        .map( part => 
+{
             const partObj = {};
-            part.split( '-' ).forEach( ( int, i ) => {
+            part.split( '-' ).forEach( ( int, i ) => 
+{
                 if ( i === 0 )
                 {
                     if ( Number.isInteger( parseInt( int, 10 ) ) )
@@ -81,13 +86,15 @@ export const rangeStringToArray = rangeString => {
         } );
 };
 
-export const generateResponseStr = data => {
+export const generateResponseStr = data => 
+{
     const boundaryStr = generateBoundaryStr();
     const crlf = '\r\n';
     let responseStr = `HTTP/1.1 206 Partial Content${ crlf }`;
     responseStr += `Content-Type: multipart/byteranges; boundary=${ boundaryStr }${ crlf }`;
     responseStr += `Content-Length:${ data.headers['Content-Length'] }${ crlf }`;
-    data.parts.forEach( part => {
+    data.parts.forEach( part => 
+{
         responseStr += `--${ boundaryStr }${ crlf }`;
         responseStr += `Content-Type:${ part.headers['Content-Type'] }${ crlf }`;
         responseStr += `Content-Range: ${ part.headers['Content-Range'] }${ crlf }`;

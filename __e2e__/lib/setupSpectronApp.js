@@ -16,7 +16,7 @@ export const isUnpacked = process.env.IS_UNPACKED || false;
 export const isTestingPackagedApp = process.env.IS_PACKED || false;
 export const nodeEnv = process.env.NODE_ENV;
 
-export const setupSpectronApp = extraArgs => 
+export const setupSpectronApp = extraArgs =>
 {
     let bonusArgs = extraArgs;
     if ( !Array.isArray( bonusArgs ) )
@@ -53,7 +53,7 @@ export const setupSpectronApp = extraArgs =>
 };
 
 
-export const afterAllTests = async app => 
+export const afterAllTests = async app =>
 {
     if ( app && app.isRunning() )
     {
@@ -62,14 +62,14 @@ export const afterAllTests = async app =>
     }
 };
 
-export const beforeAllTests = async app => 
+export const beforeAllTests = async app =>
 {
     await app.start();
     await app.client.waitUntilWindowLoaded();
 };
 
 
-export const windowLoaded = async app => 
+export const windowLoaded = async app =>
 {
     await delay( 2500 );
 
@@ -80,7 +80,7 @@ export const windowLoaded = async app =>
 };
 
 
-process.on( 'uncaughtTypeError', err => 
+process.on( 'uncaughtTypeError', err =>
 {
     console.error( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
     console.error( 'whoops! there was an uncaught type error:' );
@@ -90,7 +90,7 @@ process.on( 'uncaughtTypeError', err =>
     console.error( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
 } );
 
-process.on( 'uncaughtException', err => 
+process.on( 'uncaughtException', err =>
 {
     console.error( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
     console.error( 'whoops! there was an uncaught error:' );
@@ -100,7 +100,7 @@ process.on( 'uncaughtException', err =>
     console.error( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
 } );
 
-process.on( 'unhandledRejection', ( reason, p ) => 
+process.on( 'unhandledRejection', ( reason, p ) =>
 {
     console.error( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
     console.error( 'Unhandled Rejection. Reason:', reason );

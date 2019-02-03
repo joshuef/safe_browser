@@ -7,8 +7,10 @@ import safeBrowsing from './safe/index';
 // const allPackages = [ ];
 const allPackages = [safeBrowsing];
 
-export const preAppLoad = store => {
-    allPackages.forEach( extension => {
+export const preAppLoad = store => 
+{
+    allPackages.forEach( extension => 
+{
         if ( extension.preAppLoad )
         {
             extension.preAppLoad( store );
@@ -16,8 +18,10 @@ export const preAppLoad = store => {
     } );
 };
 
-export const triggerOnWebviewPreload = store => {
-    allPackages.forEach( extension => {
+export const triggerOnWebviewPreload = store => 
+{
+    allPackages.forEach( extension => 
+{
         if ( extension.onWebviewPreload )
         {
             extension.onWebviewPreload( store );
@@ -25,11 +29,13 @@ export const triggerOnWebviewPreload = store => {
     } );
 };
 
-export const urlIsValid = url => {
+export const urlIsValid = url => 
+{
     logger.log( 'Extensions: Checking urlIsValid via all extensions.' );
     let result = true;
 
-    allPackages.forEach( extension => {
+    allPackages.forEach( extension => 
+{
         if ( !result ) return;
 
         if ( extension.urlIsValid )
@@ -45,8 +51,10 @@ export const urlIsValid = url => {
  * To be triggered when a remote call occurs in the main process.
  * @param  {object} store redux store
  */
-export const onRemoteCallInBgProcess = ( store, allAPICalls, theCall ) => {
-    allPackages.forEach( extension => {
+export const onRemoteCallInBgProcess = ( store, allAPICalls, theCall ) => 
+{
+    allPackages.forEach( extension => 
+{
         if ( extension.onRemoteCallInBgProcess )
         {
             extension.onRemoteCallInBgProcess( store, allAPICalls, theCall );
@@ -54,10 +62,12 @@ export const onRemoteCallInBgProcess = ( store, allAPICalls, theCall ) => {
     } );
 };
 
-export const getRemoteCallApis = () => {
+export const getRemoteCallApis = () => 
+{
     logger.log( 'Getting extension remoteCall Apis' );
     let apisToAdd = {};
-    allPackages.forEach( extension => {
+    allPackages.forEach( extension => 
+{
         if ( extension.getRemoteCallApis )
         {
             const extApis = extension.getRemoteCallApis();
@@ -79,11 +89,13 @@ export const getRemoteCallApis = () => {
  * get all actions to add to the browser component.
  * @return {object} All actions for the browser
  */
-export const getActionsForBrowser = () => {
+export const getActionsForBrowser = () => 
+{
     logger.log( 'Getting extension browser actions' );
 
     let actionsToAdd = {};
-    allPackages.forEach( extension => {
+    allPackages.forEach( extension => 
+{
         if ( extension.actionsForBrowser )
         {
             const extActions = extension.actionsForBrowser;
@@ -101,9 +113,11 @@ export const getActionsForBrowser = () => {
     return actionsToAdd;
 };
 
-export const getExtensionReducers = () => {
+export const getExtensionReducers = () => 
+{
     let reducersToAdd = {};
-    allPackages.forEach( extension => {
+    allPackages.forEach( extension => 
+{
         if ( extension.addReducersToPeruse )
         {
             const extReducers = extension.addReducersToPeruse();
@@ -122,10 +136,12 @@ export const getExtensionReducers = () => {
     return reducersToAdd;
 };
 
-export const getExtensionMenuItems = ( store, menusArray ) => {
+export const getExtensionMenuItems = ( store, menusArray ) => 
+{
     logger.log( 'Extending menus array' );
     let newMenuArray = [];
-    allPackages.forEach( extension => {
+    allPackages.forEach( extension => 
+{
         if ( extension.addExtensionMenuItems )
         {
             newMenuArray = extension.addExtensionMenuItems( store, menusArray );
@@ -137,8 +153,10 @@ export const getExtensionMenuItems = ( store, menusArray ) => {
     return newMenuArray;
 };
 
-export const onInitBgProcess = ( server, store ) => {
-    allPackages.forEach( extension => {
+export const onInitBgProcess = ( server, store ) => 
+{
+    allPackages.forEach( extension => 
+{
         if ( extension.setupRoutes )
         {
             extension.setupRoutes( server, store );
@@ -151,8 +169,10 @@ export const onInitBgProcess = ( server, store ) => {
     } );
 };
 
-export const onOpenLoadExtensions = store => {
-    allPackages.forEach( extension => {
+export const onOpenLoadExtensions = store => 
+{
+    allPackages.forEach( extension => 
+{
         if ( extension.onOpen )
         {
             extension.onOpen( store );
@@ -160,8 +180,10 @@ export const onOpenLoadExtensions = store => {
     } );
 };
 
-export const onAppReady = store => {
-    allPackages.forEach( extension => {
+export const onAppReady = store => 
+{
+    allPackages.forEach( extension => 
+{
         if ( extension.onAppReady )
         {
             extension.onAppReady( store );
@@ -169,8 +191,10 @@ export const onAppReady = store => {
     } );
 };
 
-export const onReceiveUrl = ( store, url ) => {
-    allPackages.forEach( extension => {
+export const onReceiveUrl = ( store, url ) => 
+{
+    allPackages.forEach( extension => 
+{
         if ( extension.onReceiveUrl )
         {
             extension.onReceiveUrl( store, url );

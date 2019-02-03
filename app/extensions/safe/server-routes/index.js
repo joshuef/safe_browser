@@ -10,12 +10,14 @@ import url from 'url';
 import safeRoute from './safe';
 import authRoute from './auth';
 
-const setupRoutes = ( server, store ) => {
+const setupRoutes = ( server, store ) => 
+{
     const routes = [safeRoute( store ), authRoute];
 
     // TODO: Remove serving onf antd files when we can package
     // webId manager properly.
-    server.get( /dummy/, ( request, res ) => {
+    server.get( /dummy/, ( request, res ) => 
+{
         const link = request.params.link;
         const linkUrl = url.parse( link );
 
@@ -35,7 +37,8 @@ const setupRoutes = ( server, store ) => {
         );
     } );
 
-    routes.forEach( route => {
+    routes.forEach( route => 
+{
         try
         {
             server.get( route.path, route.handler );

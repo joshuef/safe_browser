@@ -10,7 +10,8 @@ import path from 'path';
 const authRoute = {
     method  : 'GET',
     path    : /auth:\//,
-    handler : async ( request, res ) => {
+    handler : async ( request, res ) => 
+{
         try
         {
             const link = request.url.split( '/auth/' )[1];

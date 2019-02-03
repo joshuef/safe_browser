@@ -11,7 +11,8 @@ import { ipcRenderer } from 'electron';
  * @param  {Boolean} isMock is the browser being run on a mock network
  * @return {Promise}        Peruse SafeApp object
  */
-const initAuthedApplication = async ( passedStore, options ) => {
+const initAuthedApplication = async ( passedStore, options ) => 
+{
     logger.log( 'Requesting safeBrowserApp auth.', process.mainModule.filename );
     let safeBrowserAppObject;
 

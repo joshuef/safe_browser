@@ -3,7 +3,8 @@ import CONSTANTS from './constants';
 
 export const isUserAuthorised = () => window.safeAuthenticator.isAuthorised();
 
-export const checkAuthorised = ( nextState, replace, callback ) => {
+export const checkAuthorised = ( nextState, replace, callback ) => 
+{
     if ( !isUserAuthorised() )
     {
         replace( '/login' );
@@ -11,7 +12,8 @@ export const checkAuthorised = ( nextState, replace, callback ) => {
     callback();
 };
 
-export const getStrengthMsg = strength => {
+export const getStrengthMsg = strength => 
+{
     switch ( true )
     {
         case strength === 0: {
@@ -29,7 +31,8 @@ export const getStrengthMsg = strength => {
     }
 };
 
-export const parseErrCode = errStr => {
+export const parseErrCode = errStr => 
+{
     try
     {
         const err = JSON.parse( errStr );
@@ -79,7 +82,8 @@ export const parseErrCode = errStr => {
     }
 };
 
-export const parseAppName = name => {
+export const parseAppName = name => 
+{
     const parsedName = name.replace( /-|_/g, ' ' );
     // if the app's name it's just a sequence
     // of '-' and/or '_' chars, then return it as is
@@ -91,14 +95,16 @@ export const parseAppName = name => {
         .join( ' ' );
 };
 
-export const getAppIconClassName = i => {
+export const getAppIconClassName = i => 
+{
     const index = ( parseInt( i, 10 ) + 1 ) % 6;
     return classNames( 'app-list-i-h', 'app-icon', `app-icon-clr-${ index || 6 }` );
 };
 
 export const storeReAuthoriseState = state => localStorage.setItem( CONSTANTS.RE_AUTHORISE.KEY, JSON.stringify( { state } ) );
 
-export const fetchReAuthoriseState = () => {
+export const fetchReAuthoriseState = () => 
+{
     const data = localStorage.getItem( CONSTANTS.RE_AUTHORISE.KEY );
     return data ? JSON.parse( data ).state : null;
 };

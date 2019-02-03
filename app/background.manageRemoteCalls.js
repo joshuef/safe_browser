@@ -17,7 +17,8 @@ const allApiCalls = {
  * updating the remoteCall.
  * @param  {[type]}  store Redux store
  */
-const manageRemoteCalls = async store => {
+const manageRemoteCalls = async store => 
+{
     const state = store.getState();
     const remoteCalls = state.remoteCalls;
     if ( cachedRemoteCallArray !== remoteCalls )
@@ -26,7 +27,8 @@ const manageRemoteCalls = async store => {
 
         if ( !remoteCalls.length ) return;
 
-        remoteCalls.forEach( async theCall => {
+        remoteCalls.forEach( async theCall => 
+{
             if ( !theCall.inProgress && !pendingCallIds[theCall.id] )
             {
                 // hack to prevent multi store triggering.

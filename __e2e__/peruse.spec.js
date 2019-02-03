@@ -27,25 +27,25 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = DEFAULT_TIMEOUT_INTERVAL;
 // have a bad time.
 
 
-describe( 'main window', () => 
+describe( 'main window', () =>
 {
     let app;
 
-    beforeEach( async () => 
-{
+    beforeEach( async () =>
+    {
         app = setupSpectronApp();
 
         await beforeAllTests( app );
     } );
 
-    afterEach( async () => 
-{
+    afterEach( async () =>
+    {
         await afterAllTests( app );
     } );
 
 
-    it( 'window loaded', async () => 
-{
+    it( 'window loaded', async () =>
+    {
         const loaded = await windowLoaded( app );
         expect( loaded ).toBeTruthy();
     } );
@@ -66,8 +66,8 @@ describe( 'main window', () =>
     // } );
 
 
-    it( 'can open a new tab + set address', async () => 
-{
+    it( 'can open a new tab + set address', async () =>
+    {
         expect.assertions( 2 );
         const { client } = app;
         await delay( 2500 );
@@ -93,8 +93,8 @@ describe( 'main window', () =>
     } );
 
 
-    it( 'shows error in UI if invalid URL', async () => 
-{
+    it( 'shows error in UI if invalid URL', async () =>
+    {
         expect.assertions( 1 );
 
         const { client } = await app;
@@ -111,8 +111,8 @@ describe( 'main window', () =>
     } );
 
 
-    it( 'shows error in UI if localhost resource does not exist', async () => 
-{
+    it( 'shows error in UI if localhost resource does not exist', async () =>
+    {
         expect.assertions( 1 );
         const { client } = app;
         await delay( 2500 );
@@ -129,8 +129,8 @@ describe( 'main window', () =>
         expect( text ).toBe( 'Page Load Failed' );
     } );
 
-    it( 'can go backwards', async () => 
-{
+    it( 'can go backwards', async () =>
+    {
         const { client } = app;
         await setClientToMainBrowserWindow( app );
         await client.pause( 500 );
@@ -155,8 +155,8 @@ describe( 'main window', () =>
     } );
 
 
-    it( 'can go forwards', async () => 
-{
+    it( 'can go forwards', async () =>
+    {
         const { client } = app;
         await setClientToMainBrowserWindow( app );
         await client.pause( 500 );
@@ -187,8 +187,8 @@ describe( 'main window', () =>
     } );
 
 
-    it( 'can close a tab', async () => 
-{
+    it( 'can close a tab', async () =>
+    {
         const { client } = app;
         await delay( 4500 );
 
@@ -206,8 +206,8 @@ describe( 'main window', () =>
     } );
 
 
-    it( 'can go to and add bookmarks', async () => 
-{
+    it( 'can go to and add bookmarks', async () =>
+    {
         expect.assertions( 2 );
         const { client } = app;
         await delay( 4500 );
@@ -239,8 +239,8 @@ describe( 'main window', () =>
         expect( bookmarks ).toMatch( 'shouldappearinbookmarks' );
     } );
 
-    it( 'can check if settings menu exists', async () => 
-{
+    it( 'can check if settings menu exists', async () =>
+    {
         expect.assertions( 1 );
         const { client } = app;
         await delay( 4500 );
@@ -253,8 +253,8 @@ describe( 'main window', () =>
         expect( menuExists ).toBeTruthy();
     } );
 
-    it( 'can open settings menu', async () => 
-{
+    it( 'can open settings menu', async () =>
+    {
         expect.assertions( 1 );
         const { client } = app;
         await delay( 4500 );
@@ -268,8 +268,8 @@ describe( 'main window', () =>
         expect( settingsMenuIsShown ).toBeTruthy();
     } );
 
-    it( 'checks if settings menu is hidden after clicking elsewhere', async () => 
-{
+    it( 'checks if settings menu is hidden after clicking elsewhere', async () =>
+    {
         expect.assertions( 1 );
         const { client } = app;
         await delay( 4500 );
@@ -282,8 +282,8 @@ describe( 'main window', () =>
         expect( settingsMenuIsShown ).toBeFalsy();
     } );
 
-    it( 'can open settings menu and checks if Bookmarks,History,Toggle exist', async () => 
-{
+    it( 'can open settings menu and checks if Bookmarks,History,Toggle exist', async () =>
+    {
         expect.assertions( 4 );
         const { client } = app;
         await delay( 4500 );
@@ -303,8 +303,8 @@ describe( 'main window', () =>
         expect( toggle ).toBeTruthy();
     } );
 
-    it( 'can open settings menu and navigate to bookmarks', async () => 
-{
+    it( 'can open settings menu and navigate to bookmarks', async () =>
+    {
         expect.assertions( 1 );
         const { client } = app;
         await delay( 4500 );
@@ -318,8 +318,8 @@ describe( 'main window', () =>
         expect( header ).toBe( 'Bookmarks' );
     } );
 
-    it( 'can open settings menu and navigate to history', async () => 
-{
+    it( 'can open settings menu and navigate to history', async () =>
+    {
         expect.assertions( 1 );
         const { client } = app;
         await delay( 4500 );
@@ -333,8 +333,8 @@ describe( 'main window', () =>
         expect( header ).toBe( 'History' );
     } );
 
-    it( 'accessibility audit', async () => 
-{
+    it( 'accessibility audit', async () =>
+    {
         const audit = await app.client.auditAccessibility();
         expect( audit.failed ).toBe( false );
     } );

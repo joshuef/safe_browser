@@ -89,7 +89,7 @@ const preloadLocation = isRunningUnpacked ? '' : '../';
  * or from the main process global
  * @return {[type]} [description]
  */
-const safeNodeLibPath = () => 
+const safeNodeLibPath = () =>
 {
     // only exists in render processes
     if ( remote && remote.getGlobal && !isRunningNodeEnvTest )
@@ -105,7 +105,7 @@ const safeNodeLibPath = () =>
 };
 
 // HACK: Prevent jest dying due to no electron globals
-const safeNodeAppPath = () => 
+const safeNodeAppPath = () =>
 {
     if ( !remote || !remote.app )
     {
@@ -142,7 +142,7 @@ export const INTERNAL_PAGES = {
     BOOKMARKS : 'bookmarks'
 };
 
-const getRandomPort = async () => 
+const getRandomPort = async () =>
 {
     let port = await getPort();
     if ( forcedPort )
@@ -248,7 +248,7 @@ export const CLASSES = {
     MOCK_TAG                     : 'js-addressBar_mockTag'
 };
 
-const getDomClasses = () => 
+const getDomClasses = () =>
 {
     const domClasses = {};
 

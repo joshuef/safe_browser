@@ -5,7 +5,8 @@ import {
     CONFIG, PROTOCOLS, APP_INFO, isRunningPackaged
 } from '@Constants';
 
-const registerSafeProtocol = () => {
+const registerSafeProtocol = () => 
+{
     logger.log( `${ PROTOCOLS.SAFE } Registering` );
     // bind to partition.
     const partition = CONFIG.SAFE_PARTITION;
@@ -15,7 +16,8 @@ const registerSafeProtocol = () => {
     // Would ports automatically routing locally make things simpler?
     ses.protocol.registerHttpProtocol(
         PROTOCOLS.SAFE,
-        ( req, cb ) => {
+        ( req, cb ) => 
+{
             logger.log( `safe:// req url being parsed: ${ req.url }` );
             const parsedUrl = url.parse( req.url );
             const host = parsedUrl.host;
@@ -40,7 +42,8 @@ const registerSafeProtocol = () => {
 
             cb( { url: newUrl } );
         },
-        err => {
+        err => 
+{
             if ( err ) console.error( 'Failed to register SAFE protocol' );
         }
     );

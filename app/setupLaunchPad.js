@@ -10,13 +10,11 @@ import {
 let tray;
 let safeLaunchPadWindow;
 
-export const createTray = () =>
-{
+export const createTray = () => {
     tray = new Tray( 'resources/icon.png' );
     tray.on( 'right-click', toggleWindow );
     tray.on( 'double-click', toggleWindow );
-    tray.on( 'click', event =>
-    {
+    tray.on( 'click', event => {
         toggleWindow();
 
         // Show devtools when command clicked
@@ -32,8 +30,7 @@ export const createTray = () =>
     } );
 };
 
-const getWindowPosition = () =>
-{
+const getWindowPosition = () => {
     const safeLaunchPadWindowBounds = safeLaunchPadWindow.getBounds();
     const trayBounds = tray.getBounds();
 
@@ -50,8 +47,7 @@ const getWindowPosition = () =>
     return { x, y };
 };
 
-export const createSafeLaunchPadWindow = () =>
-{
+export const createSafeLaunchPadWindow = () => {
     safeLaunchPadWindow = new BrowserWindow( {
         width          : 300,
         height         : 450,
@@ -71,16 +67,14 @@ export const createSafeLaunchPadWindow = () =>
     safeLaunchPadWindow.loadURL( `file://${ CONFIG.APP_HTML_PATH }` );
 
     // Hide the safeLaunchPadWindow when it loses focus
-    safeLaunchPadWindow.on( 'blur', () =>
-    {
+    safeLaunchPadWindow.on( 'blur', () => {
         if ( !safeLaunchPadWindow.webContents.isDevToolsOpened() )
         {
             safeLaunchPadWindow.hide();
         }
     } );
 
-    safeLaunchPadWindow.webContents.on( 'did-finish-load', () =>
-    {
+    safeLaunchPadWindow.webContents.on( 'did-finish-load', () => {
         // safeLaunchPadWindow.webContents.executeJavaScript(
         //   "window.peruseNav('safeLaunchPadWindow')",
         //   () => {
@@ -102,8 +96,7 @@ export const createSafeLaunchPadWindow = () =>
     return safeLaunchPadWindow;
 };
 
-const toggleWindow = () =>
-{
+const toggleWindow = () => {
     if ( safeLaunchPadWindow.isVisible() )
     {
         safeLaunchPadWindow.hide();
@@ -114,15 +107,13 @@ const toggleWindow = () =>
     }
 };
 
-const showWindow = () =>
-{
+const showWindow = () => {
     const position = getWindowPosition();
     safeLaunchPadWindow.setPosition( position.x, position.y, false );
     safeLaunchPadWindow.show();
     safeLaunchPadWindow.focus();
 };
 
-ipcMain.on( 'show-safeLaunchPadWindow', () =>
-{
+ipcMain.on( 'show-safeLaunchPadWindow', () => {
     showWindow();
 } );

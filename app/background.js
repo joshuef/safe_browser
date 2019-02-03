@@ -11,12 +11,14 @@ import setupServer from './server';
 
 window.thisIsTheBackgroundProcess = true;
 
-const initSafeServer = store => {
+const initSafeServer = store => 
+{
     const server = setupServer();
     onInitBgProcess( server, store );
 };
 
-const initBgProcess = async () => {
+const initBgProcess = async () => 
+{
     // Add middleware from extensions here. TODO: this should be be unified somewhere.
     const loadMiddlewarePackages = getExtensionReduxMiddleware() || [];
     const store = configureStore( undefined, loadMiddlewarePackages, true );
@@ -25,7 +27,8 @@ const initBgProcess = async () => {
     i18n.configure( I18N_CONFIG );
     i18n.setLocale( 'en' );
 
-    store.subscribe( () => {
+    store.subscribe( () => 
+{
         manageRemoteCalls( store );
     } );
 };

@@ -10,10 +10,8 @@ import { SAFE } from '@Extensions/safe/constants';
 //     }
 // });
 
-describe( 'Network callback', () =>
-{
-    it( 'network callback dispatches action on Connected', () =>
-    {
+describe( 'Network callback', () => {
+    it( 'network callback dispatches action on Connected', () => {
         const initialState = {
             safeBrowserApp : {
                 networkStatus : null
@@ -32,8 +30,7 @@ describe( 'Network callback', () =>
         expect( dispatchArg.payload ).toBe( SAFE.NETWORK_STATE.CONNECTED );
     } );
 
-    it( 'network callback dispatches actions on Disconnected', () =>
-    {
+    it( 'network callback dispatches actions on Disconnected', () => {
         const initialState = {
             safeBrowserApp : {
                 networkStatus : null
@@ -59,8 +56,7 @@ describe( 'Network callback', () =>
         );
     } );
 
-    it( 'network callback invokes operation to begin reconnection attempts upon Disconnect event', () =>
-    {
+    it( 'network callback invokes operation to begin reconnection attempts upon Disconnect event', () => {
         const initialState = {
             safeBrowserApp : {
                 networkStatus : null

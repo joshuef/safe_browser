@@ -38,8 +38,7 @@ const createAppContainersElement = containers => (
     </div>
 );
 
-export const createAuthRequestElement = authReqData =>
-{
+export const createAuthRequestElement = authReqData => {
     let reqType = 'authReq';
     let reqTypeText = ' requests authorisation.';
     if ( authReqData.authReq && authReqData.isAuthorised )
@@ -58,8 +57,7 @@ export const createAuthRequestElement = authReqData =>
         reqTypeText = ' requests to share access to data created for you by another app.';
     }
 
-    const ifReqWithContainers = () =>
-    {
+    const ifReqWithContainers = () => {
         if (
             authReqData.isAuthorised
             && authReqData.previouslyAuthorisedContainers
@@ -99,8 +97,7 @@ export const createAuthRequestElement = authReqData =>
         return <div key="empty_containers_req" />;
     };
 
-    const ifReqShareMData = () =>
-    {
+    const ifReqShareMData = () => {
         if ( reqType === 'mDataReq' )
         {
             return (
@@ -116,8 +113,7 @@ export const createAuthRequestElement = authReqData =>
                         <p className="blockText" key="requested_mdata">
                             Requested Mutable Data:
                         </p>
-                        {authReqData[reqType].mdata.map( ( mdatum, i ) =>
-                        {
+                        {authReqData[reqType].mdata.map( ( mdatum, i ) => {
                             const metaName = authReqData.metaData[i].name;
                             const metaDesc = authReqData.metaData[i].description;
                             return (

@@ -53,23 +53,23 @@ if ( fileLogger.transports )
 }
 
 const combinedLogger = {
-    info : ( ...args ) => 
-{
+    info : ( ...args ) =>
+    {
         processLog.log( ...args );
         fileLogger.info( ...args );
     },
-    log : ( ...args ) => 
-{
+    log : ( ...args ) =>
+    {
         processLog.log( ...args );
         fileLogger.info( ...args );
     },
-    error : ( ...args ) => 
-{
+    error : ( ...args ) =>
+    {
         fileLogger.error( ...args );
         processLog.error( ...args );
     },
-    warn : ( ...args ) => 
-{
+    warn : ( ...args ) =>
+    {
         fileLogger.warn( ...args );
         processLog.warn( ...args );
     }
@@ -110,8 +110,8 @@ if ( inMainProcess )
     combinedLogger.log( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
     combinedLogger.log( '' );
 
-    process.on( 'uncaughtTypeError', err => 
-{
+    process.on( 'uncaughtTypeError', err =>
+    {
         combinedLogger.error(
             '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
         );
@@ -124,8 +124,8 @@ if ( inMainProcess )
         );
     } );
 
-    process.on( 'uncaughtException', err => 
-{
+    process.on( 'uncaughtException', err =>
+    {
         combinedLogger.error(
             '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
         );
@@ -138,8 +138,8 @@ if ( inMainProcess )
         );
     } );
 
-    process.on( 'unhandledRejection', ( reason, p ) => 
-{
+    process.on( 'unhandledRejection', ( reason, p ) =>
+    {
         combinedLogger.error(
             '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
         );

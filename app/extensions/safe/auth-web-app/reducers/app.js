@@ -25,8 +25,7 @@ const initialState = {
     fetchingAccountInfo : false,
     searchResult        : []
 };
-const app = ( state = initialState, action ) =>
-{
+const app = ( state = initialState, action ) => {
     switch ( action.type )
     {
         case `${ GET_AUTHORISED_APPS }_PENDING`: {

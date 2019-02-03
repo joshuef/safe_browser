@@ -17,7 +17,8 @@ import errConst from '../err-constants';
 // TODO unify this with calls for safeBrowserApp store...
 let theSafeBgProcessStore;
 
-export const setSafeBgProcessStore = passedStore => {
+export const setSafeBgProcessStore = passedStore => 
+{
     theSafeBgProcessStore = passedStore;
 };
 
@@ -42,7 +43,7 @@ const allAuthCallBacks = {};
  * @param {[type]} resolve [description]
  * @param {[type]} reject  [description]
  */
-export const setAuthCallbacks = ( req, resolve, reject ) => 
+export const setAuthCallbacks = ( req, resolve, reject ) =>
 {
     logger.log( 'IPC.js Setting authCallbacks' );
     allAuthCallBacks[req.id] = {
@@ -51,7 +52,7 @@ export const setAuthCallbacks = ( req, resolve, reject ) =>
     };
 };
 
-const parseResUrl = url => 
+const parseResUrl = url =>
 {
     const split = url.split( ':' );
     split[0] = split[0].toLocaleLowerCase().replace( '==', '' );
@@ -157,8 +158,8 @@ class ReqQueue
 
         authenticator
             .decodeRequest( this.req.uri )
-            .then( res => 
-{
+            .then( res =>
+            {
                 if ( !res )
                 {
                     return;
@@ -232,8 +233,8 @@ class ReqQueue
 
                 self.next();
             } )
-            .catch( err => 
-{
+            .catch( err =>
+            {
                 // FIXME: if error occurs for unregistered client process next
                 self.req.error = err.message;
 
@@ -270,12 +271,12 @@ const unregisteredReqQ = new ReqQueue(
     'onUnAuthResError'
 );
 
-const registerNetworkListener = e => 
+const registerNetworkListener = e =>
 {
     authenticator.setListener(
         CONSTANTS.LISTENER_TYPES.NW_STATE_CHANGE,
-        ( err, state ) => 
-{
+        ( err, state ) =>
+        {
             if (
                 state === CONSTANTS.NETWORK_STATUS.CONNECTED
                 || state === CONSTANTS.NETWORK_STATUS.LOGGED_IN
@@ -289,7 +290,7 @@ const registerNetworkListener = e =>
     );
 };
 
-const enqueueRequest = ( req, type ) => 
+const enqueueRequest = ( req, type ) =>
 {
     if ( !req ) throw new Error( 'The req object is missing' );
 
@@ -312,37 +313,37 @@ const enqueueRequest = ( req, type ) =>
     }
 };
 
-const onAuthReq = e => 
+const onAuthReq = e =>
 {
-    authenticator.setListener( CONSTANTS.LISTENER_TYPES.AUTH_REQ, ( err, req ) => 
-{
+    authenticator.setListener( CONSTANTS.LISTENER_TYPES.AUTH_REQ, ( err, req ) =>
+    {
         e.sender.send( 'onAuthReq', req );
     } );
 };
 
-const onContainerReq = e => 
+const onContainerReq = e =>
 {
     authenticator.setListener(
         CONSTANTS.LISTENER_TYPES.CONTAINER_REQ,
-        ( err, req ) => 
-{
+        ( err, req ) =>
+        {
             e.sender.send( 'onContainerReq', req );
         }
     );
 };
 
-const onSharedMDataReq = e => 
+const onSharedMDataReq = e =>
 {
     authenticator.setListener(
         CONSTANTS.LISTENER_TYPES.MDATA_REQ,
-        ( err, req ) => 
-{
+        ( err, req ) =>
+        {
             e.sender.send( 'onSharedMDataReq', req );
         }
     );
 };
 
-const onAuthDecision = ( authData, isAllowed ) => 
+const onAuthDecision = ( authData, isAllowed ) =>
 {
     logger.log( 'IPC.js: onAuthDecision running...', authData, isAllowed );
     if ( !authData )
@@ -363,8 +364,8 @@ const onAuthDecision = ( authData, isAllowed ) =>
 
     authenticator
         .encodeAuthResp( authData, isAllowed )
-        .then( res => 
-{
+        .then( res =>
+        {
             logger.log(
                 'IPC.js: Successfully encoded auth response. Here is the res:',
                 res
@@ -382,8 +383,8 @@ const onAuthDecision = ( authData, isAllowed ) =>
 
             reqQ.next();
         } )
-        .catch( err => 
-{
+        .catch( err =>
+        {
             reqQ.req.error = err;
             logger.error( 'Auth decision error :: ', err.message );
 
@@ -397,7 +398,7 @@ const onAuthDecision = ( authData, isAllowed ) =>
         } );
 };
 
-const onContainerDecision = ( contData, isAllowed ) => 
+const onContainerDecision = ( contData, isAllowed ) =>
 {
     if ( !contData )
     {
@@ -417,8 +418,8 @@ const onContainerDecision = ( contData, isAllowed ) =>
 
     authenticator
         .encodeContainersResp( contData, isAllowed )
-        .then( res => 
-{
+        .then( res =>
+        {
             reqQ.req.res = res;
             if ( allAuthCallBacks[reqQ.req.id] )
             {
@@ -432,8 +433,8 @@ const onContainerDecision = ( contData, isAllowed ) =>
 
             reqQ.next();
         } )
-        .catch( err => 
-{
+        .catch( err =>
+        {
             reqQ.req.error = err;
 
             if ( allAuthCallBacks[reqQ.req.id] )
@@ -452,7 +453,7 @@ export const onSharedMDataDecision = (
     isAllowed,
     queue = reqQ,
     authCallBacks = allAuthCallBacks
-) => 
+) =>
 {
     if ( !data )
     {
@@ -472,8 +473,8 @@ export const onSharedMDataDecision = (
 
     authenticator
         .encodeMDataResp( data, isAllowed )
-        .then( res => 
-{
+        .then( res =>
+        {
             queue.req.res = res;
 
             if ( authCallBacks[queue.req.id] )
@@ -488,8 +489,8 @@ export const onSharedMDataDecision = (
 
             queue.next();
         } )
-        .catch( err => 
-{
+        .catch( err =>
+        {
             console.log( err, 'this is an error log' );
             queue.req.error = err;
             logger.error( errConst.SHAREMD_DECISION_RESP.msg( err ) );
@@ -504,27 +505,27 @@ export const onSharedMDataDecision = (
         } );
 };
 
-const onReqError = e => 
+const onReqError = e =>
 {
-    authenticator.setListener( CONSTANTS.LISTENER_TYPES.REQUEST_ERR, err => 
-{
+    authenticator.setListener( CONSTANTS.LISTENER_TYPES.REQUEST_ERR, err =>
+    {
         reqQ.req.error = err;
         e.sender.send( 'onAuthResError', reqQ.req );
         reqQ.next();
     } );
 };
 
-const skipAuthReq = () => 
+const skipAuthReq = () =>
 {
     reqQ.next();
 };
 
-const setReAuthoriseState = ( state, store ) => 
+const setReAuthoriseState = ( state, store ) =>
 {
     store.dispatch( setReAuthoriseStateAction( state ) );
 };
 
-const setIsAuthorisedState = ( store, isAuthorised ) => 
+const setIsAuthorisedState = ( store, isAuthorised ) =>
 {
     store.dispatch( setIsAuthorisedStateAction( isAuthorised ) );
 };

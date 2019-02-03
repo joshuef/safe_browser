@@ -47,8 +47,7 @@ const rootReducer = createRootReducer( history );
 const configureStore = (
     initialState = initialStateFromMain,
     thisIsTheBackgroundProcess = false
-) =>
-{
+) => {
     // Redux Configuration
     const middleware = [];
     const enhancers = [];

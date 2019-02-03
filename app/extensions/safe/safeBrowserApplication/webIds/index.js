@@ -10,7 +10,8 @@ import {
  * Get WebIds for the current user
  * @return {Promise} Resolves to Array of webIds
  */
-const getWebIds = async () => {
+const getWebIds = async () => 
+{
     const currentStore = getCurrentStore();
 
     const safeBrowserApp = getSafeBrowserAppObject();

@@ -21,13 +21,11 @@ export const constructContainerPermission = contPerm => new types.ContainerPermi
     access    : constructPermissionSet( contPerm.access )
 } );
 
-export const constructContainerArray = containers =>
-{
+export const constructContainerArray = containers => {
     const ContArray = ArrayType( types.ContainerPermissions );
     const contArray = new ContArray( containers.length );
 
-    containers.forEach( ( cont, i ) =>
-    {
+    containers.forEach( ( cont, i ) => {
         contArray[i] = constructContainerPermission( cont );
     } );
     return contArray;
@@ -54,13 +52,11 @@ const constructShareMData = mdata => new types.ShareMData( {
     perms    : constructPermissionSet( mdata.perms )
 } );
 
-const constructShareMDataArray = mdatas =>
-{
+const constructShareMDataArray = mdatas => {
     const MDataArray = ArrayType( types.ShareMData );
     const mdataArray = new MDataArray( mdatas.length );
 
-    mdatas.forEach( ( mdata, i ) =>
-    {
+    mdatas.forEach( ( mdata, i ) => {
         mdataArray[i] = constructShareMData( mdata );
     } );
     return mdataArray;

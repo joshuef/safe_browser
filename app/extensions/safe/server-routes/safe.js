@@ -13,7 +13,8 @@ import { SAFE } from '../constants';
 const safeRoute = store => ( {
     method  : 'GET',
     path    : /safe:\//,
-    handler : async ( request, res ) => {
+    handler : async ( request, res ) => 
+{
         const link = request.url.substr( 1 ); // remove initial /
         const sendErrResponse = ( error, errSubHeader ) => res.send(
             ReactDOMServer.renderToStaticMarkup(
@@ -89,7 +90,8 @@ const safeRoute = store => ( {
                         === SAFE.NETWORK_STATE.CONNECTED
                     )
                     {
-                        store.getState().tabs.forEach( tab => {
+                        store.getState().tabs.forEach( tab => 
+{
                             logger.log( tab.url, link, link.includes( tab.url ) );
                             if ( link.includes( tab.url ) && !tab.isActive )
                             {

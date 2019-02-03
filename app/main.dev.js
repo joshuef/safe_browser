@@ -55,14 +55,12 @@ logger.log( 'Main process starting.' );
 global.mainProcessStore = store;
 
 // renderer error notifications
-ipcMain.on( 'errorInWindow', ( event, data ) =>
-{
+ipcMain.on( 'errorInWindow', ( event, data ) => {
     logger.error( data );
 } );
 
 // Needed for windows w/ SAFE browser app login
-ipcMain.on( 'opn', ( event, data ) =>
-{
+ipcMain.on( 'opn', ( event, data ) => {
     logger.log( 'Opening link in system via opn.' );
     shell.openExternal( data );
 } );
@@ -106,8 +104,7 @@ if (
     require( 'module' ).globalPaths.push( p );
 }
 
-const installExtensions = async () =>
-{
+const installExtensions = async () => {
     if ( isCI ) return;
 
     logger.log( 'Installing devtools extensions' );
@@ -120,8 +117,7 @@ const installExtensions = async () =>
     ).catch( console.log );
 };
 
-const shouldQuit = app.makeSingleInstance( commandLine =>
-{
+const shouldQuit = app.makeSingleInstance( commandLine => {
     // We expect the URI to be the last argument
     const uri = commandLine[commandLine.length - 1];
 
@@ -138,8 +134,7 @@ const shouldQuit = app.makeSingleInstance( commandLine =>
     }
 } );
 
-app.on( 'ready', async () =>
-{
+app.on( 'ready', async () => {
     // For electron upgrade:
     //      const gotTheLock = app.requestSingleInstanceLock()
     //
@@ -210,8 +205,7 @@ app.on( 'ready', async () =>
     bgProcessWindow = await setupBackground();
 } );
 
-app.on( 'open-url', ( e, url ) =>
-{
+app.on( 'open-url', ( e, url ) => {
     onReceiveUrl( store, url );
 
     if ( mainWindow )
@@ -224,8 +218,7 @@ app.on( 'open-url', ( e, url ) =>
  * Add event listeners...
  */
 
-app.on( 'window-all-closed', () =>
-{
+app.on( 'window-all-closed', () => {
     logger.log( 'All Windows Closed!' );
     app.dock.hide(); // hide the icon
 

@@ -38,7 +38,7 @@ let tempSafeBrowserObjectUntilAuthed;
  * Setup actions to be triggered in response to store state changes.
  * @param  { ReduxStore } store [description]
  */
-export const handleSafeBrowserStoreChanges = store => 
+export const handleSafeBrowserStoreChanges = store =>
 {
     // TODO check why we need this vs passing it around
     setCurrentStore( store );
@@ -53,7 +53,7 @@ export const handleSafeBrowserStoreChanges = store =>
  * Everything we need to do to start the SafeBrowser App for fetching at least.
  * @param  {object} passedStore redux store
  */
-export const initSafeBrowserApp = async ( passedStore, authorise = false ) => 
+export const initSafeBrowserApp = async ( passedStore, authorise = false ) =>
 {
     const defaultOptions = {
         enableExperimentalApis : false,
@@ -100,7 +100,7 @@ export const initSafeBrowserApp = async ( passedStore, authorise = false ) =>
 
 const urisUnderAuth = [];
 
-const authFromStoreResponse = async ( res, store ) => 
+const authFromStoreResponse = async ( res, store ) =>
 {
     logger.log( 'Authing from a store-passed response.', Date.now(), res );
 
@@ -194,7 +194,7 @@ let prevSafeBrowserAppExperimentalState;
  * based upon the application auth state
  * @param  {Object} state Application state (from redux)
  */
-const manageAuthorisationActions = async store => 
+const manageAuthorisationActions = async store =>
 {
     // TODO: Do this via aliased action.
 
@@ -202,8 +202,8 @@ const manageAuthorisationActions = async store =>
     const safeBrowserState = store.getState().safeBrowserApp;
 
     debouncedPassAuthUriToStore = debouncedPassAuthUriToStore
-        || _.debounce( responseUri => 
-{
+        || _.debounce( responseUri =>
+        {
             store.dispatch( receivedAuthResponse( '' ) );
             authFromStoreResponse( responseUri, store );
             setIsAuthing( false );

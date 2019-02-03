@@ -12,12 +12,14 @@ jest.mock( 'extensions', () => (
     }
 ) );
 
-describe( 'History Component', () => {
+describe( 'History Component', () => 
+{
     let wrapper;
     let instance;
     let props;
 
-    beforeEach( () => {
+    beforeEach( () => 
+{
         props = {
             tabs   : [],
             addTab : jest.fn()
@@ -27,14 +29,18 @@ describe( 'History Component', () => {
         instance = wrapper.instance();
     } );
 
-    describe( 'constructor( props )', () => {
-        it( 'should have name History', () => {
+    describe( 'constructor( props )', () => 
+{
+        it( 'should have name History', () => 
+{
             expect( instance.constructor.name ).toBe( 'History' );
         } );
     } );
 
-    describe( 'render() with one tab', () => {
-        beforeEach( () => {
+    describe( 'render() with one tab', () => 
+{
+        beforeEach( () => 
+{
             props = {
                 ...props,
                 history : [{
@@ -44,23 +50,28 @@ describe( 'History Component', () => {
             wrapper = shallow( <History { ...props } /> );
         } );
 
-        it( 'should have a safeBrowser__page class', () => {
+        it( 'should have a safeBrowser__page class', () => 
+{
             expect( wrapper.find( `.${ CLASSES.SAFE_BROWSER_PAGE }` ).length ).toBe( 1 );
         } );
 
-        it( 'should have one url list', () => {
+        it( 'should have one url list', () => 
+{
             expect( wrapper.find( UrlList ).length ).toBe( 1 );
         } );
 
-        it( 'should have one link', () => {
+        it( 'should have one link', () => 
+{
             wrapper = mount( <History { ...props } /> );
             expect( wrapper.find( 'a' ).length ).toBe( 1 );
         } );
     } );
 
 
-    describe( 'History should filter excluded protocols', () => {
-        beforeEach( () => {
+    describe( 'History should filter excluded protocols', () => 
+{
+        beforeEach( () => 
+{
             props = {
                 ...props,
                 history :
@@ -82,25 +93,31 @@ describe( 'History Component', () => {
             wrapper = shallow( <History { ...props } /> );
         } );
 
-        it( 'should have one url list', () => {
+        it( 'should have one url list', () => 
+{
             expect( wrapper.find( UrlList ).length ).toBe( 1 );
         } );
 
-        it( 'should have one link', () => {
+        it( 'should have one link', () => 
+{
             wrapper = mount( <History { ...props } /> );
             expect( wrapper.find( 'a' ).length ).toBe( 1 );
         } );
 
-        it( 'should have one link with text', () => {
+        it( 'should have one link with text', () => 
+{
             wrapper = mount( <History { ...props } /> );
             expect( wrapper.find( 'a' ).text() ).toBe( 'safe://somethingreal' );
         } );
     } );
 
 
-    describe( 'props', () => {
-        describe( 'tabs', () => {
-            it( 'tabs length should be "0" by default', () => {
+    describe( 'props', () => 
+{
+        describe( 'tabs', () => 
+{
+            it( 'tabs length should be "0" by default', () => 
+{
                 expect( instance.props.tabs.length ).toBe( 0 );
             } );
         } );

@@ -2,8 +2,7 @@ import ref from 'ref';
 import ArrayType from 'ref-array';
 import * as types from './types';
 
-export const parseArray = ( type, arrayBuf, len ) =>
-{
+export const parseArray = ( type, arrayBuf, len ) => {
     if ( len === 0 )
     {
         return [];
@@ -36,8 +35,7 @@ export const parseContainerPermissions = containerPermissions => ( {
 export const parseContainerPermissionsArray = (
     containerPermissionsArray,
     len
-) =>
-{
+) => {
     const res = [];
     let i = 0;
     const contArr = parseArray(
@@ -62,8 +60,7 @@ export const parseRegisteredApp = registeredApp => ( {
     containers_cap : registeredApp.containers_cap
 } );
 
-export const parseRegisteredAppArray = ( registeredAppArray, len ) =>
-{
+export const parseRegisteredAppArray = ( registeredAppArray, len ) => {
     const res = [];
     let i = 0;
     const registeredApps = parseArray(
@@ -99,8 +96,7 @@ export const parseContainerReq = containersReq => ( {
     containers_cap : containersReq.containers_cap
 } );
 
-const parseXorName = str =>
-{
+const parseXorName = str => {
     const b = new Buffer( str );
     if ( b.length !== 32 ) throw Error( 'XOR Names _must be_ 32 bytes long.' );
     const name = types.XorName( b );
@@ -113,8 +109,7 @@ const parseShareMData = shareMData => ( {
     perms    : parsePermissionSet( shareMData.perms )
 } );
 
-const parseSharedMDataArray = ( shareMData, len ) =>
-{
+const parseSharedMDataArray = ( shareMData, len ) => {
     const res = [];
     let i = 0;
     const mdatas = parseArray( types.ShareMData, shareMData, len );
@@ -136,8 +131,7 @@ const parseUserMetaData = meta => ( {
     description : meta.description
 } );
 
-export const parseUserMetaDataArray = ( metaArr, len ) =>
-{
+export const parseUserMetaDataArray = ( metaArr, len ) => {
     const res = [];
     let i = 0;
     const metaData = parseArray( types.UserMetadata, metaArr, len );
@@ -148,8 +142,7 @@ export const parseUserMetaDataArray = ( metaArr, len ) =>
     return res;
 };
 
-const parseAppAccessInfo = appAccess =>
-{
+const parseAppAccessInfo = appAccess => {
     let signKey = types.U8Array( new Buffer( appAccess.sign_key ) );
     signKey = new Buffer( signKey ).toString( 'hex' );
     return {
@@ -161,8 +154,7 @@ const parseAppAccessInfo = appAccess =>
     };
 };
 
-export const parseAppAccess = ( appAccess, len ) =>
-{
+export const parseAppAccess = ( appAccess, len ) => {
     const res = [];
     let i = 0;
     const info = parseArray( types.AppAccess, appAccess, len );

@@ -13,7 +13,7 @@ import logger from 'logger';
 
 let theStore;
 
-export const handleRemoteCalls = ( store, allAPICalls, theCall ) => 
+export const handleRemoteCalls = ( store, allAPICalls, theCall ) =>
 {
     theStore = store;
 
@@ -21,8 +21,8 @@ export const handleRemoteCalls = ( store, allAPICalls, theCall ) =>
     if ( theCall && theCall.isListener )
     {
         // register listener with auth
-        allAPICalls[theCall.name]( ( error, args ) => 
-{
+        allAPICalls[theCall.name]( ( error, args ) =>
+        {
             if ( theCall.name === 'setNetworkListener' )
             {
                 store.dispatch( authActions.setAuthNetworkStatus( args ) );
@@ -44,8 +44,8 @@ export const handleRemoteCalls = ( store, allAPICalls, theCall ) =>
 
 export const remoteCallApis = {
     ...theAuthApi,
-    createAccount : async ( secret, password, invitation ) => 
-{
+    createAccount : async ( secret, password, invitation ) =>
+    {
         logger.log( 'Handling create account call from webview.' );
         await theAuthApi.createAccount( secret, password, invitation );
         theStore.dispatch(
@@ -55,8 +55,8 @@ export const remoteCallApis = {
             safeBrowserAppActions.setAppStatus( SAFE.APP_STATUS.TO_AUTH )
         );
     },
-    login : async ( secret, password ) => 
-{
+    login : async ( secret, password ) =>
+    {
         logger.log( 'Handling login call from webview.' );
         await theAuthApi.login( secret, password );
         theStore.dispatch(
@@ -66,8 +66,8 @@ export const remoteCallApis = {
             safeBrowserAppActions.setAppStatus( SAFE.APP_STATUS.TO_AUTH )
         );
     },
-    logout : async ( secret, password ) => 
-{
+    logout : async ( secret, password ) =>
+    {
         logger.log( 'Handling logout call from webview.' );
 
         try
@@ -92,12 +92,12 @@ export const remoteCallApis = {
      * with auth respnose.
      * @type {[type]}
      */
-    authenticateFromUriObject : async authUriObject => 
-{
+    authenticateFromUriObject : async authUriObject =>
+    {
         logger.log( 'Authenticating a webapp via remote call.' );
 
-        return new Promise( ( resolve, reject ) => 
-{
+        return new Promise( ( resolve, reject ) =>
+        {
             setAuthCallbacks( authUriObject, resolve, reject );
             callIPC.enqueueRequest( authUriObject, CONSTANTS.CLIENT_TYPES.WEB );
         } );

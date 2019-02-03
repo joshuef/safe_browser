@@ -3,13 +3,17 @@ import notifications from 'reducers/notifications';
 import { TYPES } from 'actions/notification_actions';
 import initialState from 'reducers/initialAppState';
 
-describe( 'notification reducer', () => {
-    it( 'should return the initial state', () => {
+describe( 'notification reducer', () => 
+{
+    it( 'should return the initial state', () => 
+{
         expect( notifications( undefined, {} ) ).toEqual( initialState.notifications );
     } );
 
-    describe( 'ADD_NOTIFICATION', () => {
-        it( 'should handle adding a notification ', () => {
+    describe( 'ADD_NOTIFICATION', () => 
+{
+        it( 'should handle adding a notification ', () => 
+{
             expect(
                 notifications( [], {
                     type    : TYPES.ADD_NOTIFICATION,
@@ -18,7 +22,8 @@ describe( 'notification reducer', () => {
             ).toEqual( 'hellohello' );
         } );
 
-        it( 'should add an ID if not set', () => {
+        it( 'should add an ID if not set', () => 
+{
             expect(
                 notifications( [], {
                     type    : TYPES.ADD_NOTIFICATION,
@@ -27,7 +32,8 @@ describe( 'notification reducer', () => {
             ).toHaveProperty( 'id' );
         } );
 
-        it( 'should use passed ID', () => {
+        it( 'should use passed ID', () => 
+{
             expect(
                 notifications( [], {
                     type    : TYPES.ADD_NOTIFICATION,
@@ -38,8 +44,10 @@ describe( 'notification reducer', () => {
     } );
 
 
-    describe( 'UPDATE_NOTIFICATION', () => {
-        it( 'should handle updating the notification', () => {
+    describe( 'UPDATE_NOTIFICATION', () => 
+{
+        it( 'should handle updating the notification', () => 
+{
             const note = { id: '1', text: 'hiwhat' };
             expect(
                 notifications( [note], {
@@ -49,7 +57,8 @@ describe( 'notification reducer', () => {
             ).toBe( 'new!' );
         } );
 
-        it( 'should throw if no ID passed', () => {
+        it( 'should throw if no ID passed', () => 
+{
             const note = { id: '1', text: 'hiwhat' };
             expect( () => notifications( [note], {
                 type    : TYPES.UPDATE_NOTIFICATION,
@@ -58,8 +67,10 @@ describe( 'notification reducer', () => {
         } );
     } );
 
-    describe( 'CLEAR_NOTIFICATION', () => {
-        it( 'should handle clearing the first notification', () => {
+    describe( 'CLEAR_NOTIFICATION', () => 
+{
+        it( 'should handle clearing the first notification', () => 
+{
             expect(
                 notifications( [{ text: 'i should not  exist', id: 'ciao' }], {
                     type : TYPES.CLEAR_NOTIFICATION,

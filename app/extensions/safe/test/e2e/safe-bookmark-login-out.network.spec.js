@@ -31,8 +31,7 @@ const NOTIFICATION_WAIT = WAIT_FOR_EXIST_TIMEOUT + 20000;
 console.warn(
     'This test runs against a packaged version of the DEV browser. If not built, this will FAIL'
 );
-describe( 'SAFE network log in and out', async () =>
-{
+describe( 'SAFE network log in and out', async () => {
     /* const appInfo = {
         id     : 'net.peruse.test',
         name   : 'SAFE App Test',
@@ -41,20 +40,17 @@ describe( 'SAFE network log in and out', async () =>
 
     let app;
 
-    beforeEach( async () =>
-    {
+    beforeEach( async () => {
         app = setupSpectronApp( ['--mock'] );
 
         await beforeAllTests( app );
     } );
 
-    afterEach( async () =>
-    {
+    afterEach( async () => {
         await afterAllTests( app );
     } );
 
-    test( 'window loaded', async () =>
-    {
+    test( 'window loaded', async () => {
         expect( await windowLoaded( app ) ).toBeTruthy();
     } );
 
@@ -64,12 +60,10 @@ describe( 'SAFE network log in and out', async () =>
         return;
     }
 
-    describe( 'account data access', async () =>
-    {
+    describe( 'account data access', async () => {
         const { secret, password } = createAccountDetails();
         console.log( 'Creating authed app with deets: ', secret, password );
-        it( 'can save and reaccess browser bookmark data.', async () =>
-        {
+        it( 'can save and reaccess browser bookmark data.', async () => {
             const { client } = app;
 
             expect.assertions( 2 );
@@ -145,8 +139,7 @@ describe( 'SAFE network log in and out', async () =>
             await delay( 1500 );
         } );
 
-        it( 'should log in with a new account and NOT fetch anything', async () =>
-        {
+        it( 'should log in with a new account and NOT fetch anything', async () => {
             const { client } = app;
 
             await delay( 3500 );
@@ -181,8 +174,7 @@ describe( 'SAFE network log in and out', async () =>
             expect( bookmarksFinalCheck ).not.toMatch( 'shouldsavetobookmarks' );
         } );
 
-        it( 'login with a new account cannot after logout of old, cannot access prev account data.', async () =>
-        {
+        it( 'login with a new account cannot after logout of old, cannot access prev account data.', async () => {
             const { client } = app;
             expect.assertions( 2 );
 

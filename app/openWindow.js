@@ -39,8 +39,7 @@ function getNewWindowPosition( mainWindowState )
     return newWindowPosition;
 }
 
-const openWindow = store =>
-{
+const openWindow = store => {
     const mainWindowState = windowStateKeeper( {
         defaultWidth  : 2048,
         defaultHeight : 1024
@@ -79,8 +78,7 @@ const openWindow = store =>
     // @TODO: Use 'ready-to-show' event
     //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
 
-    mainWindow.webContents.on( 'did-finish-load', () =>
-    {
+    mainWindow.webContents.on( 'did-finish-load', () => {
         if ( !mainWindow )
         {
             throw new Error( '"mainWindow" is not defined' );
@@ -102,8 +100,7 @@ const openWindow = store =>
         {
             const allTabs = store.getState().tabs;
             const orphanedTabs = allTabs.filter( tab => !tab.windowId );
-            orphanedTabs.forEach( orphan =>
-            {
+            orphanedTabs.forEach( orphan => {
                 store.dispatch(
                     updateTab( { index: orphan.index, windowId: webContentsId } )
                 );
@@ -122,8 +119,7 @@ const openWindow = store =>
         }
     } );
 
-    mainWindow.on( 'closed', () =>
-    {
+    mainWindow.on( 'closed', () => {
         const index = browserWindowArray.indexOf( mainWindow );
         mainWindow = null;
         if ( index > -1 )
@@ -146,8 +142,7 @@ const openWindow = store =>
 
 export default openWindow;
 
-ipcMain.on( 'command:close-window', () =>
-{
+ipcMain.on( 'command:close-window', () => {
     const win = BrowserWindow.getFocusedWindow();
 
     if ( win )

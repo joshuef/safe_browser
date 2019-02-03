@@ -24,7 +24,7 @@ module.exports = {
         'template-curly-spacing': ['error', 'always'],
         'max-len': 'off',
         'no-plusplus': 'off',
-        'brace-style': ['error', 'allman'],
+        'brace-style': ['error', 'allman', { "allowSingleLine": true } ],
         'no-param-reassign': ['error', { props: false }],
         'compat/compat': 'error',
         'consistent-return': 'warn',

@@ -11,8 +11,7 @@ jest.mock( 'ffi', () => jest.fn() );
 
 jest.mock( '@maidsafe/safe-node-app', () => jest.fn() );
 
-jest.mock( 'i18n', () =>
-{
+jest.mock( 'i18n', () => {
     const fakei18nMessage = 'hello Fake message';
     return {
         __ : () => fakei18nMessage
@@ -20,8 +19,7 @@ jest.mock( 'i18n', () =>
 } );
 
 jest.mock( 'extensions/safe/ffi/authenticator', () => ( {
-    encodeMDataResp : jest.fn( ( data, isallowed ) =>
-    {
+    encodeMDataResp : jest.fn( ( data, isallowed ) => {
         if ( isallowed )
         {
             return Promise.resolve( 'Resolving encodeMDataResp' );
@@ -33,16 +31,13 @@ jest.mock( 'extensions/safe/ffi/authenticator', () => ( {
     } )
 } ) );
 
-describe( 'shared MD auth decision', () =>
-{
-    test( 'exists', () =>
-    {
+describe( 'shared MD auth decision', () => {
+    test( 'exists', () => {
         expect.assertions( 1 );
         expect( onSharedMDataDecision ).not.toBeUndefined();
     } );
 
-    test( 'throws error on no data', async () =>
-    {
+    test( 'throws error on no data', async () => {
         expect.assertions( 2 );
         try
         {
@@ -54,8 +49,7 @@ describe( 'shared MD auth decision', () =>
             expect( error.message ).not.toBeUndefined();
         }
     } );
-    test( 'on success calls queue.next()', async () =>
-    {
+    test( 'on success calls queue.next()', async () => {
         expect.assertions( 2 );
         const authCallBack = {};
         const queue = {
@@ -68,8 +62,7 @@ describe( 'shared MD auth decision', () =>
         expect( await queue.next ).toHaveBeenCalled();
     } );
 
-    test( 'if callback exists on success calls and cleans up the callback', async () =>
-    {
+    test( 'if callback exists on success calls and cleans up the callback', async () => {
         expect.assertions( 5 );
         const request = {
             id : 'sample ID'
@@ -96,8 +89,7 @@ describe( 'shared MD auth decision', () =>
         expect( queue.next ).toHaveBeenCalled();
     } );
 
-    test( 'on success calls opens external URI', async () =>
-    {
+    test( 'on success calls opens external URI', async () => {
         expect.assertions( 3 );
 
         const queue = {
@@ -113,8 +105,7 @@ describe( 'shared MD auth decision', () =>
         expect( queue.next ).toHaveBeenCalled();
     } );
 
-    test( 'on Failure check if queue.next is called', async () =>
-    {
+    test( 'on Failure check if queue.next is called', async () => {
         expect.assertions( 3 );
         const authCallBack = {};
         const queue = {
@@ -128,8 +119,7 @@ describe( 'shared MD auth decision', () =>
         expect( queue.req.error ).toMatch( 'Rejecting encodeMDataResp' );
     } );
 
-    test( 'if callback exists on failure calls and cleans up the callback', async () =>
-    {
+    test( 'if callback exists on failure calls and cleans up the callback', async () => {
         expect.assertions( 4 );
         const request = {
             id : 'sampleRequest'

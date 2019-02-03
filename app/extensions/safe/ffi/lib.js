@@ -42,8 +42,7 @@ class LibLoader
         let fnDefinition;
 
         // Load all modules
-        this[_mods].forEach( mod =>
-        {
+        this[_mods].forEach( mod => {
             if ( !( mod instanceof SafeLib ) )
             {
                 return;
@@ -56,8 +55,7 @@ class LibLoader
             ffiFunctions = Object.assign( {}, ffiFunctions, fnsToRegister );
         } );
 
-        return new Promise( ( resolve, reject ) =>
-        {
+        return new Promise( ( resolve, reject ) => {
             try
             {
                 const lib = ffi.DynamicLibrary(
@@ -65,8 +63,7 @@ class LibLoader
                     mode
                 );
 
-                Object.keys( ffiFunctions ).forEach( fnName =>
-                {
+                Object.keys( ffiFunctions ).forEach( fnName => {
                     fnDefinition = ffiFunctions[fnName];
                     safeLib[fnName] = ffi.ForeignFunction(
                         lib.get( fnName ),
@@ -74,8 +71,7 @@ class LibLoader
                         fnDefinition[1]
                     );
                 } );
-                this[_mods].forEach( mod =>
-                {
+                this[_mods].forEach( mod => {
                     if ( !( mod instanceof SafeLib ) )
                     {
                         return;
@@ -84,8 +80,7 @@ class LibLoader
                     mod.safeLib = safeLib;
                 } );
 
-                const setConfigSearchPath = () =>
-                {
+                const setConfigSearchPath = () => {
                     if (
                         process.env.SAFE_CONFIG_PATH
                         && process.env.SAFE_CONFIG_PATH.length > 0
@@ -101,8 +96,7 @@ class LibLoader
                             ffi.Callback(
                                 types.Void,
                                 [types.voidPointer, types.FfiResultPointer],
-                                ( userData, resultPtr ) =>
-                                {
+                                ( userData, resultPtr ) => {
                                     const result = resultPtr.deref();
                                     if ( result.error_code !== 0 )
                                     {
@@ -126,8 +120,7 @@ class LibLoader
                     ffi.Callback(
                         types.Void,
                         [types.voidPointer, types.FfiResultPointer],
-                        ( userData, resultPtr ) =>
-                        {
+                        ( userData, resultPtr ) => {
                             const result = resultPtr.deref();
                             if ( result.error_code !== 0 )
                             {
@@ -141,8 +134,7 @@ class LibLoader
             }
             catch ( err )
             {
-                this[_mods].forEach( mod =>
-                {
+                this[_mods].forEach( mod => {
                     if ( !( mod instanceof SafeLib ) )
                     {
                         return;

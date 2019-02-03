@@ -9,8 +9,7 @@ import logger from 'logger';
 const safeSave = store => ( {
     label       : 'Save Browser State to SAFE',
     accelerator : 'CommandOrControl+Shift+E',
-    click       : ( item, win ) =>
-    {
+    click       : ( item, win ) => {
         if ( win )
         {
             store.dispatch( setSaveConfigStatus( SAFE.SAVE_STATUS.TO_SAVE ) );
@@ -21,8 +20,7 @@ const safeSave = store => ( {
 const safeRead = store => ( {
     label       : 'Read Browser State from SAFE',
     accelerator : 'CommandOrControl+Alt+F',
-    click       : ( item, win ) =>
-    {
+    click       : ( item, win ) => {
         if ( win )
         {
             store.dispatch( setReadConfigStatus( SAFE.READ_STATUS.TO_READ ) );
@@ -30,8 +28,7 @@ const safeRead = store => ( {
     }
 } );
 
-export const addFileMenus = ( store, menu ) =>
-{
+export const addFileMenus = ( store, menu ) => {
     if ( !store || typeof store !== 'object' )
     {
         throw new Error(

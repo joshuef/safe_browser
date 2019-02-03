@@ -38,7 +38,8 @@ import * as ffiLoader from './auth-api/ffiLoader';
 
 const onWebviewPreload = store => webviewPreload( store );
 
-const preAppLoad = () => {
+const preAppLoad = () => 
+{
     if ( isRunningUnpacked && process.platform === 'win32' ) return;
     app.setAsDefaultProtocolClient( 'safe-auth' );
     app.setAsDefaultProtocolClient( 'safe' );
@@ -53,12 +54,14 @@ const preAppLoad = () => {
  * @param  {Object} store redux store
  * @param {Array} menusArray Array of menu objects to be parsed by electron.
  */
-const addExtensionMenuItems = ( store, menusArray ) => {
+const addExtensionMenuItems = ( store, menusArray ) => 
+{
     logger.log( 'Adding SAFE menus to browser' );
 
     const newMenuArray = [];
 
-    menusArray.forEach( menu => {
+    menusArray.forEach( menu => 
+{
         const label = menu.label;
         let newMenu = menu;
 
@@ -109,7 +112,8 @@ const actionsForBrowser = {
 //     return theSafeBgProcessStore;
 // };
 
-const onInitBgProcess = async store => {
+const onInitBgProcess = async store => 
+{
     logger.log( 'Registering SAFE Network Protocols' );
     try
     {
@@ -130,7 +134,8 @@ const onInitBgProcess = async store => {
 
     let prevAuthLibStatus;
 
-    store.subscribe( () => {
+    store.subscribe( () => 
+{
         const authLibStatus = getLibStatus();
 
         if ( authLibStatus && authLibStatus !== prevAuthLibStatus )
@@ -163,7 +168,8 @@ const onInitBgProcess = async store => {
  * on open of peruse application
  * @param  {Object} store redux store
  */
-const onOpen = store => {
+const onOpen = store => 
+{
     logger.log( 'OnOpen: Setting mock in store. ', startedRunningMock );
     store.dispatch( setIsMock( startedRunningMock ) );
 };
@@ -172,7 +178,8 @@ const onOpen = store => {
  * on open of peruse application
  * @param  {Object} store redux store
  */
-const onAppReady = store => {
+const onAppReady = store => 
+{
     logger.log( 'OnAppReady: Setting mock in store. ', startedRunningMock );
     store.dispatch( setIsMock( startedRunningMock ) );
 };
@@ -181,7 +188,8 @@ const onAppReady = store => {
  * Add middleware to Peruse redux store
  * @param  {Object} store redux store
  */
-const middleware = store => next => action => {
+const middleware = store => next => action => 
+{
     if ( isRunningSpectronTestProcess )
     {
         logger.log( 'ACTION:', action );
@@ -196,9 +204,11 @@ const parseSafeUri = function ( uri )
     return uri.replace( '//', '' ).replace( '==/', '==' );
 };
 
-const waitForBasicConnection = ( theStore, timeout = 15000 ) => new Promise( resolve => {
+const waitForBasicConnection = ( theStore, timeout = 15000 ) => new Promise( resolve => 
+{
     let timeLeft = timeout;
-    const check = () => {
+    const check = () => 
+{
         timeLeft -= 500;
         const netState = theStore.getState().safeBrowserApp.networkStatus;
         logger.log( 'Waiting for basic connection...', netState );
@@ -227,7 +237,8 @@ const waitForBasicConnection = ( theStore, timeout = 15000 ) => new Promise( res
  * @param  {Object} store redux store
  * @param  {String} url   url param
  */
-const onReceiveUrl = async ( store, url ) => {
+const onReceiveUrl = async ( store, url ) => 
+{
     const preParseUrl = parseSafeUri( url );
     const parsedUrl = parseURL( preParseUrl );
 

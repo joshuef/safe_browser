@@ -27,8 +27,7 @@ const encodedContUri = 'safe-auth:bAAAAAAHQQQ2XQAIAAAABWAAAAAAAAAAANZSXILTNMFUWI
 
 const decodedReqForRandomClient = uri => helper.createRandomAccount().then( () => client.decodeRequest( uri ) );
 
-const init = async () =>
-{
+const init = async () => {
     i18n.configure( {
         locales        : ['en'],
         directory      : path.resolve( __dirname, '../', 'locales' ),
@@ -40,15 +39,12 @@ const init = async () =>
     await ffiLoader.load().catch( console.error );
 };
 
-describe( 'Authenticator functions', () =>
-{
-    beforeAll( async () =>
-    {
+describe( 'Authenticator functions', () => {
+    beforeAll( async () => {
         init();
     } );
 
-    describe( 'Unregistered client', () =>
-    {
+    describe( 'Unregistered client', () => {
         /* xit( 'gets back encoded response', () => (
             new Promise( resolve =>
             {
@@ -63,15 +59,12 @@ describe( 'Authenticator functions', () =>
         ) ); */
     } );
 
-    it( 'should return the initial state', () =>
-    {
+    it( 'should return the initial state', () => {
         expect( 1 ).toEqual( 1 );
     } );
 
-    describe( 'create Account', () =>
-    {
-        it( 'should throw an error when account locator is empty', async () =>
-        {
+    describe( 'create Account', () => {
+        it( 'should throw an error when account locator is empty', async () => {
             expect.assertions( 3 );
 
             try
@@ -88,8 +81,7 @@ describe( 'Authenticator functions', () =>
             }
         } );
 
-        it( 'should throw an error when account secret is empty', async () =>
-        {
+        it( 'should throw an error when account secret is empty', async () => {
             expect.assertions( 3 );
 
             try
@@ -108,8 +100,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'should throw an error when account locator is not a string', async () =>
-        {
+        it( 'should throw an error when account locator is not a string', async () => {
             expect.assertions( 3 );
 
             try
@@ -127,8 +118,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'should throw an error when account secret is not a string', async () =>
-        {
+        it( 'should throw an error when account secret is not a string', async () => {
             expect.assertions( 3 );
 
             try
@@ -147,8 +137,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'should throw an error when account locator is an empty string', async () =>
-        {
+        it( 'should throw an error when account locator is an empty string', async () => {
             expect.assertions( 3 );
 
             try
@@ -167,8 +156,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'should throw an error when account secret is an empty string', async () =>
-        {
+        it( 'should throw an error when account secret is an empty string', async () => {
             expect.assertions( 3 );
 
             try
@@ -187,8 +175,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'sets authenticator handle when account creation is successful', async () =>
-        {
+        it( 'sets authenticator handle when account creation is successful', async () => {
             expect.assertions( 5 );
 
             randomCredentials = helper.getRandomCredentials();
@@ -209,13 +196,11 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'emits network state as connected when account creation is successful', () => new Promise( resolve =>
-        {
+        it( 'emits network state as connected when account creation is successful', () => new Promise( resolve => {
             expect.assertions( 3 );
             const nwListener = client.setListener(
                 CONST.LISTENER_TYPES.NW_STATE_CHANGE,
-                async ( err, state ) =>
-                {
+                async ( err, state ) => {
                     expect( err ).toBeNull();
                     expect( state ).not.toBeUndefined();
                     expect( state ).toEqual( CONST.NETWORK_STATUS.CONNECTED );
@@ -234,15 +219,12 @@ describe( 'Authenticator functions', () =>
     } );
 
     // Login
-    describe( 'Login', () =>
-    {
-        beforeAll( () => helper.createRandomAccount().then( credential =>
-        {
+    describe( 'Login', () => {
+        beforeAll( () => helper.createRandomAccount().then( credential => {
             randomCredentials = credential;
         } ) );
 
-        it( 'should throw an error when account locator is empty', async () =>
-        {
+        it( 'should throw an error when account locator is empty', async () => {
             expect.assertions( 3 );
 
             try
@@ -261,8 +243,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'should throw an error when account secret is empty', async () =>
-        {
+        it( 'should throw an error when account secret is empty', async () => {
             expect.assertions( 3 );
 
             try
@@ -281,8 +262,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'should throw an error when account locator is not a string', async () =>
-        {
+        it( 'should throw an error when account locator is not a string', async () => {
             expect.assertions( 3 );
 
             try
@@ -301,8 +281,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'should throw an error when account secret is not a string', async () =>
-        {
+        it( 'should throw an error when account secret is not a string', async () => {
             expect.assertions( 3 );
 
             try
@@ -321,8 +300,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'should throw an error when account locator is an empty string', async () =>
-        {
+        it( 'should throw an error when account locator is an empty string', async () => {
             expect.assertions( 3 );
 
             try
@@ -341,8 +319,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'should throw an error when account secret is an empty string', async () =>
-        {
+        it( 'should throw an error when account secret is an empty string', async () => {
             expect.assertions( 3 );
 
             try
@@ -361,8 +338,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'should set authenticator handle when account login is successful', async () =>
-        {
+        it( 'should set authenticator handle when account login is successful', async () => {
             expect.assertions( 5 );
 
             await expect(
@@ -379,13 +355,11 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'emits network state as connected when account login is successful', () => new Promise( resolve =>
-        {
+        it( 'emits network state as connected when account login is successful', () => new Promise( resolve => {
             expect.assertions( 3 );
             const nwListener = client.setListener(
                 CONST.LISTENER_TYPES.NW_STATE_CHANGE,
-                async ( err, state ) =>
-                {
+                async ( err, state ) => {
                     expect( err ).toBeNull();
                     expect( state ).not.toBeUndefined();
                     expect( state ).toEqual( CONST.NETWORK_STATUS.CONNECTED );
@@ -404,18 +378,15 @@ describe( 'Authenticator functions', () =>
     } );
 
     // DECRYPT
-    describe( 'Decrypt request', () =>
-    {
-        it( 'throws an error when encoded URI is empty', async () =>
-        {
+    describe( 'Decrypt request', () => {
+        it( 'throws an error when encoded URI is empty', async () => {
             await helper.createRandomAccount().catch( console.log );
 
             await expect( client.decodeRequest() ).rejects.toBeInstanceOf( Error );
             await helper.clearAccount();
         } );
 
-        it( 'throws an error for container request of unknown app', async () =>
-        {
+        it( 'throws an error for container request of unknown app', async () => {
             await helper.createRandomAccount().catch( console.log );
 
             try
@@ -433,8 +404,7 @@ describe( 'Authenticator functions', () =>
             }
         } );
 
-        it( 'throws an error for invalid URI', async () =>
-        {
+        it( 'throws an error for invalid URI', async () => {
             await helper.createRandomAccount().catch( console.log );
 
             try
@@ -450,8 +420,7 @@ describe( 'Authenticator functions', () =>
             }
         } );
 
-        it( 'returns a decoded request for encoded Auth request', async () =>
-        {
+        it( 'returns a decoded request for encoded Auth request', async () => {
             expect.assertions( 23 );
 
             await helper.createRandomAccount().catch( console.log );
@@ -494,8 +463,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'returns a decoded request for encoded Auth request, with app Object', async () =>
-        {
+        it( 'returns a decoded request for encoded Auth request, with app Object', async () => {
             expect.assertions( 16 );
             await helper.createRandomAccount().catch( console.log );
             const response = await client.decodeRequest( encodedAuthUri );
@@ -526,8 +494,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'returns a decoded request for encoded Auth request without safe-auth: scheme', async () =>
-        {
+        it( 'returns a decoded request for encoded Auth request without safe-auth: scheme', async () => {
             await helper.createRandomAccount().catch( console.log );
 
             const response = await client.decodeRequest(
@@ -542,8 +509,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'returns a decoded request for encoded Container request', async () =>
-        {
+        it( 'returns a decoded request for encoded Container request', async () => {
             expect.assertions( 33 );
             await helper.createRandomAccount().catch( console.log );
             const response = await client.decodeRequest( encodedAuthUri );
@@ -604,8 +570,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'returns a decoded request for encoded Container request without safe-auth: scheme', async () =>
-        {
+        it( 'returns a decoded request for encoded Container request without safe-auth: scheme', async () => {
             await helper.createRandomAccount().catch( console.log );
             const req = await client.decodeRequest( encodedAuthUri );
             await client.encodeAuthResp( req, true );
@@ -621,10 +586,8 @@ describe( 'Authenticator functions', () =>
         } );
     } );
 
-    describe( 'Encode auth response', async () =>
-    {
-        it( 'throws an error if request is undefined', async () =>
-        {
+    describe( 'Encode auth response', async () => {
+        it( 'throws an error if request is undefined', async () => {
             expect.assertions( 2 );
             await decodedReqForRandomClient( encodedAuthUri );
 
@@ -641,8 +604,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'throws an error if decision is not boolean type', async () =>
-        {
+        it( 'throws an error if decision is not boolean type', async () => {
             expect.assertions( 5 );
             await decodedReqForRandomClient( encodedAuthUri );
 
@@ -675,8 +637,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( "throws an error if request doesn't have request ID(reqId)", async () =>
-        {
+        it( "throws an error if request doesn't have request ID(reqId)", async () => {
             expect.assertions( 2 );
             await decodedReqForRandomClient( encodedAuthUri );
 
@@ -693,8 +654,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'throws an error when invalid request is passed', async () =>
-        {
+        it( 'throws an error when invalid request is passed', async () => {
             expect.assertions( 2 );
             const decodedReq = await decodedReqForRandomClient( encodedAuthUri );
 
@@ -717,8 +677,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'returns encoded response URI on deny request', async () =>
-        {
+        it( 'returns encoded response URI on deny request', async () => {
             expect.assertions( 2 );
             const decodedReq = await decodedReqForRandomClient( encodedAuthUri );
 
@@ -730,8 +689,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'returns encoded response URI on allow request', async () =>
-        {
+        it( 'returns encoded response URI on allow request', async () => {
             expect.assertions( 2 );
             const decodedReq = await decodedReqForRandomClient( encodedAuthUri );
 
@@ -744,18 +702,15 @@ describe( 'Authenticator functions', () =>
         } );
     } );
 
-    describe( 'Encode container response', () =>
-    {
-        const getDecodedReq = async () =>
-        {
+    describe( 'Encode container response', () => {
+        const getDecodedReq = async () => {
             const req = await decodedReqForRandomClient( encodedAuthUri );
             await client.encodeAuthResp( req, true );
             const decodedReq = await client.decodeRequest( encodedContUri );
             return decodedReq;
         };
 
-        it( 'throws an error if request undefined', async () =>
-        {
+        it( 'throws an error if request undefined', async () => {
             expect.assertions( 2 );
             await getDecodedReq();
 
@@ -770,8 +725,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'throws an error if decision is not boolean type', async () =>
-        {
+        it( 'throws an error if decision is not boolean type', async () => {
             expect.assertions( 5 );
             await getDecodedReq();
 
@@ -806,8 +760,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( "throws an error if request doesn't have request ID(reqId)", async () =>
-        {
+        it( "throws an error if request doesn't have request ID(reqId)", async () => {
             expect.assertions( 2 );
             await getDecodedReq();
 
@@ -824,8 +777,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'throws an error when invalid request is passed', async () =>
-        {
+        it( 'throws an error when invalid request is passed', async () => {
             expect.assertions( 2 );
             const decodedReq = await getDecodedReq();
 
@@ -848,8 +800,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'returns encoded response URI on deny request', async () =>
-        {
+        it( 'returns encoded response URI on deny request', async () => {
             expect.assertions( 2 );
 
             // const req = await decodedReqForRandomClient( encodedAuthUri );
@@ -868,10 +819,8 @@ describe( 'Authenticator functions', () =>
         } );
     } );
 
-    describe( 'Get authorised apps', () =>
-    {
-        it( 'return empty array before registering any app', async () =>
-        {
+    describe( 'Get authorised apps', () => {
+        it( 'return empty array before registering any app', async () => {
             await helper.createRandomAccount();
 
             const apps = await client.getRegisteredApps();
@@ -882,8 +831,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'return apps list after registering apps', async () =>
-        {
+        it( 'return apps list after registering apps', async () => {
             await helper.createRandomAccount();
             const req = await client.decodeRequest( encodedAuthUri );
             await client.encodeAuthResp( req, true );
@@ -896,18 +844,15 @@ describe( 'Authenticator functions', () =>
         } );
     } );
 
-    describe( 'Revoke app', () =>
-    {
+    describe( 'Revoke app', () => {
         let appId = null;
-        const setup = async () =>
-        {
+        const setup = async () => {
             const req = await decodedReqForRandomClient( encodedAuthUri );
             appId = req.authReq.app.id;
             await client.encodeAuthResp( req, true );
         };
 
-        it( 'throws an error when appId is undefined', async () =>
-        {
+        it( 'throws an error when appId is undefined', async () => {
             expect.assertions( 1 );
             await setup();
             await expect( client.revokeApp() ).rejects.toHaveProperty(
@@ -917,8 +862,7 @@ describe( 'Authenticator functions', () =>
             helper.clearAccount();
         } );
 
-        it( 'throws an error when appId is not of String type', async () =>
-        {
+        it( 'throws an error when appId is not of String type', async () => {
             expect.assertions( 4 );
             await setup();
 
@@ -941,8 +885,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'throws an error when appId is empty string', async () =>
-        {
+        it( 'throws an error when appId is empty string', async () => {
             expect.assertions( 1 );
 
             await setup();
@@ -954,8 +897,7 @@ describe( 'Authenticator functions', () =>
             await helper.clearAccount();
         } );
 
-        it( 'removes app from registered app list', async () =>
-        {
+        it( 'removes app from registered app list', async () => {
             await setup();
             await client.revokeApp( appId );
             const apps = await client.getRegisteredApps();
@@ -966,10 +908,8 @@ describe( 'Authenticator functions', () =>
         } );
     } );
 
-    describe( 'After revoking', () =>
-    {
-        it( 'The same app can be registered again', async () =>
-        {
+    describe( 'After revoking', () => {
+        it( 'The same app can be registered again', async () => {
             const initReq = await decodedReqForRandomClient( encodedAuthUri );
             const appId = initReq.authReq.app.id;
             await client.encodeAuthResp( initReq, true );
@@ -986,10 +926,8 @@ describe( 'Authenticator functions', () =>
         } );
     } );
 
-    describe( 'Re-authorising', () =>
-    {
-        it( "doesn't throw error", async () =>
-        {
+    describe( 'Re-authorising', () => {
+        it( "doesn't throw error", async () => {
             const req = await decodedReqForRandomClient( encodedAuthUri );
             await client.encodeAuthResp( req, true );
 
@@ -1001,10 +939,8 @@ describe( 'Authenticator functions', () =>
         } );
     } );
 
-    describe( 'account information', () =>
-    {
-        it( 'are retrievable', async () =>
-        {
+    describe( 'account information', () => {
+        it( 'are retrievable', async () => {
             const req = await decodedReqForRandomClient( encodedAuthUri );
             await client.encodeAuthResp( req, true );
 

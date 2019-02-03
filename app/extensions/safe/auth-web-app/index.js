@@ -35,8 +35,7 @@ if ( !window.safeAuthenticator.getLibStatus() )
     store.dispatch( showLibErrPopup() );
 }
 
-const registerNetworkStateListener = cb =>
-{
+const registerNetworkStateListener = cb => {
     // set network listener
     if (
         window.safeAuthenticator
@@ -47,8 +46,7 @@ const registerNetworkStateListener = cb =>
     }
 };
 
-const networkStateListenerCb = ( err, state ) =>
-{
+const networkStateListenerCb = ( err, state ) => {
     if ( err )
     {
         throw new Error( err );
@@ -71,8 +69,7 @@ const networkStateListenerCb = ( err, state ) =>
     }
 };
 
-const registerIsAuthorisedListener = cb =>
-{
+const registerIsAuthorisedListener = cb => {
     if (
         window.safeAuthenticator
         && window.safeAuthenticator.setIsAuthorisedListener
@@ -82,8 +79,7 @@ const registerIsAuthorisedListener = cb =>
     }
 };
 
-const isAuthorisedListenerCb = ( err, state ) =>
-{
+const isAuthorisedListenerCb = ( err, state ) => {
     if ( err )
     {
         throw new Error( err );
@@ -92,8 +88,7 @@ const isAuthorisedListenerCb = ( err, state ) =>
     return store.dispatch( setIsAuthorised( state ) );
 };
 
-const registerAppListUpdateListener = cb =>
-{
+const registerAppListUpdateListener = cb => {
     if (
         window.safeAuthenticator
         && window.safeAuthenticator.setAppListUpdateListener
@@ -103,8 +98,7 @@ const registerAppListUpdateListener = cb =>
     }
 };
 
-const appListUpdateListenerCb = ( err, apps ) =>
-{
+const appListUpdateListenerCb = ( err, apps ) => {
     if ( err )
     {
         throw new Error( err );
@@ -132,8 +126,7 @@ window.safeAuthenticator.setReAuthoriseState( reAuthoriseState );
 
 window.addEventListener(
     'message',
-    evt =>
-    {
+    evt => {
         console.warn( 'Invitation code ::', evt.data );
         store.dispatch( setInviteCode( evt.data ) );
         store.dispatch( toggleInvitePopup() );

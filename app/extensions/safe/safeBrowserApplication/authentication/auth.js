@@ -5,8 +5,7 @@ import {
     clearNotification
 } from '@Actions/notification_actions';
 
-const tryConnect = async res =>
-{
+const tryConnect = async res => {
     let safeBrowserAppObject;
 
     try
@@ -20,15 +19,13 @@ const tryConnect = async res =>
     }
     catch ( err )
     {
-        setTimeout( () =>
-        {
+        setTimeout( () => {
             tryConnect( res );
         }, 5000 );
     }
 };
 
-const authFromInternalResponse = async ( res, store ) =>
-{
+const authFromInternalResponse = async ( res, store ) => {
     let safeBrowserAppObject;
 
     try

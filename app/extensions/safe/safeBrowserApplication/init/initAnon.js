@@ -18,8 +18,7 @@ export const getSafeBrowserUnauthedReqUri = () => browserAuthReqUri;
 
 let safeBrowserAppObject;
 
-export const initAnon = async ( passedStore, options ) =>
-{
+export const initAnon = async ( passedStore, options ) => {
     const appOptions = {
         libPath                : CONFIG.SAFE_NODE_LIB_PATH,
         registerScheme         : true,

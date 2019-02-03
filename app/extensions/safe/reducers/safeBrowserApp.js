@@ -5,22 +5,19 @@ import initialAppState from './initialAppState';
 
 const initialState = initialAppState.safeBrowserApp;
 
-export default function safeBrowserApp( state = initialState, action )
-{
-    if ( action.error )
-    {
-        logger.error( 'Error in initializer reducer: ', action, action.error );
+export default function safeBrowserApp(state = initialState, action) {
+    if (action.error) {
+        logger.error('Error in initializer reducer: ', action, action.error);
         return state;
     }
 
     const payload = action.payload;
 
-    switch ( action.type )
-    {
+    switch (action.type) {
         case TYPES.SET_APP_STATUS: {
             return {
                 ...state,
-                appStatus : payload
+                appStatus: payload
             };
         }
         case TYPES.SET_NETWORK_STATUS: {
@@ -32,57 +29,56 @@ export default function safeBrowserApp( state = initialState, action )
         case TYPES.SET_READ_CONFIG_STATUS: {
             return {
                 ...state,
-                readStatus : payload
+                readStatus: payload
             };
         }
         case TYPES.RECEIVED_AUTH_RESPONSE: {
             return {
                 ...state,
-                authResponseUri : payload
+                authResponseUri: payload
             };
         }
         case TYPES.SET_SAVE_CONFIG_STATUS: {
             return {
                 ...state,
-                saveStatus : payload
+                saveStatus: payload
             };
         }
         case TYPES.SET_IS_MOCK: {
             return {
                 ...state,
-                isMock : payload
+                isMock: payload
             };
         }
         case TYPES.ENABLE_EXPERIMENTS: {
             return {
                 ...state,
-                experimentsEnabled : true
+                experimentsEnabled: true
             };
         }
         case TYPES.DISABLE_EXPERIMENTS: {
             return {
                 ...state,
-                experimentsEnabled : false
+                experimentsEnabled: false
             };
         }
 
         case TYPES.SET_AVAILABLE_WEB_IDS: {
             const ids = payload || [];
 
-            state.webIds.forEach( theId =>
-            {
-                if ( !theId.isSelected ) return;
+            state.webIds.forEach(theId => {
+                if (!theId.isSelected) return;
 
                 const foundIdIndex = payload.findIndex(
                     payloadId => payloadId['@id'] === theId['@id']
                 );
                 const foundId = payload[foundIdIndex];
                 foundId.isSelected = true;
-            } );
+            });
             return {
                 ...state,
-                webIds           : [...ids],
-                isFetchingWebIds : false
+                webIds: [...ids],
+                isFetchingWebIds: false
             };
         }
 
@@ -91,7 +87,7 @@ export default function safeBrowserApp( state = initialState, action )
 
             return {
                 ...state,
-                showingWebIdDropdown : iconStatus
+                showingWebIdDropdown: iconStatus
             };
         }
 

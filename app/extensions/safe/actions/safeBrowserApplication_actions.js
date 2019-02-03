@@ -10,30 +10,30 @@ import {
 } from '@Extensions/safe/safeBrowserApplication/theApplication';
 
 export const TYPES = {
-    SET_APP_STATUS     : 'SET_APP_STATUS',
-    SET_NETWORK_STATUS : 'SET_NETWORK_STATUS',
-    SET_IS_MOCK        : 'SET_IS_MOCK',
+    SET_APP_STATUS: 'SET_APP_STATUS',
+    SET_NETWORK_STATUS: 'SET_NETWORK_STATUS',
+    SET_IS_MOCK: 'SET_IS_MOCK',
 
     // experiments
-    ENABLE_EXPERIMENTS  : 'ENABLE_EXPERIMENTS',
-    DISABLE_EXPERIMENTS : 'DISABLE_EXPERIMENTS',
+    ENABLE_EXPERIMENTS: 'ENABLE_EXPERIMENTS',
+    DISABLE_EXPERIMENTS: 'DISABLE_EXPERIMENTS',
 
     // webId
-    GET_AVAILABLE_WEB_IDS : 'GET_AVAILABLE_WEB_IDS',
-    SET_AVAILABLE_WEB_IDS : 'SET_AVAILABLE_WEB_IDS',
-    FETCHING_WEB_IDS      : 'FETCHING_WEB_IDS',
+    GET_AVAILABLE_WEB_IDS: 'GET_AVAILABLE_WEB_IDS',
+    SET_AVAILABLE_WEB_IDS: 'SET_AVAILABLE_WEB_IDS',
+    FETCHING_WEB_IDS: 'FETCHING_WEB_IDS',
 
-    SET_READ_CONFIG_STATUS : 'SET_READ_CONFIG_STATUS',
-    SET_SAVE_CONFIG_STATUS : 'SET_SAVE_CONFIG_STATUS',
+    SET_READ_CONFIG_STATUS: 'SET_READ_CONFIG_STATUS',
+    SET_SAVE_CONFIG_STATUS: 'SET_SAVE_CONFIG_STATUS',
 
     // read status from network
-    RECEIVED_AUTH_RESPONSE : 'RECEIVED_AUTH_RESPONSE',
+    RECEIVED_AUTH_RESPONSE: 'RECEIVED_AUTH_RESPONSE',
 
-    RECONNECT_SAFE_APP : 'RECONNECT_SAFE_APP',
-    RESET_STORE        : 'RESET_STORE',
+    RECONNECT_SAFE_APP: 'RECONNECT_SAFE_APP',
+    RESET_STORE: 'RESET_STORE',
 
     // UI actions.
-    SHOW_WEB_ID_DROPDOWN : 'SHOW_WEB_ID_DROPDOWN'
+    SHOW_WEB_ID_DROPDOWN: 'SHOW_WEB_ID_DROPDOWN'
 };
 
 export const {
@@ -80,20 +80,20 @@ export const {
 );
 
 const triggerGetWebIds = async () => {
-    if ( !window || !window.thisIsTheBackgroundProcess ) return;
+    if (!window || !window.thisIsTheBackgroundProcess) return;
 
-    logger.log( 'Retrieving webIds' );
+    logger.log('Retrieving webIds');
     const ids = await getWebIds();
 };
 
 export const getAvailableWebIds = createAliasedAction(
     TYPES.GET_AVAILABLE_WEB_IDS,
     // TODO: there is a complaint about not having middleware, despite redux-promise.
-    () => ( {
+    () => ({
         // the real action
-        type    : TYPES.GET_AVAILABLE_WEB_IDS,
-        payload : triggerGetWebIds()
-    } )
+        type: TYPES.GET_AVAILABLE_WEB_IDS,
+        payload: triggerGetWebIds()
+    })
 );
 
 /**
@@ -104,18 +104,19 @@ const getWebIds = async () => {
     const currentStore = getCurrentStore();
 
     const safeBrowserApp = getSafeBrowserAppObject();
-    logger.log( 'getWebIds' );
+    logger.log('getWebIds');
 
-    if ( !safeBrowserApp ) throw new Error( 'SafeBrowserApp should be initiated.' );
+    if (!safeBrowserApp) throw new Error('SafeBrowserApp should be initiated.');
 
-    if ( !safeBrowserAppIsAuthed() ) throw new Error( 'SafeBrowserApp is not authorised' );
+    if (!safeBrowserAppIsAuthed())
+        throw new Error('SafeBrowserApp is not authorised');
 
     let webIds = [];
 
-    currentStore.dispatch( safeBrowserAppActions.fetchingWebIds() );
+    currentStore.dispatch(safeBrowserAppActions.fetchingWebIds());
     webIds = await safeBrowserApp.web.getWebIds();
 
-    currentStore.dispatch( safeBrowserAppActions.setAvailableWebIds( webIds ) );
+    currentStore.dispatch(safeBrowserAppActions.setAvailableWebIds(webIds));
 
     return webIds;
 };

@@ -17,44 +17,37 @@ const allApiCalls = {
  * updating the remoteCall.
  * @param  {[type]}  store Redux store
  */
-const manageRemoteCalls = async store =>
-{
+const manageRemoteCalls = async store => {
     const state = store.getState();
     const remoteCalls = state.remoteCalls;
-    if ( cachedRemoteCallArray !== remoteCalls )
-    {
+    if (cachedRemoteCallArray !== remoteCalls) {
         cachedRemoteCallArray = remoteCalls;
 
-        if ( !remoteCalls.length ) return;
+        if (!remoteCalls.length) return;
 
-        remoteCalls.forEach( async theCall =>
-        {
-            if ( !theCall.inProgress && !pendingCallIds[theCall.id] )
-            {
+        remoteCalls.forEach(async theCall => {
+            if (!theCall.inProgress && !pendingCallIds[theCall.id]) {
                 // hack to prevent multi store triggering.
                 // not needed for auth via redux.
                 pendingCallIds[theCall.id] = 'pending';
 
-                if ( allApiCalls[theCall.name] )
-                {
-                    logger.log( 'Remote Calling: ', theCall.name );
+                if (allApiCalls[theCall.name]) {
+                    logger.log('Remote Calling: ', theCall.name);
                     store.dispatch(
-                        remoteCallActions.updateRemoteCall( {
+                        remoteCallActions.updateRemoteCall({
                             ...theCall,
-                            inProgress : true
-                        } )
+                            inProgress: true
+                        })
                     );
                     const theArgs = theCall.args;
 
-                    onRemoteCallInBgProcess( store, allApiCalls, theCall );
+                    onRemoteCallInBgProcess(store, allApiCalls, theCall);
 
-                    if ( theCall.isListener )
-                    {
+                    if (theCall.isListener) {
                         return;
                     }
 
-                    try
-                    {
+                    try {
                         // call the API.
                         const argsForCalling = theArgs || [];
 
@@ -63,29 +56,25 @@ const manageRemoteCalls = async store =>
                             ...argsForCalling
                         );
                         store.dispatch(
-                            remoteCallActions.updateRemoteCall( {
+                            remoteCallActions.updateRemoteCall({
                                 ...theCall,
-                                done : true,
+                                done: true,
                                 response
-                            } )
+                            })
                         );
-                    }
-                    catch ( e )
-                    {
+                    } catch (e) {
                         store.dispatch(
-                            remoteCallActions.updateRemoteCall( {
+                            remoteCallActions.updateRemoteCall({
                                 ...theCall,
-                                error : e.message || e
-                            } )
+                                error: e.message || e
+                            })
                         );
                     }
-                }
-                else
-                {
-                    console.log( theCall.name, ' does not exist' );
+                } else {
+                    console.log(theCall.name, ' does not exist');
                 }
             }
-        } );
+        });
     }
 };
 

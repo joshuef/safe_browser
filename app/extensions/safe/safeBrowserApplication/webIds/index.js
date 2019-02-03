@@ -14,18 +14,19 @@ const getWebIds = async () => {
     const currentStore = getCurrentStore();
 
     const safeBrowserApp = getSafeBrowserAppObject();
-    logger.log( 'getWebIds' );
+    logger.log('getWebIds');
 
-    if ( !safeBrowserApp ) throw new Error( 'SafeBrowserApp should be initiated.' );
+    if (!safeBrowserApp) throw new Error('SafeBrowserApp should be initiated.');
 
-    if ( !safeBrowserAppIsAuthed() ) throw new Error( 'SafeBrowserApp is not authorised' );
+    if (!safeBrowserAppIsAuthed())
+        throw new Error('SafeBrowserApp is not authorised');
 
     let webIds = [];
 
-    currentStore.dispatch( safeBrowserAppActions.fetchingWebIds() );
+    currentStore.dispatch(safeBrowserAppActions.fetchingWebIds());
     webIds = await safeBrowserApp.web.getWebIds();
 
-    currentStore.dispatch( safeBrowserAppActions.setAvailableWebIds( webIds ) );
+    currentStore.dispatch(safeBrowserAppActions.setAvailableWebIds(webIds));
 
     return webIds;
 };

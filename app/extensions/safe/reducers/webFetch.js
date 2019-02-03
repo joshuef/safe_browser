@@ -7,9 +7,8 @@ const initialState = initialAppState.webFetch;
 
 export default handleActions(
     {
-        [setWebFetchStatus]( state, { payload } )
-        {
-            return Object.assign( {}, state, payload );
+        [setWebFetchStatus](state, { payload }) {
+            return Object.assign({}, state, payload);
         }
     },
     initialState

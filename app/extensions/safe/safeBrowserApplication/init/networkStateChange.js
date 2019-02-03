@@ -16,38 +16,35 @@ import {
 } from '@Actions/notification_actions';
 import { getSafeBrowserAppObject } from '@Extensions/safe/safeBrowserApplication/theApplication';
 
-const onNetworkStateChange = ( store, mockAttemptReconnect ) => state => {
+const onNetworkStateChange = (store, mockAttemptReconnect) => state => {
     const safeBrowserAppObject = getSafeBrowserAppObject();
 
     const previousState = store.getState().safeBrowserApp.networkStatus;
-    logger.log( 'previousState: ', previousState );
-    store.dispatch( setNetworkStatus( state ) );
+    logger.log('previousState: ', previousState);
+    store.dispatch(setNetworkStatus(state));
     const isDisconnected = state === SAFE.NETWORK_STATE.DISCONNECTED;
 
-    if ( isDisconnected )
-    {
-        if ( store )
-        {
+    if (isDisconnected) {
+        if (store) {
             store.dispatch(
-                addNotification( {
-                    text      : `Network state: ${ state }. Reconnecting...`,
-                    type      : 'error',
-                    onDismiss : clearNotification
-                } )
+                addNotification({
+                    text: `Network state: ${state}. Reconnecting...`,
+                    type: 'error',
+                    onDismiss: clearNotification
+                })
             );
 
             mockAttemptReconnect
-                ? mockAttemptReconnect( store )
-                : attemptReconnect( store, safeBrowserAppObject );
+                ? mockAttemptReconnect(store)
+                : attemptReconnect(store, safeBrowserAppObject);
         }
     }
 
     if (
-        state === SAFE.NETWORK_STATE.CONNECTED
-        && previousState === SAFE.NETWORK_STATE.DISCONNECTED
-    )
-    {
-        store.dispatch( clearNotification() );
+        state === SAFE.NETWORK_STATE.CONNECTED &&
+        previousState === SAFE.NETWORK_STATE.DISCONNECTED
+    ) {
+        store.dispatch(clearNotification());
     }
 };
 

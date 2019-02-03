@@ -8,20 +8,18 @@ import ArrayType from 'ref-array';
 import CONSTANTS from '../auth-constants';
 import * as type from './refs/types';
 
-const StringArray = ArrayType( type.CString );
+const StringArray = ArrayType(type.CString);
 
-const _ffiFunctions = Symbol( 'ffiFunctions' );
-const _libPath = Symbol( 'libPath' );
-const _isLibLoaded = Symbol( 'isLibLoaded' );
+const _ffiFunctions = Symbol('ffiFunctions');
+const _libPath = Symbol('libPath');
+const _isLibLoaded = Symbol('isLibLoaded');
 
-class SystemUriLoader
-{
-    constructor()
-    {
+class SystemUriLoader {
+    constructor() {
         this[_libPath] = CONSTANTS.LIB_PATH.SYSTEM_URI[os.platform()];
         this[_ffiFunctions] = {
-            open_uri : [type.Void, ['string', 'pointer', 'pointer']],
-            install  : [
+            open_uri: [type.Void, ['string', 'pointer', 'pointer']],
+            install: [
                 type.Void,
                 [
                     'string',
@@ -40,51 +38,41 @@ class SystemUriLoader
         this.lib = null;
     }
 
-    get isLibLoaded()
-    {
+    get isLibLoaded() {
         return this[_isLibLoaded];
     }
 
-    load()
-    {
-        try
-        {
+    load() {
+        try {
             this.lib = ffi.Library(
-                path.resolve( __dirname, this[_libPath] ),
+                path.resolve(__dirname, this[_libPath]),
                 this[_ffiFunctions]
             );
             this[_isLibLoaded] = true;
-        }
-        catch ( err )
-        {
+        } catch (err) {
             this[_isLibLoaded] = false;
         }
     }
 
-    registerUriScheme( appInfo, schemes )
-    {
-        if ( !this.lib )
-        {
+    registerUriScheme(appInfo, schemes) {
+        if (!this.lib) {
             return;
         }
-        if ( appInfo.exec && !Array.isArray( appInfo.exec ) )
-        {
-            throw new Error( errConst.ERR_SYSTEM_URI.msg );
+        if (appInfo.exec && !Array.isArray(appInfo.exec)) {
+            throw new Error(errConst.ERR_SYSTEM_URI.msg);
         }
         const bundle = appInfo.bundle || appInfo.id;
         const customExecPath = appInfo.customExecPath
-            ? new StringArray( appInfo.customExecPath )
-            : new StringArray( [process.customExecPathPath] );
-        const vendor = appInfo.vendor.replace( /\s/g, '-' );
-        const name = appInfo.name.replace( /\s/g, '-' );
+            ? new StringArray(appInfo.customExecPath)
+            : new StringArray([process.customExecPathPath]);
+        const vendor = appInfo.vendor.replace(/\s/g, '-');
+        const name = appInfo.name.replace(/\s/g, '-');
         const icon = appInfo.icon;
-        const joinedSchemes = schemes.join ? schemes.join( ',' ) : schemes;
+        const joinedSchemes = schemes.join ? schemes.join(',') : schemes;
 
-        return new Promise( ( resolve, reject ) =>
-        {
-            try
-            {
-                const cb = this._handleError( resolve, reject );
+        return new Promise((resolve, reject) => {
+            try {
+                const cb = this._handleError(resolve, reject);
                 this.lib.install(
                     bundle,
                     vendor,
@@ -96,45 +84,34 @@ class SystemUriLoader
                     type.Null,
                     cb
                 );
+            } catch (err) {
+                return reject(err);
             }
-            catch ( err )
-            {
-                return reject( err );
-            }
-        } );
+        });
     }
 
-    openUri( str )
-    {
-        if ( !this.lib )
-        {
+    openUri(str) {
+        if (!this.lib) {
             return;
         }
-        return new Promise( ( resolve, reject ) =>
-        {
-            try
-            {
-                const cb = this._handleError( resolve, reject );
-                this.lib.open_uri( str, type.Null, cb );
+        return new Promise((resolve, reject) => {
+            try {
+                const cb = this._handleError(resolve, reject);
+                this.lib.open_uri(str, type.Null, cb);
+            } catch (err) {
+                return reject(err);
             }
-            catch ( err )
-            {
-                return reject( err );
-            }
-        } );
+        });
     }
 
-    _handleError( resolve, reject )
-    {
+    _handleError(resolve, reject) {
         return ffi.Callback(
             type.Void,
             [type.voidPointer, type.FfiResultPointer],
-            ( userData, resultPtr ) =>
-            {
+            (userData, resultPtr) => {
                 const result = resultPtr.deref();
-                if ( result.error_code !== 0 )
-                {
-                    return reject( new Error( result.description ) );
+                if (result.error_code !== 0) {
+                    return reject(new Error(result.description));
                 }
                 return resolve();
             }

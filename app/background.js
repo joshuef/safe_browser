@@ -13,26 +13,25 @@ window.thisIsTheBackgroundProcess = true;
 
 const initSafeServer = store => {
     const server = setupServer();
-    onInitBgProcess( server, store );
+    onInitBgProcess(server, store);
 };
 
 const initBgProcess = async () => {
     // Add middleware from extensions here. TODO: this should be be unified somewhere.
     const loadMiddlewarePackages = getExtensionReduxMiddleware() || [];
-    const store = configureStore( undefined, loadMiddlewarePackages, true );
-    initSafeServer( store );
+    const store = configureStore(undefined, loadMiddlewarePackages, true);
+    initSafeServer(store);
 
-    i18n.configure( I18N_CONFIG );
-    i18n.setLocale( 'en' );
+    i18n.configure(I18N_CONFIG);
+    i18n.setLocale('en');
 
-    store.subscribe( () => {
-        manageRemoteCalls( store );
-    } );
+    store.subscribe(() => {
+        manageRemoteCalls(store);
+    });
 };
 
 initBgProcess();
 
-window.onerror = function ( error, url, line )
-{
-    logger.error( 'errorInWindow', error );
+window.onerror = function(error, url, line) {
+    logger.error('errorInWindow', error);
 };

@@ -4,45 +4,40 @@ import { ipcRenderer } from 'electron';
 import { triggerOnWebviewPreload } from '@Extensions';
 
 // var { setupPreloadedSafeAuthApis } = require( './setupPreloadAPIs');
-const configureStore = require( './store/configureStore' ).configureStore;
+const configureStore = require('./store/configureStore').configureStore;
 
 // TODO This handling needs to be imported via extension apis more seemlessly
 const store = configureStore();
 
-
 window.eval = global.eval = () => {
-    throw new Error( 'Sorry, peruse does not support window.eval().' );
+    throw new Error('Sorry, peruse does not support window.eval().');
 };
 
 const pendingCalls = {};
 
-store.subscribe( async () => {
+store.subscribe(async () => {
     const state = store.getState();
     const calls = state.remoteCalls;
 
-    calls.forEach( theCall => {
-        if ( theCall === pendingCalls[theCall.id] )
-        {
+    calls.forEach(theCall => {
+        if (theCall === pendingCalls[theCall.id]) {
             return;
         }
 
         const callPromises = pendingCalls[theCall.id];
 
-        if ( !callPromises )
-        {
+        if (!callPromises) {
             return;
         }
 
-        if ( theCall.done && callPromises.resolve )
-        {
-            if ( theCall.name === 'login' )
-            {
-                logger.log( 'store subscribe calls: ', calls );
-                logger.log( 'pendingCalls: ', pendingCalls );
-                logger.log( 'call Promises: ', callPromises );
+        if (theCall.done && callPromises.resolve) {
+            if (theCall.name === 'login') {
+                logger.log('store subscribe calls: ', calls);
+                logger.log('pendingCalls: ', pendingCalls);
+                logger.log('call Promises: ', callPromises);
                 // QUESTION: callPromises.resolve logs `null` \
                 // Why is the condition on line  115 passing?
-                logger.log( 'callpromises.resolve: ', callPromises.resolve );
+                logger.log('callpromises.resolve: ', callPromises.resolve);
             }
             pendingCalls[theCall.id] = theCall;
 
@@ -50,18 +45,15 @@ store.subscribe( async () => {
 
             callbackArgs = [theCall.response];
 
-            if ( theCall.isListener )
-            {
+            if (theCall.isListener) {
                 // error first
-                callPromises.resolve( null, ...callbackArgs );
+                callPromises.resolve(null, ...callbackArgs);
             }
-            callPromises.resolve( ...callbackArgs );
-            store.dispatch( remoteCallActions.removeRemoteCall( theCall ) );
+            callPromises.resolve(...callbackArgs);
+            store.dispatch(remoteCallActions.removeRemoteCall(theCall));
 
             delete pendingCalls[theCall.id];
-        }
-        else if ( theCall.error && callPromises.reject )
-        {
+        } else if (theCall.error && callPromises.reject) {
             pendingCalls[theCall.id] = theCall;
 
             logger.error(
@@ -71,21 +63,19 @@ store.subscribe( async () => {
                 theCall.error
             );
             callPromises.reject(
-                new Error( theCall.error.message || theCall.error )
+                new Error(theCall.error.message || theCall.error)
             );
-            store.dispatch( remoteCallActions.removeRemoteCall( theCall ) );
+            store.dispatch(remoteCallActions.removeRemoteCall(theCall));
             delete pendingCalls[theCall.id];
         }
-    } );
-} );
+    });
+});
 
-triggerOnWebviewPreload( store );
+triggerOnWebviewPreload(store);
 // setupPreloadedSafeAuthApis( store );
 
-window.onerror = function ( error, url, line )
-{
-    ipcRenderer.send( 'errorInWindow', error );
+window.onerror = function(error, url, line) {
+    ipcRenderer.send('errorInWindow', error);
 };
 
-
-console.log( 'THINGS SHOULD BE READY NOW' );
+console.log('THINGS SHOULD BE READY NOW');

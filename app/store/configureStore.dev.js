@@ -36,37 +36,34 @@ const initialStateFromMain = inRendererProcess ? getInitialStateRenderer() : {};
 
 let history;
 
-if ( inRendererProcess )
-{
+if (inRendererProcess) {
     history = createHashHistory();
 }
 
-const rootReducer = createRootReducer( history );
+const rootReducer = createRootReducer(history);
 
 // const configureStore = (initialState?: counterStateType) => {
 const configureStore = (
     initialState = initialStateFromMain,
     thisIsTheBackgroundProcess = false
-) =>
-{
+) => {
     // Redux Configuration
     const middleware = [];
     const enhancers = [];
 
     // Router Middleware
-    if ( history )
-    {
-        const router = routerMiddleware( history );
-        middleware.push( router );
+    if (history) {
+        const router = routerMiddleware(history);
+        middleware.push(router);
     }
 
-    addMiddlewares( middleware, thisIsTheBackgroundProcess );
+    addMiddlewares(middleware, thisIsTheBackgroundProcess);
 
     // Logging Middleware
-    const logger = createLogger( {
-        level     : 'info',
-        collapsed : true
-    } );
+    const logger = createLogger({
+        level: 'info',
+        collapsed: true
+    });
 
     // // Skip redux logs in console during the tests
     // if (process.env.NODE_ENV !== 'test') {
@@ -82,46 +79,39 @@ const configureStore = (
 
     let composeEnhancers;
 
-    if ( !isRunningSpectronTestProcess && inRendererProcess )
-    {
+    if (!isRunningSpectronTestProcess && inRendererProcess) {
         // If Redux DevTools Extension is installed use it, otherwise use Redux compose
         /* eslint-disable no-underscore-dangle */
         composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-            ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__( {
-                // Options: http://extension.remotedev.io/docs/API/Arguments.html
-                actionCreators
-            } )
+            ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+                  // Options: http://extension.remotedev.io/docs/API/Arguments.html
+                  actionCreators
+              })
             : compose;
         /* eslint-enable no-underscore-dangle */
-    }
-    else
-    {
+    } else {
         composeEnhancers = compose;
     }
 
     // Apply Middleware & Compose Enhancers
-    enhancers.push( applyMiddleware( ...middleware ) );
-    const enhancer = composeEnhancers( ...enhancers );
+    enhancers.push(applyMiddleware(...middleware));
+    const enhancer = composeEnhancers(...enhancers);
 
     // Create Store
-    const store = createStore( rootReducer, initialState, enhancer );
+    const store = createStore(rootReducer, initialState, enhancer);
 
-    if ( module.hot )
-    {
+    if (module.hot) {
         module.hot.accept(
             '../reducers',
             // eslint-disable-next-line global-require
-            () => store.replaceReducer( require( '../reducers' ).default )
+            () => store.replaceReducer(require('../reducers').default)
         );
     }
 
-    if ( inRendererProcess )
-    {
-        replayActionRenderer( store );
-    }
-    else
-    {
-        replayActionMain( store );
+    if (inRendererProcess) {
+        replayActionRenderer(store);
+    } else {
+        replayActionMain(store);
     }
 
     // TODO: remove this lark?

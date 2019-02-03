@@ -6,14 +6,14 @@ import app from './app';
 import auth from './auth';
 import networkState from './network_state';
 
-
 // import { combineReducers } from 'redux'
 
-export default history => combineReducers( {
-    router : connectRouter( history ),
-    app,
-    auth,
-    networkState,
-    routing,
-    i18n   : i18nReducer
-} );
+export default history =>
+    combineReducers({
+        router: connectRouter(history),
+        app,
+        auth,
+        networkState,
+        routing,
+        i18n: i18nReducer
+    });

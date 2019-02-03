@@ -18,44 +18,39 @@ export const getSafeBrowserUnauthedReqUri = () => browserAuthReqUri;
 
 let safeBrowserAppObject;
 
-export const initAnon = async ( passedStore, options ) =>
-{
+export const initAnon = async (passedStore, options) => {
     const appOptions = {
-        libPath                : CONFIG.SAFE_NODE_LIB_PATH,
-        registerScheme         : true,
-        joinSchemes            : [PROTOCOLS.SAFE],
-        configPath             : CONFIG.CONFIG_PATH,
-        forceUseMock           : options.forceUseMock,
-        enableExperimentalApis : options.enableExperimentalApis
+        libPath: CONFIG.SAFE_NODE_LIB_PATH,
+        registerScheme: true,
+        joinSchemes: [PROTOCOLS.SAFE],
+        configPath: CONFIG.CONFIG_PATH,
+        forceUseMock: options.forceUseMock,
+        enableExperimentalApis: options.enableExperimentalApis
     };
 
-    logger.log( 'Initing anon connection with these options:', appOptions );
-    try
-    {
+    logger.log('Initing anon connection with these options:', appOptions);
+    try {
         // does it matter if we override?
         safeBrowserAppObject = await initialiseApp(
             APP_INFO.info,
-            onNetworkStateChange( passedStore ),
+            onNetworkStateChange(passedStore),
             appOptions
         );
 
-        const authReq = await safeBrowserAppObject.auth.genConnUri( {} );
-        const authType = parseSafeAuthUrl( authReq.uri );
+        const authReq = await safeBrowserAppObject.auth.genConnUri({});
+        const authType = parseSafeAuthUrl(authReq.uri);
 
         browserAuthReqUri = authReq.uri;
 
-        if ( authType.action === 'auth' )
-        {
-            handleAuthentication( passedStore, authReq );
+        if (authType.action === 'auth') {
+            handleAuthentication(passedStore, authReq);
         }
 
-        console.log( 'The application has returned!', safeBrowserAppObject );
+        console.log('The application has returned!', safeBrowserAppObject);
 
         return safeBrowserAppObject;
-    }
-    catch ( e )
-    {
-        logger.error( e );
+    } catch (e) {
+        logger.error(e);
         throw e;
     }
 };

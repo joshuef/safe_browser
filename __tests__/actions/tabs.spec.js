@@ -1,14 +1,11 @@
 import * as actions from 'actions/tabs_actions';
 
-describe( 'tab actions', () =>
-{
-    it( 'should have types', () =>
-    {
+describe( 'tab actions', () => {
+    it( 'should have types', () => {
         expect( actions.TYPES ).toBeDefined();
     } );
 
-    it( 'should create an action to add a tab', () =>
-    {
+    it( 'should create an action to add a tab', () => {
         const payload = { url: 'hi' };
         const expectedAction = {
             type : actions.TYPES.ADD_TAB,
@@ -17,8 +14,7 @@ describe( 'tab actions', () =>
         expect( actions.addTab( payload ) ).toEqual( expectedAction );
     } );
 
-    it( 'should create an action to setActiveTab', () =>
-    {
+    it( 'should create an action to setActiveTab', () => {
         const payload = { url: 'hi' };
         const expectedAction = {
             type : actions.TYPES.SET_ACTIVE_TAB,
@@ -27,8 +23,7 @@ describe( 'tab actions', () =>
         expect( actions.setActiveTab( payload ) ).toEqual( expectedAction );
     } );
 
-    it( 'should create an action to closeTab', () =>
-    {
+    it( 'should create an action to closeTab', () => {
         const payload = { url: 'hi' };
         const expectedAction = {
             type : actions.TYPES.CLOSE_TAB,
@@ -37,8 +32,7 @@ describe( 'tab actions', () =>
         expect( actions.closeTab( payload ) ).toEqual( expectedAction );
     } );
 
-    it( 'should create an action to closeActiveTab', () =>
-    {
+    it( 'should create an action to closeActiveTab', () => {
         const payload = { url: 'hi' };
         const expectedAction = {
             type : actions.TYPES.CLOSE_ACTIVE_TAB,
@@ -47,8 +41,7 @@ describe( 'tab actions', () =>
         expect( actions.closeActiveTab( payload ) ).toEqual( expectedAction );
     } );
 
-    it( 'should create an action to reopenTab', () =>
-    {
+    it( 'should create an action to reopenTab', () => {
         const payload = { url: 'hi' };
         const expectedAction = {
             type : actions.TYPES.REOPEN_TAB,
@@ -57,8 +50,7 @@ describe( 'tab actions', () =>
         expect( actions.reopenTab( payload ) ).toEqual( expectedAction );
     } );
 
-    it( 'should create an action to updateTab', () =>
-    {
+    it( 'should create an action to updateTab', () => {
         const payload = { url: 'hi' };
         const expectedAction = {
             type : actions.TYPES.UPDATE_TAB,
@@ -67,8 +59,7 @@ describe( 'tab actions', () =>
         expect( actions.updateTab( payload ) ).toEqual( expectedAction );
     } );
 
-    it( 'should create an action to updateActiveTab', () =>
-    {
+    it( 'should create an action to updateActiveTab', () => {
         const payload = { url: 'hi' };
         const expectedAction = {
             type : actions.TYPES.UPDATE_ACTIVE_TAB,

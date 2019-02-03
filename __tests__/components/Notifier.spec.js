@@ -4,19 +4,16 @@ import { mount } from 'enzyme';
 import { Text } from 'nessie-ui';
 import Notifier from '../../app/components/Notifier';
 
-jest.mock( 'extensions', () =>
-{
+jest.mock( 'extensions', () => {
 
 } );
 
-describe( 'Notifier', () =>
-{
+describe( 'Notifier', () => {
     let wrapper;
     let instance;
     let props = {};
 
-    beforeEach( () =>
-    {
+    beforeEach( () => {
         props = {
             isVisible          : false,
             type               : 'alert',
@@ -29,30 +26,24 @@ describe( 'Notifier', () =>
         instance = wrapper.instance();
     } );
 
-    describe( 'constructor( props )', () =>
-    {
-        it( 'should have name Notifier', () =>
-        {
+    describe( 'constructor( props )', () => {
+        it( 'should have name Notifier', () => {
             expect( instance.constructor.name ).toBe( 'Notifier' );
         } );
     } );
 
-    describe( 'mount() Notifier', () =>
-    {
-        beforeEach( () =>
-        {
+    describe( 'mount() Notifier', () => {
+        beforeEach( () => {
             props = { ...props, isVisible: true, text: 'notifier text' };
             wrapper = mount( <Notifier { ...props } /> );
             instance = wrapper.instance();
         } );
 
-        it( 'should have exactly 1 Text component', () =>
-        {
+        it( 'should have exactly 1 Text component', () => {
             expect( wrapper.find( Text ).length ).toBe( 1 );
         } );
 
-        it( 'should take a element object description as prop', () =>
-        {
+        it( 'should take a element object description as prop', () => {
             const paraOne = 'Paragraph 1 text';
             const paraTwo = 'Paragraph 2 text';
             const paraThree = 'Paragraph 3 text';
@@ -105,10 +96,8 @@ describe( 'Notifier', () =>
         } );
     } );
 
-    describe( 'props', () =>
-    {
-        beforeEach( () =>
-        {
+    describe( 'props', () => {
+        beforeEach( () => {
             props = {
                 isVisible          : false,
                 type               : 'alert',
@@ -120,10 +109,8 @@ describe( 'Notifier', () =>
             instance = wrapper.instance();
         } );
 
-        describe( 'isVisible', () =>
-        {
-            it( 'isVisible should be "false" by default', () =>
-            {
+        describe( 'isVisible', () => {
+            it( 'isVisible should be "false" by default', () => {
                 expect( instance.isVisible ).toBeFalsy();
             } );
         } );

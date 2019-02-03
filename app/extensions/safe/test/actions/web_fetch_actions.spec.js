@@ -5,10 +5,10 @@ jest.mock( 'electron-redux', () => ( {
     createAliasedAction : () => {}
 } ) );
 
-describe( 'webFetch actions', () => 
+describe( 'webFetch actions', () =>
 {
-    it( 'should set status of web fetch', () => 
-{
+    it( 'should set status of web fetch', () =>
+    {
         const payload = { fetching: false, options: '' };
         const expectedAction = {
             type : webFetch.TYPES.SET_WEB_FETCH_STATUS,

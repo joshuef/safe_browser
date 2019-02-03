@@ -14,7 +14,7 @@ export const getRandomCredentials = () => ( {
     invite : crypto.randomBytes( 10 ).toString( 'hex' )
 } );
 
-export const createRandomAccount = async () => 
+export const createRandomAccount = async () =>
 {
     const randomCredentials = getRandomCredentials();
 
@@ -33,7 +33,7 @@ export const createRandomAccount = async () =>
     }
 };
 
-export const clearAccount = async () => 
+export const clearAccount = async () =>
 {
     const out = await client.logout();
     return out;

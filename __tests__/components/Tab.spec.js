@@ -2,14 +2,12 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Tab from 'components/Tab';
 
-describe( 'Tab', () =>
-{
+describe( 'Tab', () => {
     let wrapper;
     let instance;
     let props;
 
-    beforeEach( () =>
-    {
+    beforeEach( () => {
         props = {
             url                  : '',
             index                : 1,
@@ -28,18 +26,14 @@ describe( 'Tab', () =>
         instance = wrapper.instance();
     } );
 
-    describe( 'constructor( props )', () =>
-    {
-        it( 'should have name Tab', () =>
-        {
+    describe( 'constructor( props )', () => {
+        it( 'should have name Tab', () => {
             expect( instance.constructor.name ).toBe( 'Tab' );
         } );
     } );
 
-    describe( 'componentWillReceiveProps( nextProps )', () =>
-    {
-        it( 'should not call loadUrl with the same url without a slash', () =>
-        {
+    describe( 'componentWillReceiveProps( nextProps )', () => {
+        it( 'should not call loadUrl with the same url without a slash', () => {
             instance.webview = { src: 'hello/' };
             instance.loadURL = jest.fn();
             instance.state = {
@@ -50,8 +44,7 @@ describe( 'Tab', () =>
             expect( instance.loadURL.mock.calls.length ).toBe( 0 );
         } );
 
-        it( 'should call loadUrl with a different url ', () =>
-        {
+        it( 'should call loadUrl with a different url ', () => {
             instance.webview = { src: 'hello/' };
             instance.loadURL = jest.fn();
             instance.state = {
@@ -65,10 +58,8 @@ describe( 'Tab', () =>
         } );
     } );
 
-    describe( 'didFailLoad', () =>
-    {
-        beforeEach( () =>
-        {
+    describe( 'didFailLoad', () => {
+        beforeEach( () => {
             props = {
                 url                  : '',
                 index                : 1,
@@ -87,27 +78,23 @@ describe( 'Tab', () =>
             instance = wrapper.instance();
         } );
 
-        it( 'should exist', () =>
-        {
+        it( 'should exist', () => {
             expect( instance.didFailLoad ).not.toBeUndefined();
         } );
 
-        it( 'should call addNotification when ERR_BLOCKED_BY_CLIENT and trigger a tabUpdate if no canGoBack', () =>
-        {
+        it( 'should call addNotification when ERR_BLOCKED_BY_CLIENT and trigger a tabUpdate if no canGoBack', () => {
             instance.didFailLoad( { errorDescription: 'ERR_BLOCKED_BY_CLIENT' } );
             expect( props.addNotification ).toHaveBeenCalled();
         } );
 
-        it( 'trigger a closeTab if no canGoBack', () =>
-        {
+        it( 'trigger a closeTab if no canGoBack', () => {
             instance.didFailLoad( { errorDescription: 'ERR_BLOCKED_BY_CLIENT' } );
             expect( props.addNotification ).toHaveBeenCalled();
             expect( props.activeTabBackwards ).not.toHaveBeenCalled();
             expect( props.closeTab ).toHaveBeenCalled();
         } );
 
-        it( 'trigger activeTabBackwards() if tab canGoBack', () =>
-        {
+        it( 'trigger activeTabBackwards() if tab canGoBack', () => {
             instance.state = {
                 browserState : { canGoBack: true }
             };

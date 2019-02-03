@@ -29,6 +29,7 @@ module.exports = {
         'compat/compat': 'error',
         'consistent-return': 'warn',
         'no-undef': 'warn',
+        'no-trailing-spaces': ['error', { "ignoreComments": true }],
         'comma-dangle': ['error', 'only-multiline'],
         'generator-star-spacing': ['error', { before: true, after: false }],
         'no-underscore-dangle': 'off',
@@ -48,6 +49,7 @@ module.exports = {
             }
         ],
         'import/no-unresolved': 'off',
+        'implicit-arrow-linebreak': 'off',
         'import/first': 'off',
         'no-await-in-loop': 'warn',
         'import/no-duplicates': 'warn',

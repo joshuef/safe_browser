@@ -5,7 +5,7 @@ import { PROTOCOLS } from '@Constants';
 // no logger to avoid duplicate msgs.
 console.log( 'Peruse Browser window preloaded.' );
 
-window.peruseNav = location => 
+window.peruseNav = location =>
 {
     if ( peruseStore )
     {

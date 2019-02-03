@@ -25,7 +25,7 @@ const initialState = {
     fetchingAccountInfo : false,
     searchResult        : []
 };
-const app = ( state = initialState, action ) => 
+const app = ( state = initialState, action ) =>
 {
     switch ( action.type )
     {

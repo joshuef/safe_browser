@@ -37,7 +37,7 @@ const initialState = {
     libErrPopup      : false
 };
 
-const auth = ( state = initialState, action ) => 
+const auth = ( state = initialState, action ) =>
 {
     switch ( action.type )
     {

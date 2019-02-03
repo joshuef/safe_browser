@@ -45,7 +45,7 @@ describe( 'History Component', () =>
                         url         : 'safe://hello',
                         isActiveTab : true,
                         windowId    : 1,
-                        history     : ['safe://hello']
+                        history     : [ 'safe://hello' ]
                     }
                 ]
             };

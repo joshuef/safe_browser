@@ -5,7 +5,7 @@ import safeBrowsing from './safe/index';
 
 // here add your packages for extensibility.
 // const allPackages = [ ];
-const allPackages = [safeBrowsing];
+const allPackages = [ safeBrowsing ];
 
 export const preAppLoad = store =>
 {

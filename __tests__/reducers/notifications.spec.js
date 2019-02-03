@@ -51,7 +51,7 @@ describe( 'notification reducer', () =>
         {
             const note = { id: '1', text: 'hiwhat' };
             expect(
-                notifications( [note], {
+                notifications( [ note ], {
                     type    : TYPES.UPDATE_NOTIFICATION,
                     payload : { ...note, text: 'new!' }
                 } )[0].text
@@ -62,7 +62,7 @@ describe( 'notification reducer', () =>
         {
             const note = { id: '1', text: 'hiwhat' };
             expect( () =>
-                notifications( [note], {
+                notifications( [ note ], {
                     type    : TYPES.UPDATE_NOTIFICATION,
                     payload : { text: 'new!' }
                 } ) ).toThrowError( '"id"' );
@@ -74,7 +74,7 @@ describe( 'notification reducer', () =>
         it( 'should handle clearing the first notification', () =>
         {
             expect(
-                notifications( [{ text: 'i should not  exist', id: 'ciao' }], {
+                notifications( [ { text: 'i should not  exist', id: 'ciao' } ], {
                     type : TYPES.CLEAR_NOTIFICATION,
                     id   : 'ciao'
                 } )

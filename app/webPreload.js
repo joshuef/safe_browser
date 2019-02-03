@@ -50,7 +50,7 @@ store.subscribe( async () =>
 
             let callbackArgs = theCall.response;
 
-            callbackArgs = [theCall.response];
+            callbackArgs = [ theCall.response ];
 
             if ( theCall.isListener )
             {

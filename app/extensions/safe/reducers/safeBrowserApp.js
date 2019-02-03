@@ -81,7 +81,7 @@ export default function safeBrowserApp( state = initialState, action )
             } );
             return {
                 ...state,
-                webIds           : [...ids],
+                webIds           : [ ...ids ],
                 isFetchingWebIds : false
             };
         }

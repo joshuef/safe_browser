@@ -7,7 +7,7 @@ const WINDOWS = 'win32';
 const s = `\\${ path.sep }`;
 let pattern;
 const arg = process.argv[2];
-const argsArray = ['--notify'];
+const argsArray = [ '--notify' ];
 
 if ( process.argv.includes( '--watch' ) )
 {

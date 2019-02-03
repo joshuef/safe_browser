@@ -20,7 +20,7 @@ class SystemUriLoader
     {
         this[_libPath] = CONSTANTS.LIB_PATH.SYSTEM_URI[os.platform()];
         this[_ffiFunctions] = {
-            open_uri : [type.Void, ['string', 'pointer', 'pointer']],
+            open_uri : [ type.Void, [ 'string', 'pointer', 'pointer' ] ],
             install  : [
                 type.Void,
                 [
@@ -74,7 +74,7 @@ class SystemUriLoader
         const bundle = appInfo.bundle || appInfo.id;
         const customExecPath = appInfo.customExecPath
             ? new StringArray( appInfo.customExecPath )
-            : new StringArray( [process.customExecPathPath] );
+            : new StringArray( [ process.customExecPathPath ] );
         const vendor = appInfo.vendor.replace( /\s/g, '-' );
         const name = appInfo.name.replace( /\s/g, '-' );
         const icon = appInfo.icon;
@@ -128,7 +128,7 @@ class SystemUriLoader
     {
         return ffi.Callback(
             type.Void,
-            [type.voidPointer, type.FfiResultPointer],
+            [ type.voidPointer, type.FfiResultPointer ],
             ( userData, resultPtr ) =>
             {
                 const result = resultPtr.deref();

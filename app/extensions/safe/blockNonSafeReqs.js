@@ -11,7 +11,7 @@ import { urlIsAllowedBySafe } from './utils/safeHelpers';
 const blockNonSAFERequests = () =>
 {
     const filter = {
-        urls : ['*://*']
+        urls : [ '*://*' ]
     };
     const httpRegExp = new RegExp( '^http' );
 

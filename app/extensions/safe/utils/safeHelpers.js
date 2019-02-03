@@ -11,7 +11,7 @@ export const urlIsAllowedBySafe = testUrl =>
     logger.log( 'Checking urlIsAllowedBySafe', testUrl );
     const urlObj = url.parse( testUrl );
 
-    const validProtocols = pkg.build.protocols.schemes || ['http'];
+    const validProtocols = pkg.build.protocols.schemes || [ 'http' ];
     const adaptedProtocols = validProtocols.map( proto => `${ proto }:` );
 
     // TODO: locally server appspot files to avoid reqs thereto.

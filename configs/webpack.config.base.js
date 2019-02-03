@@ -7,7 +7,7 @@ import webpack from 'webpack';
 import { dependencies } from '../package.json';
 
 export default {
-    externals : [...Object.keys( dependencies || {} )],
+    externals : [ ...Object.keys( dependencies || {} ) ],
     module    : {
         rules : [
             {
@@ -33,7 +33,7 @@ export default {
      * Determine the array of extensions that should be used to resolve modules.
      */
     resolve : {
-        extensions : ['.js', '.jsx', '.json']
+        extensions : [ '.js', '.jsx', '.json' ]
     },
 
     plugins : [

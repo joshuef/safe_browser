@@ -36,7 +36,7 @@ describe( 'Bookmarks', () =>
         {
             props = {
                 ...props,
-                bookmarks : [{ url: 'hello', isActiveTab: true }]
+                bookmarks : [ { url: 'hello', isActiveTab: true } ]
             };
             wrapper = shallow( <Bookmarks { ...props } /> );
         } );

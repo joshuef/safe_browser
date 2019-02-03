@@ -12,7 +12,7 @@
         if ( document.addEventListener )
         {
             if (
-                ~['complete', 'loaded', 'interactive'].indexOf(
+                ~[ 'complete', 'loaded', 'interactive' ].indexOf(
                     document.readyState
                 )
             )

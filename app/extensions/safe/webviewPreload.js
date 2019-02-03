@@ -306,7 +306,7 @@ export const setupPreloadedSafeAuthApis = passedStore =>
 
                 let callbackArgs = theCall.response;
 
-                callbackArgs = [theCall.response];
+                callbackArgs = [ theCall.response ];
 
                 // // // hack due to auth webapp expectations. :| bleugh.
                 // if ( theCall.name === 'setNetworkListener' )

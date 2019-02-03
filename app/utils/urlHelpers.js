@@ -151,7 +151,7 @@ export const makeValidAddressBarUrl = input =>
         logger.warn( 'url must be a string' );
     }
 
-    const validProtocols = pkg.build.protocols.schemes || ['http'];
+    const validProtocols = pkg.build.protocols.schemes || [ 'http' ];
     const parsedURL = parse( input );
     const inputProtocol = parsedURL.protocol
         ? parsedURL.protocol.replace( ':', '' )

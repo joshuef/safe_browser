@@ -20,6 +20,7 @@ module.exports = {
         should: true
     },
     rules: {
+        'array-bracket-spacing': ["error", "always"],
         'arrow-parens': ['error', 'as-needed'],
         'template-curly-spacing': ['error', 'always'],
         'max-len': 'off',
@@ -61,6 +62,7 @@ module.exports = {
         'no-console': 'off',
         'no-use-before-define': 'off',
         'no-multi-assign': 'off',
+        'object-curly-spacing' : [ 'error', 'always' ],
         'promise/param-names': 'error',
         'promise/always-return': 'warn',
         'no-prototype-builtins': 'off',

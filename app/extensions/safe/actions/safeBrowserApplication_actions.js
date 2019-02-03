@@ -1,6 +1,5 @@
 import { createActions } from 'redux-actions';
 import { createAliasedAction } from 'electron-redux';
-// import getWebIdsFromSafe from '@Extensions/safe/safeBrowserApplication/webIds';
 import logger from 'logger';
 
 import {

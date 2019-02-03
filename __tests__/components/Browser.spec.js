@@ -75,7 +75,7 @@ describe( 'Browser', () =>
                     index        : 1,
                     isClosed     : false,
                     historyIndex : 1,
-                    history      : ['a', 'hello']
+                    history      : [ 'a', 'hello' ]
                 }
             ]
         };

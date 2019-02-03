@@ -69,7 +69,7 @@ describe( 'authenticator reducer', () =>
                 type    : TYPES.ADD_AUTH_REQUEST,
                 payload : url
             } ).authenticationQueue;
-            expect( authQueue ).toMatchObject( [url] );
+            expect( authQueue ).toMatchObject( [ url ] );
             expect( authQueue.length ).toBe( 1 );
         } );
     } );
@@ -80,7 +80,7 @@ describe( 'authenticator reducer', () =>
         {
             const url = 'safe-auth://111111';
             const authQueue = authenticator(
-                { authenticationQueue: [url] },
+                { authenticationQueue: [ url ] },
                 {
                     type    : TYPES.REMOVE_AUTH_REQUEST,
                     payload : url

@@ -31,7 +31,7 @@ const decodedReqForRandomClient = uri =>
 const init = async () =>
 {
     i18n.configure( {
-        locales        : ['en'],
+        locales        : [ 'en' ],
         directory      : path.resolve( __dirname, '../', 'locales' ),
         objectNotation : true
     } );
@@ -670,7 +670,7 @@ describe( 'Authenticator functions', () =>
                 i18n.__( 'messages.invalid_params' )
             );
             await expect(
-                client.encodeAuthResp( {}, [1, 2, 3] )
+                client.encodeAuthResp( {}, [ 1, 2, 3 ] )
             ).rejects.toHaveProperty(
                 'message',
                 i18n.__( 'messages.invalid_params' )
@@ -801,7 +801,7 @@ describe( 'Authenticator functions', () =>
                 i18n.__( 'messages.invalid_params' )
             );
             await expect(
-                client.encodeContainersResp( {}, [1, 2, 3] )
+                client.encodeContainersResp( {}, [ 1, 2, 3 ] )
             ).rejects.toHaveProperty(
                 'message',
                 i18n.__( 'messages.invalid_params' )
@@ -938,7 +938,7 @@ describe( 'Authenticator functions', () =>
                 'message',
                 i18n.__( 'messages.must_be_string', i18n.__( 'AppId' ) )
             );
-            await expect( client.revokeApp( [1, 2, 3] ) ).rejects.toHaveProperty(
+            await expect( client.revokeApp( [ 1, 2, 3 ] ) ).rejects.toHaveProperty(
                 'message',
                 i18n.__( 'messages.must_be_string', i18n.__( 'AppId' ) )
             );

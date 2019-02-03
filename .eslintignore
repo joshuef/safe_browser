@@ -26,6 +26,7 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
+app/node_modules
 
 # OSX
 .DS_Store
@@ -41,6 +42,7 @@ app/*.js.map
 app/style.css
 app/style.css.map
 dist/
+app/extensions/safe/auth-web-app/dist
 dll
 app/extensions/safe/iconfont/iconfont.js
 

@@ -1,7 +1,7 @@
 /* eslint global-require: off */
-const developmentEnvironments = ['development', 'test'];
+const developmentEnvironments = [ 'development', 'test' ];
 
-const developmentPlugins = [require( 'react-hot-loader/babel' )];
+const developmentPlugins = [ require( 'react-hot-loader/babel' ) ];
 
 const productionPlugins = [
     require( 'babel-plugin-dev-expression' ),
@@ -33,7 +33,7 @@ module.exports = api =>
                 }
             ],
             require( '@babel/preset-flow' ),
-            [require( '@babel/preset-react' ), { development }]
+            [ require( '@babel/preset-react' ), { development } ]
         ],
         plugins : [
             'add-module-exports',
@@ -65,7 +65,7 @@ module.exports = api =>
             require( '@babel/plugin-proposal-do-expressions' ),
 
             // Stage 2
-            [require( '@babel/plugin-proposal-decorators' ), { legacy: true }],
+            [ require( '@babel/plugin-proposal-decorators' ), { legacy: true } ],
             require( '@babel/plugin-proposal-function-sent' ),
             require( '@babel/plugin-proposal-export-namespace-from' ),
             require( '@babel/plugin-proposal-numeric-separator' ),
@@ -83,7 +83,7 @@ module.exports = api =>
             [
                 'module-resolver',
                 {
-                    root  : ['.'],
+                    root  : [ '.' ],
                     alias : aliases
                 }
             ],

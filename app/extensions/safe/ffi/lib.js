@@ -19,7 +19,7 @@ class LibLoader
 {
     constructor()
     {
-        this[_mods] = [authenticator];
+        this[_mods] = [ authenticator ];
         this[_libPath] = CONSTANTS.LIB_PATH.SAFE_AUTH[os.platform()];
     }
 
@@ -100,7 +100,7 @@ class LibLoader
                             types.Null,
                             ffi.Callback(
                                 types.Void,
-                                [types.voidPointer, types.FfiResultPointer],
+                                [ types.voidPointer, types.FfiResultPointer ],
                                 ( userData, resultPtr ) =>
                                 {
                                     const result = resultPtr.deref();
@@ -125,7 +125,7 @@ class LibLoader
                     types.Null,
                     ffi.Callback(
                         types.Void,
-                        [types.voidPointer, types.FfiResultPointer],
+                        [ types.voidPointer, types.FfiResultPointer ],
                         ( userData, resultPtr ) =>
                         {
                             const result = resultPtr.deref();

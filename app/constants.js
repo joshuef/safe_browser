@@ -115,8 +115,8 @@ const safeNodeAppPath = () =>
     }
 
     return isRunningUnpacked
-        ? [remote.process.execPath, `${ remote.getGlobal( 'appDir' ) }/main.js`]
-        : [remote.app.getPath( 'exe' )];
+        ? [ remote.process.execPath, `${ remote.getGlobal( 'appDir' ) }/main.js` ]
+        : [ remote.app.getPath( 'exe' ) ];
 };
 
 let safeNodeAppPathModifier = '..';
@@ -127,7 +127,7 @@ if ( isRunningPackaged && !isRunningNodeEnvTest )
 }
 
 export const I18N_CONFIG = {
-    locales        : ['en'],
+    locales        : [ 'en' ],
     directory      : path.resolve( __dirname, 'locales' ),
     objectNotation : true
 };
@@ -200,7 +200,7 @@ const appInfo = {
         own_container : true
     },
     permissions : {
-        _public : ['Read', 'Insert', 'Update', 'Delete']
+        _public : [ 'Read', 'Insert', 'Update', 'Delete' ]
         // _publicNames : ['Read', 'Insert', 'Update', 'Delete']
     }
 };

@@ -46,7 +46,7 @@ describe( 'AddressBar', () =>
             activeTab          : {
                 isLoading    : false,
                 historyIndex : 1,
-                history      : ['a', 'b']
+                history      : [ 'a', 'b' ]
             }
         };
     } );

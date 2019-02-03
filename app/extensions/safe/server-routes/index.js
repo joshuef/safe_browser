@@ -12,7 +12,7 @@ import authRoute from './auth';
 
 const setupRoutes = ( server, store ) =>
 {
-    const routes = [safeRoute( store ), authRoute];
+    const routes = [ safeRoute( store ), authRoute ];
 
     // TODO: Remove serving onf antd files when we can package
     // webId manager properly.

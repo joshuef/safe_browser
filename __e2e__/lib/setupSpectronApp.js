@@ -19,7 +19,7 @@ export const setupSpectronApp = extraArgs =>
     let bonusArgs = extraArgs;
     if ( !Array.isArray( bonusArgs ) )
     {
-        bonusArgs = [extraArgs];
+        bonusArgs = [ extraArgs ];
     }
 
     const isMac = process.platform === 'darwin';
@@ -48,7 +48,7 @@ export const setupSpectronApp = extraArgs =>
             CI          : isCI
         },
         additionalChromeOptions : {
-            windowTypes : ['app', 'webview']
+            windowTypes : [ 'app', 'webview' ]
         }
     } );
 

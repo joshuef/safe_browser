@@ -32,7 +32,7 @@ describe( 'UrlList', () =>
     {
         beforeEach( () =>
         {
-            props = { ...props, list: ['hello'] };
+            props = { ...props, list: [ 'hello' ] };
             wrapper = shallow( <UrlList { ...props } /> );
         } );
 

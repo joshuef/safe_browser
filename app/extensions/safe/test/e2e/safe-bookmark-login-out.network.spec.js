@@ -43,7 +43,7 @@ describe( 'SAFE network log in and out', async () =>
 
     beforeEach( async () =>
     {
-        app = setupSpectronApp( ['--mock'] );
+        app = setupSpectronApp( [ '--mock' ] );
 
         await beforeAllTests( app );
     } );

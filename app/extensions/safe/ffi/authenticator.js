@@ -71,7 +71,7 @@ class Authenticator extends SafeLib
         this[_decodeReqPool] = {};
         this[_netDisconnectCb] = ffi.Callback(
             types.Void,
-            [types.voidPointer, types.int32, types.int32],
+            [ types.voidPointer, types.int32, types.int32 ],
             () =>
             {
                 this._pushNetworkState( CONSTANTS.NETWORK_STATUS.DISCONNECTED );
@@ -174,7 +174,7 @@ class Authenticator extends SafeLib
             ],
             auth_unregistered_decode_ipc_msg : [
                 types.Void,
-                [types.CString, types.voidPointer, 'pointer', 'pointer']
+                [ types.CString, types.voidPointer, 'pointer', 'pointer' ]
             ],
             encode_share_mdata_resp : [
                 types.Void,
@@ -189,36 +189,36 @@ class Authenticator extends SafeLib
             ],
             encode_unregistered_resp : [
                 types.Void,
-                [types.u32, types.bool, types.voidPointer, 'pointer']
+                [ types.u32, types.bool, types.voidPointer, 'pointer' ]
             ],
             auth_registered_apps : [
                 types.Void,
-                [types.voidPointer, types.voidPointer, 'pointer']
+                [ types.voidPointer, types.voidPointer, 'pointer' ]
             ],
             auth_revoke_app : [
                 types.Void,
-                [types.voidPointer, types.CString, types.voidPointer, 'pointer']
+                [ types.voidPointer, types.CString, types.voidPointer, 'pointer' ]
             ],
             auth_apps_accessing_mutable_data : [
                 types.Void,
-                [types.voidPointer, 'pointer', types.u64, 'pointer', 'pointer']
+                [ types.voidPointer, 'pointer', types.u64, 'pointer', 'pointer' ]
             ],
-            auth_free         : [types.Void, [types.voidPointer]],
+            auth_free         : [ types.Void, [ types.voidPointer ] ],
             auth_init_logging : [
                 types.Void,
-                [types.CString, types.voidPointer, 'pointer']
+                [ types.CString, types.voidPointer, 'pointer' ]
             ],
             auth_set_additional_search_path : [
                 types.Void,
-                [types.CString, types.voidPointer, 'pointer']
+                [ types.CString, types.voidPointer, 'pointer' ]
             ],
             auth_reconnect : [
                 types.Void,
-                [types.voidPointer, types.voidPointer, 'pointer']
+                [ types.voidPointer, types.voidPointer, 'pointer' ]
             ],
             auth_account_info : [
                 types.Void,
-                [types.voidPointer, 'pointer', 'pointer']
+                [ types.voidPointer, 'pointer', 'pointer' ]
             ]
         };
     }
@@ -296,7 +296,7 @@ class Authenticator extends SafeLib
                 const cb = this._pushCb(
                     ffi.Callback(
                         types.Void,
-                        [types.voidPointer, types.FfiResultPointer],
+                        [ types.voidPointer, types.FfiResultPointer ],
                         ( userData, resultPtr ) =>
                         {
                             const result = resultPtr.deref();
@@ -524,7 +524,7 @@ class Authenticator extends SafeLib
             const decodeReqAuthCb = this._pushCb(
                 ffi.Callback(
                     types.Void,
-                    [types.voidPointer, types.u32, types.AuthReqPointer],
+                    [ types.voidPointer, types.u32, types.AuthReqPointer ],
                     ( userData, reqId, req ) =>
                     {
                         if (
@@ -569,7 +569,7 @@ class Authenticator extends SafeLib
             const decodeReqContainerCb = this._pushCb(
                 ffi.Callback(
                     types.Void,
-                    [types.voidPointer, types.u32, types.ContainersReqPointer],
+                    [ types.voidPointer, types.u32, types.ContainersReqPointer ],
                     ( userData, reqId, req ) =>
                     {
                         if (
@@ -673,7 +673,7 @@ class Authenticator extends SafeLib
             const decodeReqErrorCb = this._pushCb(
                 ffi.Callback(
                     types.Void,
-                    [types.voidPointer, types.FfiResultPointer, types.CString],
+                    [ types.voidPointer, types.FfiResultPointer, types.CString ],
                     ( userData, resultPtr ) =>
                     {
                         const result = resultPtr.deref();
@@ -1208,7 +1208,7 @@ class Authenticator extends SafeLib
         const decodeReqErrorCb = this._pushCb(
             ffi.Callback(
                 types.Void,
-                [types.voidPointer, types.FfiResultPointer, types.CString],
+                [ types.voidPointer, types.FfiResultPointer, types.CString ],
                 () =>
                 {
                     reject( new Error( errConst.UNAUTHORISED.msg ) );
@@ -1276,7 +1276,7 @@ class Authenticator extends SafeLib
         return this._pushCb(
             ffi.Callback(
                 types.Void,
-                [types.voidPointer, types.u32, types.u8Pointer, types.usize],
+                [ types.voidPointer, types.u32, types.u8Pointer, types.usize ],
                 ( userData, reqId, appIdPtr, appIdLen ) =>
                 {
                     if ( !reqId || appIdLen <= 0 )

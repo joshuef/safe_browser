@@ -28,7 +28,7 @@ if ( isRunningNodeEnvTest )
 }
 else if ( isRunningPackaged )
 {
-    libLocaleModifier = '../extensions/safe/';
+    libLocaleModifier = '../../extensions/safe/';
 }
 
 export default {

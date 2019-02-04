@@ -17,18 +17,20 @@ const authRoute = {
             const link = request.url.split( '/auth/' )[1];
             const linkUrl = url.parse( link );
             let authDistLocale = isRunningPackaged
-                ? 'extensions/safe/'
+                ? '../../extensions/safe/'
                 : './extensions/safe/';
             authDistLocale = isRunningSpectronTestProcess
                 && !isRunningSpectronTestProcessingPackagedApp
-                ? 'extensions/safe/'
+                ? './extensions/safe/'
                 : authDistLocale;
 
-            const authDist = path.resolve(
+            const authDist = path.normalize( path.resolve(
                 __dirname,
                 authDistLocale,
                 'auth-web-app/dist/'
-            );
+            ) );
+
+            logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! authDist', authDist)
 
             switch ( linkUrl.path )
             {

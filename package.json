@@ -85,6 +85,7 @@
     "files": [
       "app/dist/",
       "locales",
+      "app/locales",
       "app/app.html",
       "app/bg.html",
       "app/background.prod.js",
@@ -95,6 +96,44 @@
       "app/main.prod.js.map",
       "package.json"
     ],
+    "extraResources": [
+     {
+       "from": "resources/log.toml",
+       "to": "log.toml"
+     },
+     {
+       "from": "resources/favicon.ico",
+       "to": "favicon.ico"
+     },
+     {
+       "from": "resources/PreloadDevVault",
+       "to": "PreloadDevVault"
+     },
+     {
+       "from": "resources/locales",
+       "to": "locales"
+     },
+     {
+       "from": "resources/crust.config",
+       "to": "${productName}.crust.config"
+     },
+     {
+       "from": "app/extensions/safe/dist",
+       "to": "extensions/safe/dist"
+     },
+     {
+       "from": "app/extensions/safe/iconfont",
+       "to": "extensions/safe/iconfont"
+     },
+     {
+       "from": "app/extensions/safe/auth-web-app/dist",
+       "to": "extensions/safe/auth-web-app/dist"
+     },
+     {
+       "from": "node_modules/nessie-ui/dist/styles.css",
+       "to": "nessie-styles.css"
+     }
+   ],
     "protocols": {
       "name": "SAFE Network URL",
       "schemes": [
@@ -282,7 +321,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.5.0",
-    "@maidsafe/safe-node-app": "https://github.com/hunterlester/safe_app_nodejs#ffi",
+    "@maidsafe/safe-node-app": "https://github.com/hunterlester/safe_app_nodejs#master",
     "antd": "3.10.7",
     "archiver": "2.1.0",
     "electron-context-menu": "0.10",

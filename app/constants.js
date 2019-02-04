@@ -18,7 +18,7 @@ let shouldRunMockNetwork = fs.existsSync(
 let hasDebugFlag = false;
 
 export const isRunningSpectronTestProcess = process.env.SPECTRON_TEST || false;
-export const isRunningUnpacked = process.env.IS_UNPACKED;
+export const isRunningUnpacked = !!process.env.IS_UNPACKED;
 export const isRunningPackaged = !isRunningUnpacked;
 export const isRunningSpectronTestProcessingPackagedApp = isRunningSpectronTestProcess && isRunningPackaged;
 
@@ -88,6 +88,13 @@ export const inMainProcess = typeof remote === 'undefined';
 // Adds app folder for asar packaging (space before app is important).
 const preloadLocation = isRunningUnpacked ? '' : '../';
 
+let safeNodeAppPathModifier = '..';
+
+if ( isRunningPackaged && !isRunningNodeEnvTest )
+{
+    safeNodeAppPathModifier = '../../app.asar.unpacked/';
+}
+
 /**
  * retrieve the safe node lib path, either as a relative path in the main process,
  * or from the main process global
@@ -121,12 +128,6 @@ const safeNodeAppPath = () =>
         : [ remote.app.getPath( 'exe' ) ];
 };
 
-let safeNodeAppPathModifier = '..';
-
-if ( isRunningPackaged && !isRunningNodeEnvTest )
-{
-    safeNodeAppPathModifier = '../app.asar.unpacked/';
-}
 
 export const I18N_CONFIG = {
     locales        : [ 'en' ],

@@ -35,7 +35,7 @@ if ( fileLogger.transports )
 
     fileLogger.transports.file.file = path.resolve(
         os.tmpdir(),
-        'safe-browser.fileLogger'
+        'safe-browser.log'
     );
 
     // Set a function which formats output
@@ -52,23 +52,23 @@ if ( fileLogger.transports )
 const combinedLogger = {
     info : ( ...args ) =>
     {
-        processLog.log( ...args );
+        // processLog.log( ...args );
         fileLogger.info( ...args );
     },
     log : ( ...args ) =>
     {
-        processLog.log( ...args );
+        // processLog.log( ...args );
         fileLogger.info( ...args );
     },
     error : ( ...args ) =>
     {
         fileLogger.error( ...args );
-        processLog.error( ...args );
+        // processLog.error( ...args );
     },
     warn : ( ...args ) =>
     {
         fileLogger.warn( ...args );
-        processLog.warn( ...args );
+        // processLog.warn( ...args );
     }
 };
 
@@ -88,7 +88,7 @@ if ( inMainProcess )
     combinedLogger.log( 'Running with derived constants:' );
     combinedLogger.log( '' );
     combinedLogger.log( 'isCI?: ', isCI );
-    combinedLogger.log( 'process.env: ', process.env );
+    combinedLogger.log( 'process.env.NODE_ENV: ', process.env.NODE_ENV );
     combinedLogger.log( 'isRunningDebug?', isRunningDebug );
     combinedLogger.log( 'isRunningUnpacked?', isRunningUnpacked );
     combinedLogger.log( 'isRunningPackaged?', isRunningPackaged );

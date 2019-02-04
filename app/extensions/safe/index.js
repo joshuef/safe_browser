@@ -1,5 +1,5 @@
 import logger from 'logger';
-import * as authenticatorActions from '@Extensions/safe/actions/authenticator_actions';
+import { handleAuthUrl, setAuthLibStatus } from '@Extensions/safe/actions/authenticator_actions';
 import { app } from 'electron';
 import * as safeBrowserAppActions from '@Extensions/safe/actions/safeBrowserApplication_actions';
 import { initSafeBrowserApp } from '@Extensions/safe/safeBrowserApplication';
@@ -129,7 +129,7 @@ const onInitBgProcess = async store =>
             logger.log( 'Authenticator lib status: ', authLibStatus );
             prevAuthLibStatus = authLibStatus;
             store.dispatch(
-                authenticatorActions.setAuthLibStatus( authLibStatus )
+                setAuthLibStatus( authLibStatus )
             );
 
             initSafeBrowserApp( store );
@@ -233,15 +233,19 @@ const onReceiveUrl = async ( store, url ) =>
 
     if ( parsedUrl.protocol === 'safe-auth:' )
     {
-        logger.log( 'this is a parsed url for auth', url );
-        if ( url !== getSafeBrowserUnauthedReqUri() )
-        {
+        logger.log( 'this is a parsed url for auth', url, getSafeBrowserUnauthedReqUri() );
+        // if ( url !== getSafeBrowserUnauthedReqUri() )
+        // {
+        //
+        //     logger.log('Waiting on basic connection....')
             // otherwise EVERYTHING waits for basic connection...
             // so we know the libs are ready/ loaded
             // (and we assume, _that_ happens at the correc time due to browser hooks)
             await waitForBasicConnection( store );
-        }
-        store.dispatch( authenticatorActions.handleAuthUrl( url ) );
+        // }
+
+        logger.error('about !!!!!!!!!!!! to handleAuthURL', url)
+        store.dispatch( handleAuthUrl( url ) );
     }
     if ( parsedUrl.protocol === 'safe:' )
     {

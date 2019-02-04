@@ -1,16 +1,16 @@
 import thunk from 'redux-thunk';
-import { inRendererProcess } from '@Constants';
+import { inRendererProcess, inBgProcess } from '@Constants';
 import promiseMiddleware from 'redux-promise';
 
 import { forwardToRenderer, forwardToMain, triggerAlias } from 'electron-redux';
 
-const addMiddlewares = ( middleware, isBackgroundProcess = false ) =>
+const addMiddlewares = middleware =>
 {
     middleware.push( thunk );
 
     middleware.unshift( promiseMiddleware );
 
-    if ( isBackgroundProcess )
+    if ( inBgProcess )
     {
         middleware.push( triggerAlias );
     }

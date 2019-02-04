@@ -1,7 +1,7 @@
 import { createActions } from 'redux-actions';
 import { createAliasedAction } from 'electron-redux';
 import logger from 'logger';
-
+import { inBgProcess } from '@Constants'
 import {
     getCurrentStore,
     getSafeBrowserAppObject,
@@ -80,9 +80,9 @@ export const {
 
 const triggerGetWebIds = async () =>
 {
-    if ( !window || !window.thisIsTheBackgroundProcess ) return;
+    if ( !inBgProcess ) return;
 
-    logger.log( 'Retrieving webIds' );
+    logger.log( 'BGBG Retrieving webIds' );
     const ids = await getWebIds();
 };
 
@@ -102,6 +102,12 @@ export const getAvailableWebIds = createAliasedAction(
  */
 const getWebIds = async () =>
 {
+    if ( !inBgProcess )
+    {
+        logger.error('Cannot getWebIds unless in BG process')
+        return;
+    }
+
     const currentStore = getCurrentStore();
 
     const safeBrowserApp = getSafeBrowserAppObject();

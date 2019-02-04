@@ -86,7 +86,11 @@ triggerOnWebviewPreload( store );
 
 window.onerror = function ( error, url, line )
 {
-    ipcRenderer.send( 'errorInWindow', error );
+    log.error( error );
+    log.error( url );
+    log.error( line );
+
+    ipcRenderer.send( 'errorInPreload', error, url, line );
 };
 
 console.log( 'THINGS SHOULD BE READY NOW' );

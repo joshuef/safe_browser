@@ -55,7 +55,15 @@ logger.log( 'Main process starting.' );
 global.mainProcessStore = store;
 
 // renderer error notifications
-ipcMain.on( 'errorInWindow', ( event, data ) =>
+ipcMain.on( 'errorInPreload', ( event, data ) =>
+{
+    logger.error( data );
+} );
+ipcMain.on( 'errorInBackgroundWindow', ( event, data ) =>
+{
+    logger.error( data );
+} );
+ipcMain.on( 'errorInRenderWindow', ( event, data ) =>
 {
     logger.error( data );
 } );

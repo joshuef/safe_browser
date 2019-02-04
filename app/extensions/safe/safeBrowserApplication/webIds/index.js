@@ -12,10 +12,10 @@ import {
  */
 const getWebIds = async () =>
 {
+    logger.log( 'getWebIds' );
     const currentStore = getCurrentStore();
 
     const safeBrowserApp = getSafeBrowserAppObject();
-    logger.log( 'getWebIds' );
 
     if ( !safeBrowserApp ) throw new Error( 'SafeBrowserApp should be initiated.' );
 

@@ -2,6 +2,7 @@ import { createActions } from 'redux-actions';
 import { createAliasedAction } from 'electron-redux';
 import { callIPC } from '@Extensions/safe/ffi/ipc';
 import AUTH_CONSTANTS from '@Extensions/safe/auth-constants';
+import { inBgProcess } from '@Constants';
 
 import logger from 'logger';
 
@@ -36,9 +37,10 @@ export const {
 
 const triggerAuthDecoding = reqObject =>
 {
-    if ( typeof window === 'undefined' || !window.thisIsTheBackgroundProcess ) return;
+    logger.info('Decoding an auth req object', reqObject )
+    if ( !inBgProcess ) return;
 
-    logger.log( 'Handling an AuthReq in BG process:', reqObject );
+    console.log( 'Handling an AuthReq in BG process:', reqObject );
     callIPC.enqueueRequest( reqObject );
 };
 

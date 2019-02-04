@@ -2,6 +2,8 @@ import _ from 'lodash';
 
 import {
     setCurrentStore,
+    setSafeBrowserAppObject,
+    getSafeBrowserAppObject,
     getIsAuthing,
     setIsAuthing,
     safeBrowserAppIsAuthed
@@ -137,6 +139,8 @@ const authFromStoreResponse = async ( res, store ) =>
             tempSafeBrowserObjectUntilAuthed = null;
         }
 
+        const safeBrowserAppObject = getSafeBrowserAppObject();
+
         const newApp = await safeBrowserAppObject.auth.loginFromUri( res );
 
         setSafeBrowserAppObject( newApp );
@@ -148,6 +152,8 @@ const authFromStoreResponse = async ( res, store ) =>
     }
     catch ( err )
     {
+        logger.error('Error in authFromStoreResponse');
+
         if ( store )
         {
             let message = err.message;

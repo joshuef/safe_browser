@@ -2,6 +2,7 @@ import { createActions } from 'redux-actions';
 import { createAliasedAction } from 'electron-redux';
 import getWebIdsFromSafe from '@Extensions/safe/safeBrowserApplication/webIds';
 import logger from 'logger';
+import { inBgProcess } from '@Constants';
 
 export const TYPES = {
     SET_APP_STATUS     : 'SET_APP_STATUS',
@@ -75,9 +76,9 @@ export const {
 
 const triggerGetWebIds = async () =>
 {
-    if ( !window || !window.thisIsTheBackgroundProcess ) return;
+    if ( !inBgProcess ) return;
 
-    logger.log( 'Retrieving webIds...' );
+    logger.log( 'BG Process: Retrieving webIds...' );
 
     await getWebIdsFromSafe();
 };

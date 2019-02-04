@@ -1,4 +1,5 @@
 import { SAFE } from '@Extensions/safe/constants';
+import logger from 'logger';
 
 let safeBrowserAppObject;
 let currentStore;
@@ -7,7 +8,10 @@ let isAuthing = false;
 // flow and make this more reasonable.
 export const getIsAuthing = () => isAuthing;
 //
-export const getSafeBrowserAppObject = () => safeBrowserAppObject;
+export const getSafeBrowserAppObject = () => {
+    logger.info('getting safe browser object')
+    return safeBrowserAppObject
+};
 export const getCurrentStore = () => currentStore;
 export const setCurrentStore = passedStore =>
 {

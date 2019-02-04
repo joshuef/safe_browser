@@ -45,8 +45,7 @@ const rootReducer = createRootReducer( history );
 
 // const configureStore = (initialState?: counterStateType) => {
 const configureStore = (
-    initialState = initialStateFromMain,
-    thisIsTheBackgroundProcess = false
+    initialState = initialStateFromMain
 ) =>
 {
     // Redux Configuration
@@ -60,7 +59,7 @@ const configureStore = (
         middleware.push( router );
     }
 
-    addMiddlewares( middleware, thisIsTheBackgroundProcess );
+    addMiddlewares( middleware );
 
     // Logging Middleware
     const logger = createLogger( {

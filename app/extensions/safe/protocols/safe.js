@@ -44,6 +44,8 @@ const registerSafeProtocol = () =>
         },
         err =>
         {
+            if ( !err ) return;
+
             if ( err.message === 'The scheme has been registered' )
             {
                 logger.log( 'SAFE protocol already registered, so dont worry' );

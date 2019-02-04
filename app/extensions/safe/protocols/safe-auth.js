@@ -23,6 +23,8 @@ export const registerSafeAuthProtocol = () =>
         },
         err =>
         {
+            if ( !err ) return;
+
             if ( err.message === 'The scheme has been registered' )
             {
                 logger.log( 'SAFE-AUTH protocol already registered, so dont worry' );

@@ -14,10 +14,8 @@ import onNetworkStateChange from '@Extensions/safe/safeBrowserApplication/init/n
 // todo... is this needed?
 let browserAuthReqUri;
 
-export const getSafeBrowserUnauthedReqUri = () => {
-    logger.log('!!! getting safe browser reqURiiii', browserAuthReqUri)
-        return browserAuthReqUri
-};
+export const getSafeBrowserUnauthedReqUri = () =>
+    browserAuthReqUri;
 
 let safeBrowserAppObject;
 
@@ -47,7 +45,7 @@ export const initAnon = async ( passedStore, options ) =>
 
         browserAuthReqUri = authReq.uri;
 
-        logger.log('BROWSER REQ URI', browserAuthReqUri)
+        logger.log( 'BROWSER REQ URI', browserAuthReqUri );
 
         if ( authType.action === 'auth' )
         {

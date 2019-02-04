@@ -11,8 +11,7 @@ import {
     isRunningSpectronTestProcess,
     isRunningSpectronTestProcessingPackagedApp,
     inMainProcess,
-    isCI,
-    TESTENV
+    isCI
 } from '@Constants';
 import fileLogger from 'electron-log';
 // import log from 'electron-timber';
@@ -88,8 +87,8 @@ if ( inMainProcess )
     combinedLogger.log( '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
     combinedLogger.log( 'Running with derived constants:' );
     combinedLogger.log( '' );
-    combinedLogger.log( 'isCI?', isCI );
-    combinedLogger.log( 'TESTENV?', TESTENV );
+    combinedLogger.log( 'isCI?: ', isCI );
+    combinedLogger.log( 'process.env: ', process.env );
     combinedLogger.log( 'isRunningDebug?', isRunningDebug );
     combinedLogger.log( 'isRunningUnpacked?', isRunningUnpacked );
     combinedLogger.log( 'isRunningPackaged?', isRunningPackaged );

@@ -59,11 +59,13 @@ if ( allPassedArgs.includes( '--port' ) )
 
 export const shouldStartAsMockFromFlagsOrPackage = shouldRunMockNetwork;
 
-export const TESTENV = process.env.NODE_ENV;
 
 export const env = shouldStartAsMockFromFlagsOrPackage
     ? 'development'
     : process.env.NODE_ENV || 'production';
+
+export const isRunningDevelopment = /^dev/.test( env );
+
 export const isCI = remote && remote.getGlobal ? remote.getGlobal( 'isCI' ) : process.env.CI;
 export const travisOS = process.env.TRAVIS_OS_NAME || '';
 // other considerations?

@@ -14,11 +14,11 @@ import chalk from 'chalk';
 import merge from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
 import baseConfig from './webpack.config.base';
-import CheckNodeEnv from '../internals/scripts/CheckNodeEnv';
+// import CheckNodeEnv from '../internals/scripts/CheckNodeEnv';
 
 const CircularDependencyPlugin = require( 'circular-dependency-plugin' );
 
-CheckNodeEnv( 'development' );
+// CheckNodeEnv( 'development' );
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${ port }/dist`;
@@ -254,19 +254,19 @@ export default merge.smart( baseConfig, {
 
         new webpack.LoaderOptionsPlugin( {
             debug : true
-        } )
+        } ),
 
-        // new CircularDependencyPlugin( {
-        //     // exclude detection of files based on a RegExp
-        //     // exclude          : /a\.js|node_modules/,
-        //     // add errors to webpack instead of warnings
-        //     failOnError      : true,
-        //     // allow import cycles that include an asyncronous import,
-        //     // e.g. via import(/* webpackMode: "weak" */ './file.js')
-        //     allowAsyncCycles : false,
-        //     // set the current working directory for displaying module paths
-        //     cwd              : process.cwd(),
-        // } )
+        new CircularDependencyPlugin( {
+            // exclude detection of files based on a RegExp
+            // exclude          : /a\.js|node_modules/,
+            // add errors to webpack instead of warnings
+            failOnError      : false,
+            // allow import cycles that include an asyncronous import,
+            // e.g. via import(/* webpackMode: "weak" */ './file.js')
+            allowAsyncCycles : false,
+            // set the current working directory for displaying module paths
+            cwd              : process.cwd(),
+        } )
     ],
 
     node : {
@@ -298,7 +298,7 @@ export default merge.smart( baseConfig, {
         {
             if ( process.env.START_HOT )
             {
-                console.log( 'Starting Main Process...' );
+                console.log( 'Starting Main Process... nodeenv', process.env.NODE_ENV );
                 spawn( 'npm', [ 'run', 'start-main-dev' ], {
                     shell : true,
                     env   : process.env,

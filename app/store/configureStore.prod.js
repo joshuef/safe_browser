@@ -62,16 +62,16 @@ const configureStore = (
     addMiddlewares( middleware );
 
     // Logging Middleware
-    const logger = createLogger( {
-        level     : 'info',
-        collapsed : true
-    } );
+    // const logger = createLogger( {
+    //     level     : 'info',
+    //     collapsed : true
+    // } );
 
     // Skip redux logs in console during the tests
-    if ( process.env.NODE_ENV !== 'test' )
-    {
-        middleware.push( logger );
-    }
+    // if ( process.env.NODE_ENV !== 'test' )
+    // {
+    //     middleware.push( logger );
+    // }
 
     // Redux DevTools Configuration
     const actionCreators = {

@@ -4,8 +4,7 @@ import { SAFE } from '@Extensions/safe/constants';
 import { parseSafeAuthUrl } from '@Extensions/safe/utils/safeHelpers';
 
 import {
-    handleAuthentication,
-    attemptReconnect
+    handleAuthentication
 } from '@Extensions/safe/network';
 import { initialiseApp } from '@maidsafe/safe-node-app';
 
@@ -30,7 +29,7 @@ export const initAnon = async ( passedStore, options ) =>
         enableExperimentalApis : options.enableExperimentalApis
     };
 
-    logger.log( 'Initing anon connection with these options:', appOptions );
+    logger.log( 'Initing anon connection with options:', appOptions );
     try
     {
         // does it matter if we override?
@@ -44,8 +43,6 @@ export const initAnon = async ( passedStore, options ) =>
         const authType = parseSafeAuthUrl( authReq.uri );
 
         browserAuthReqUri = authReq.uri;
-
-        logger.log( 'BROWSER REQ URI', browserAuthReqUri );
 
         if ( authType.action === 'auth' )
         {

@@ -18,7 +18,7 @@ import { getSafeBrowserAppObject } from '@Extensions/safe/safeBrowserApplication
 
 const onNetworkStateChange = ( store, mockAttemptReconnect ) => state =>
 {
-    logger.log('onNetworkStateChange')
+    logger.log( 'onNetworkStateChange' );
     const safeBrowserAppObject = getSafeBrowserAppObject();
 
     const previousState = store.getState().safeBrowserApp.networkStatus;

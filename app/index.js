@@ -16,7 +16,6 @@ window.onerror = function ( error, url, line )
     log.error( line );
 
     ipcRenderer.send( 'errorInRenderWindow', error, url, line );
-
 };
 
 const store = configureStore();

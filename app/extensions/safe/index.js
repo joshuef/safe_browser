@@ -238,13 +238,13 @@ const onReceiveUrl = async ( store, url ) =>
         // {
         //
         //     logger.log('Waiting on basic connection....')
-            // otherwise EVERYTHING waits for basic connection...
-            // so we know the libs are ready/ loaded
-            // (and we assume, _that_ happens at the correc time due to browser hooks)
-            await waitForBasicConnection( store );
+        // otherwise EVERYTHING waits for basic connection...
+        // so we know the libs are ready/ loaded
+        // (and we assume, _that_ happens at the correc time due to browser hooks)
+        await waitForBasicConnection( store );
         // }
 
-        logger.error('about !!!!!!!!!!!! to handleAuthURL', url)
+        logger.error( 'about !!!!!!!!!!!! to handleAuthURL', url );
         store.dispatch( handleAuthUrl( url ) );
     }
     if ( parsedUrl.protocol === 'safe:' )

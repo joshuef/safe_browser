@@ -152,7 +152,7 @@ const authFromStoreResponse = async ( res, store ) =>
     }
     catch ( err )
     {
-        logger.error('Error in authFromStoreResponse');
+        logger.error( 'Error in authFromStoreResponse' );
 
         if ( store )
         {

@@ -37,7 +37,7 @@ export const {
 
 const triggerAuthDecoding = reqObject =>
 {
-    logger.info('Decoding an auth req object', reqObject )
+    logger.info( 'Decoding an auth req object', reqObject );
     if ( !inBgProcess ) return;
 
     console.log( 'Handling an AuthReq in BG process:', reqObject );

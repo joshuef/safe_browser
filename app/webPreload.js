@@ -5,7 +5,7 @@ import { triggerOnWebviewPreload } from '@Extensions';
 import logger from 'logger';
 import { removeRemoteCall } from '@Actions/remoteCall_actions';
 
-const {configureStore} = require( './store/configureStore' );
+const { configureStore } = require( './store/configureStore' );
 
 // TODO This handling needs to be imported via extension apis more seemlessly
 const store = configureStore();

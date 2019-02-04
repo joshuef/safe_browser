@@ -1,5 +1,6 @@
 import * as actions from 'actions/tabs_actions';
 
+jest.mock('electron-timber');
 describe( 'tab actions', () =>
 {
     it( 'should have types', () =>

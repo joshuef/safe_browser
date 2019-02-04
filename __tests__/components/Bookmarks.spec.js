@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 
 import Bookmarks from 'components/PerusePages/Bookmarks';
 import UrlList from 'components/UrlList';
-import { CLASSES } from 'appConstants';
+import { CLASSES } from '@Constants';
 
 describe( 'Bookmarks', () =>
 {

@@ -5,7 +5,7 @@ import {
     isRunningUnpacked,
     isRunningPackaged,
     isRunningDebug,
-    inBgProcess,
+    // inBgProcess,
     startedRunningProduction,
     startedRunningMock,
     isRunningSpectronTestProcess,
@@ -14,15 +14,13 @@ import {
     isCI,
     TESTENV
 } from '@Constants';
-import log from 'electron-timber';
 import fileLogger from 'electron-log';
+// import log from 'electron-timber';
 
-let processLog = log;
+// const log = require( 'electron-timber' );
 
-if ( inBgProcess )
-{
-    processLog = processLog.create( { name: 'background' } );
-}
+const processLog = fileLogger;
+
 if ( fileLogger.transports )
 {
     // Log level

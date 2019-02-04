@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme';
 import TabBar from 'components/TabBar';
 import MdClose from 'react-icons/lib/md/close';
 import MdAdd from 'react-icons/lib/md/add';
-import { CLASSES } from 'appConstants';
+import { CLASSES } from '@Constants';
 import { Spinner } from 'nessie-ui';
 
 describe( 'TabBar', () =>

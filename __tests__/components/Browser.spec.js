@@ -10,6 +10,8 @@ import TabBar from 'components/TabBar';
 import Notifier from 'components/Notifier';
 import TabContents from 'components/TabContents';
 
+jest.autoMockOff()
+
 // create any initial state needed
 const initialState = {
     ui : {

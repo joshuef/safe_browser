@@ -3,7 +3,7 @@ import tabs from 'reducers/tabs';
 import { TYPES } from 'actions/tabs_actions';
 import { TYPES as UI_TYPES } from 'actions/ui_actions';
 import initialState from 'reducers/initialAppState';
-import { isRunningUnpacked } from 'appConstants';
+import { isRunningUnpacked } from '@Constants';
 
 const favicon = isRunningUnpacked
     ? '../resources/favicon.ico'

@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 
 import History from 'components/PerusePages/History';
 import UrlList from 'components/UrlList';
-import { CLASSES } from 'appConstants';
+import { CLASSES } from '@Constants';
 
 jest.mock( 'extensions', () => ( {
     urlIsValid : () => true

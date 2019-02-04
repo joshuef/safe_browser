@@ -2,9 +2,10 @@
 // import setModuleImportLocations from 'setModuleImportLocations';
 import { ipcRenderer } from 'electron';
 import { triggerOnWebviewPreload } from '@Extensions';
+import logger from 'logger';
+import { removeRemoteCall } from '@Actions/remoteCall_actions';
 
-// var { setupPreloadedSafeAuthApis } = require( './setupPreloadAPIs');
-const configureStore = require( './store/configureStore' ).configureStore;
+const {configureStore} = require( './store/configureStore' );
 
 // TODO This handling needs to be imported via extension apis more seemlessly
 const store = configureStore();
@@ -37,15 +38,6 @@ store.subscribe( async () =>
 
         if ( theCall.done && callPromises.resolve )
         {
-            if ( theCall.name === 'login' )
-            {
-                logger.log( 'store subscribe calls: ', calls );
-                logger.log( 'pendingCalls: ', pendingCalls );
-                logger.log( 'call Promises: ', callPromises );
-                // QUESTION: callPromises.resolve logs `null` \
-                // Why is the condition on line  115 passing?
-                logger.log( 'callpromises.resolve: ', callPromises.resolve );
-            }
             pendingCalls[theCall.id] = theCall;
 
             let callbackArgs = theCall.response;
@@ -58,7 +50,7 @@ store.subscribe( async () =>
                 callPromises.resolve( null, ...callbackArgs );
             }
             callPromises.resolve( ...callbackArgs );
-            store.dispatch( remoteCallActions.removeRemoteCall( theCall ) );
+            store.dispatch( removeRemoteCall( theCall ) );
 
             delete pendingCalls[theCall.id];
         }
@@ -75,7 +67,7 @@ store.subscribe( async () =>
             callPromises.reject(
                 new Error( theCall.error.message || theCall.error )
             );
-            store.dispatch( remoteCallActions.removeRemoteCall( theCall ) );
+            store.dispatch( removeRemoteCall( theCall ) );
             delete pendingCalls[theCall.id];
         }
     } );
@@ -92,5 +84,3 @@ window.onerror = function ( error, url, line )
 
     ipcRenderer.send( 'errorInPreload', error, url, line );
 };
-
-console.log( 'THINGS SHOULD BE READY NOW' );

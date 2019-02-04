@@ -27,7 +27,6 @@ const webIdEventEmitter = new WebIdEvents();
 
 export const onPreload = ( passedStore, win = window ) =>
 {
-    console.trace();
     watchForExpermentalChangesAndReload( passedStore, win );
     setupPreloadedSafeAuthApis( passedStore, win );
     setupWebIdEventEmitter( passedStore, win );
@@ -62,7 +61,7 @@ const watchForExpermentalChangesAndReload = ( passedStore, win = window ) =>
 export const setupWebIdEventEmitter = ( passedStore, win = window ) =>
 {
     const safeBrowserAppState = passedStore.getState().safeBrowserApp;
-    const experimentsEnabled = safeBrowserAppState.experimentsEnabled;
+    const { experimentsEnabled } = safeBrowserAppState;
 
     if ( typeof win !== 'undefined' && experimentsEnabled )
     {
@@ -160,7 +159,7 @@ export const setupSafeAPIs = ( passedStore, win = window ) =>
     win.safe.authorise = async authObj =>
     {
         if ( !authObj || typeof authObj !== 'object' ) throw new Error( 'Auth object is required' );
-        return await createRemoteCall( 'authenticateFromUriObject', passedStore )(
+        return createRemoteCall( 'authenticateFromUriObject', passedStore )(
             authObj
         );
     };
@@ -177,7 +176,6 @@ export const setupPreloadedSafeAuthApis = passedStore =>
         return;
     }
 
-    console.log( '""""""""""""""""""""""""""" setup of authApis' );
     window.safeAuthenticator = {};
     const safeAppGroupId = ( ( Math.random() * 1000 ) | 0 ) + Date.now();
     window.safeAppGroupId = safeAppGroupId;
@@ -203,7 +201,6 @@ export const setupPreloadedSafeAuthApis = passedStore =>
         return state.authenticator.isAuthorised;
     };
 
-    console.log( ' SERTTING IS AUTHEHHEHHEHEDDDD' );
     window.safeAuthenticator.setIsAuthorised = isAuthorised =>
         callIPC.setIsAuthorisedState( passedStore, isAuthorised );
 
@@ -307,20 +304,6 @@ export const setupPreloadedSafeAuthApis = passedStore =>
                 let callbackArgs = theCall.response;
 
                 callbackArgs = [ theCall.response ];
-
-                // // // hack due to auth webapp expectations. :| bleugh.
-                // if ( theCall.name === 'setNetworkListener' )
-                // {
-                //     // error first for olde auth listeners
-                //     callPromises.resolve( null, ...callbackArgs );
-                //
-                // }
-                // else
-                // {
-                //     callPromises.resolve( ...callbackArgs );
-                // }
-                //
-                // delete pendingCalls[theCall.id];
 
                 callPromises.resolve( ...callbackArgs );
 

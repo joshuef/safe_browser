@@ -1,8 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Tab from 'components/Tab';
-jest.autoMockOff()
-// jest.unmock('electron');
+
 describe( 'Tab', () =>
 {
     let wrapper;

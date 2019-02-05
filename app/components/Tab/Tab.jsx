@@ -1,6 +1,6 @@
 // @flow
 import { remote, ipcRenderer } from 'electron';
-import contextMenu from 'electron-context-menu';
+// import contextMenu from 'electron-context-menu';
 import React, { Component } from 'react';
 import Error from '@Components/PerusePages/Error';
 import ReactDOMServer from 'react-dom/server';
@@ -92,8 +92,11 @@ export default class Tab extends Component {
     }
 
     buildMenu = webview => {
+
         if (!webview.getWebContents) return; // 'not now, as you're running jest;
 
+        // require here to avoid jest/electron remote issues
+        const contextMenu = require('electron-context-menu');
         contextMenu({
             window: webview,
             append: params => [

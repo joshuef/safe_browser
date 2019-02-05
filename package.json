@@ -321,7 +321,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.5.0",
-    "@maidsafe/safe-node-app": "https://github.com/hunterlester/safe_app_nodejs#master",
+    "@maidsafe/safe-node-app": "https://github.com/maidsafe/safe_app_nodejs#master",
     "antd": "3.10.7",
     "archiver": "2.1.0",
     "electron-context-menu": "0.10",

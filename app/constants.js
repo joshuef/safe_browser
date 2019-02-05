@@ -18,7 +18,7 @@ let shouldRunMockNetwork = fs.existsSync(
 let hasDebugFlag = false;
 
 export const isRunningSpectronTestProcess = process.env.SPECTRON_TEST || false;
-export const isRunningUnpacked = !!process.env.IS_UNPACKED;
+export const isRunningUnpacked = process.env.IS_UNPACKED;
 export const isRunningPackaged = !isRunningUnpacked;
 export const isRunningSpectronTestProcessingPackagedApp = isRunningSpectronTestProcess && isRunningPackaged;
 

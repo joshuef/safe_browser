@@ -14,126 +14,142 @@ jest.autoMockOff();
 
 // create any initial state needed
 const initialState = {
-    ui: {
-        isActiveTabReloading: false
+    ui : {
+        isActiveTabReloading : false
     },
-    tabs: [],
-    windowId: 1,
-    addTab: jest.fn(),
-    updateTab: jest.fn(),
-    closeTab: jest.fn(),
-    setActiveTab: jest.fn(),
-    closeActiveTab: jest.fn(),
-    reopenTab: jest.fn(),
-    addBookmark: jest.fn(),
-    removeBookmark: jest.fn(),
-    selectAddressBar: jest.fn(),
-    deselectAddressBar: jest.fn(),
-    reloadPage: jest.fn(),
-    pageLoaded: jest.fn(),
-    blurAddressBar: jest.fn(),
-    addNotification: jest.fn(),
-    clearNotification: jest.fn(),
-    updateNotification: jest.fn(),
-    addLocalNotification: jest.fn()
+    tabs                 : [],
+    windowId             : 1,
+    addTab               : jest.fn(),
+    updateTab            : jest.fn(),
+    closeTab             : jest.fn(),
+    setActiveTab         : jest.fn(),
+    closeActiveTab       : jest.fn(),
+    reopenTab            : jest.fn(),
+    addBookmark          : jest.fn(),
+    removeBookmark       : jest.fn(),
+    selectAddressBar     : jest.fn(),
+    deselectAddressBar   : jest.fn(),
+    reloadPage           : jest.fn(),
+    pageLoaded           : jest.fn(),
+    blurAddressBar       : jest.fn(),
+    addNotification      : jest.fn(),
+    clearNotification    : jest.fn(),
+    updateNotification   : jest.fn(),
+    addLocalNotification : jest.fn()
 };
 
 // here it is possible to pass in any middleware if needed into //configureStore
 const mockStore = configureStore();
 let store;
 
-describe('Browser', () => {
+describe( 'Browser', () =>
+{
     let wrapper;
     let instance;
     let newState;
 
-    describe('constructor( )', () => {
-        store = mockStore(initialState);
+    describe( 'constructor( )', () =>
+    {
+        store = mockStore( initialState );
 
         wrapper = shallow(
-            <Provider store={store}>
-                <Browser {...initialState} />
+            <Provider store={ store }>
+                <Browser { ...initialState } />
             </Provider>
         ).dive();
         instance = wrapper.instance();
 
-        it('should have name Browser', () => {
-            expect(instance.constructor.name).toMatch('Browser');
-        });
-    });
+        it( 'should have name Browser', () =>
+        {
+            expect( instance.constructor.name ).toMatch( 'Browser' );
+        } );
+    } );
 
-    describe('mount() with one tab', () => {
+    describe( 'mount() with one tab', () =>
+    {
         newState = {
             ...initialState,
-            tabs: [
+            tabs : [
                 {
-                    url: 'hello',
-                    isActiveTab: true,
-                    windowId: 1,
-                    index: 1,
-                    isClosed: false,
-                    historyIndex: 1,
-                    history: ['a', 'hello']
+                    url          : 'hello',
+                    isActiveTab  : true,
+                    windowId     : 1,
+                    index        : 1,
+                    isClosed     : false,
+                    historyIndex : 1,
+                    history      : [ 'a', 'hello' ]
                 }
             ]
         };
 
-        store = mockStore(newState);
+        store = mockStore( newState );
 
         // must be mount for component did mount
         wrapper = mount(
-            <Provider store={store}>
-                <Browser {...newState} />
+            <Provider store={ store }>
+                <Browser { ...newState } />
             </Provider>
         );
 
-        it('should have exactly 1 AddressBar component', () => {
-            expect(wrapper.find(AddressBar).length).toBe(1);
-        });
+        it( 'should have exactly 1 AddressBar component', () =>
+        {
+            expect( wrapper.find( AddressBar ).length ).toBe( 1 );
+        } );
 
-        it('should have exactly 1 TabBar component', () => {
-            expect(wrapper.find(TabBar).length).toBe(1);
-        });
+        it( 'should have exactly 1 TabBar component', () =>
+        {
+            expect( wrapper.find( TabBar ).length ).toBe( 1 );
+        } );
 
-        it('should have exactly 1 Notifier component', () => {
-            expect(wrapper.find(Notifier).length).toBe(1);
-        });
+        it( 'should have exactly 1 Notifier component', () =>
+        {
+            expect( wrapper.find( Notifier ).length ).toBe( 1 );
+        } );
 
-        it('should have exactly 1 TabContents component', () => {
-            expect(wrapper.find(TabContents).length).toBe(1);
-        });
-    });
+        it( 'should have exactly 1 TabContents component', () =>
+        {
+            expect( wrapper.find( TabContents ).length ).toBe( 1 );
+        } );
+    } );
 
-    describe('props', () => {
-        beforeEach(() => {
+    describe( 'props', () =>
+    {
+        beforeEach( () =>
+        {
             newState = { ...initialState, tabs: [] };
-            store = mockStore(newState);
+            store = mockStore( newState );
 
             wrapper = shallow(
-                <Provider store={store}>
-                    <Browser {...newState} />
+                <Provider store={ store }>
+                    <Browser { ...newState } />
                 </Provider>
             ).dive();
             instance = wrapper.instance();
-        });
+        } );
 
-        describe('addressBarIsSelected', () => {
-            it('addressBarIsSelected should be "false" by default', () => {
-                expect(instance.addressBarIsSelected).toBeFalsy();
-            });
-        });
+        describe( 'addressBarIsSelected', () =>
+        {
+            it( 'addressBarIsSelected should be "false" by default', () =>
+            {
+                expect( instance.addressBarIsSelected ).toBeFalsy();
+            } );
+        } );
 
-        describe('tabs', () => {
-            it('should exist', () => {
-                expect(instance.props).not.toBeUndefined();
-            });
-            it('should be empty by default', () => {
-                expect(instance.props.tabs.length).toBe(0);
-            });
+        describe( 'tabs', () =>
+        {
+            it( 'should exist', () =>
+            {
+                expect( instance.props ).not.toBeUndefined();
+            } );
+            it( 'should be empty by default', () =>
+            {
+                expect( instance.props.tabs.length ).toBe( 0 );
+            } );
 
-            it('should be an array', () => {
-                expect(Array.isArray(instance.props.tabs)).toBeTruthy();
-            });
-        });
-    });
-});
+            it( 'should be an array', () =>
+            {
+                expect( Array.isArray( instance.props.tabs ) ).toBeTruthy();
+            } );
+        } );
+    } );
+} );

@@ -75,19 +75,28 @@ describe( 'SAFE Webview Preload APIs', () =>
         return;
     }
 
-    const win = {};
-    const store = jest.fn(); // need to mock store. should be called once.
+    let win;
+    let store;
+
     beforeEach( () =>
     {
+        win = {};
+        store = {
+            subscribe : jest.fn(),
+            getState  : jest.fn( () => ( {
+                safeBrowserApp : { experimentsEnabled: true }
+            } ) )
+        };
         webviewPreload.onPreload( store, win );
     } );
 
     test( 'setupSafeAPIs populates the window object', async () =>
     {
-        expect.assertions( 5 );
+        expect.assertions( 4 );
 
+        console.log( 'winsafe', win.safe );
         expect( win ).toHaveProperty( 'safe' );
-        expect( win.safe ).toHaveProperty( 'CONSTANTS' );
+        // expect( win.safe ).toHaveProperty( 'CONSTANTS' );
         expect( win.safe ).toHaveProperty( 'initialiseApp' );
         expect( win.safe ).toHaveProperty( 'fromAuthUri' );
         expect( win.safe ).toHaveProperty( 'authorise' );

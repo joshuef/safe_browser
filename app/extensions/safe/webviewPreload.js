@@ -165,9 +165,9 @@ export const setupSafeAPIs = ( passedStore, win = window ) =>
     };
 };
 
-export const setupPreloadedSafeAuthApis = passedStore =>
+export const setupPreloadedSafeAuthApis = ( passedStore, win = window ) =>
 {
-    setupSafeAPIs( passedStore );
+    setupSafeAPIs( passedStore, win );
     window[pkg.name] = { version: VERSION };
 
     // TODO: Abstract into extension.

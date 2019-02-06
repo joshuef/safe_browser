@@ -42,6 +42,7 @@ class ButtonsLHS extends Component {
                         icon="left"
                         shape="circle"
                         label={I18n.t('aria.navigate_back')}
+                        aria-label={I18n.t('aria.navigate_back')}
                         onClick={handleBack}
                     />
                 </Col>
@@ -51,7 +52,7 @@ class ButtonsLHS extends Component {
                         disabled={!canGoForwards}
                         shape="circle"
                         icon="right"
-                        label={I18n.t('aria.navigate_forward')}
+                        aria-label={I18n.t('aria.navigate_forward')}
                         onClick={handleForward}
                     />
                 </Col>
@@ -60,7 +61,7 @@ class ButtonsLHS extends Component {
                         className={CLASSES.REFRESH}
                         shape="circle"
                         icon="reload"
-                        label={I18n.t('aria.reload_page')}
+                        aria-label={I18n.t('aria.reload_page')}
                         disabled={activeTab.isLoading}
                         onClick={handleRefresh}
                     />

@@ -75,6 +75,7 @@ export default class CustomMenu extends Component {
                     className={`${styles.meatball} ${
                         CLASSES.SETTINGS_MENU__BUTTON
                     }`}
+                    aria-label="settings-menu-button"
                     onClick={this.handleShowingMenu}
                 >
                     <Icon component={Meatball} />

@@ -129,14 +129,12 @@ describe( 'SAFE network log in and out', async () =>
             );
             await client.click( BROWSER_UI.SPECTRON_AREA__SPOOF_LOAD );
 
-            console.log( 'clicked loaaaaaaaddddddd' );
             await client.waitForExist(
                 BROWSER_UI.NOTIFICATION__ACCEPT,
                 NOTIFICATION_WAIT
             );
             await client.click( BROWSER_UI.NOTIFICATION__ACCEPT );
 
-            console.log( 'clicked loaaaaaaaddddddd and now waitinggggg' );
             await delay( 8000 );
             // await delay( 1500 );
             const bookmarks = await client.getText( '.urlList__table' );

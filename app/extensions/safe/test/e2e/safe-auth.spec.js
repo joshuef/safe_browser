@@ -71,7 +71,7 @@ describe( 'safe authenticator protocol', () =>
                 NOTIFICATION_WAIT
             );
             const note = await client.getText( BROWSER_UI.NOTIFIER_TEXT );
-            // console.log('THE NOTE', note)
+
             expect( note ).not.toBeNull();
             expect( note.length ).toBeGreaterThan( 5 );
         } );
@@ -237,7 +237,6 @@ describe( 'safe authenticator protocol', () =>
             );
             const note = await client.getText( BROWSER_UI.NOTIFIER_TEXT );
 
-            console.log( 'note', note );
             expect( note ).toMatch( 'SAFE Browser requests authorisation' );
         } );
     }

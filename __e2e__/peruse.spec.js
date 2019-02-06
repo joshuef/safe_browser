@@ -34,11 +34,12 @@ describe( 'main window', () =>
 {
     let app;
 
+
     beforeEach( async () =>
     {
         app = setupSpectronApp();
-
         await beforeAllTests( app );
+
     } );
 
     afterEach( async () =>
@@ -140,22 +141,22 @@ describe( 'main window', () =>
     {
         const { client } = app;
         await setClientToMainBrowserWindow( app );
-        await client.pause( 500 );
+        await delay(500);
         const tabIndex = await newTab( app );
-        await client.pause( 500 );
+        await delay(500);
         await navigateTo( app, 'example.com' );
-        await client.pause( 4500 );
+        await delay( 7000 );
         await navigateTo( app, 'google.com' );
-        await client.pause( 4500 );
+        await delay( 7000 );
 
         await client.waitForExist( BROWSER_UI.BACKWARDS, WAIT_FOR_EXIST_TIMEOUT );
         await client.click( BROWSER_UI.BACKWARDS );
-        await client.pause( 4500 );
+        await delay( 7000 );
         await client.windowByIndex( tabIndex );
-        await delay( 4500 );
+        await delay( 7000 );
 
         const clientUrl = await client.getUrl();
-        await client.pause( 4500 );
+        await delay( 4500 );
         const parsedUrl = urlParse( clientUrl );
 
         expect( parsedUrl.host ).toBe( 'example.com' );
@@ -165,25 +166,25 @@ describe( 'main window', () =>
     {
         const { client } = app;
         await setClientToMainBrowserWindow( app );
-        await client.pause( 500 );
+        await delay(500);
         const tabIndex = await newTab( app );
-        await client.pause( 500 );
+        await delay(500);
         await navigateTo( app, 'example.com' );
-        await client.pause( 4500 );
+        await delay( 7000 );
         await navigateTo( app, 'google.com' );
-        await client.pause( 4500 );
+        await delay( 7000 );
 
         await client.waitForExist( BROWSER_UI.BACKWARDS, WAIT_FOR_EXIST_TIMEOUT );
         await client.click( BROWSER_UI.BACKWARDS );
-        await client.pause( 4500 );
+        await delay( 7000 );
         await client.windowByIndex( tabIndex );
 
         await setClientToMainBrowserWindow( app );
-        await client.pause( 500 );
+        await delay(500);
 
         await client.waitForExist( BROWSER_UI.FORWARDS, WAIT_FOR_EXIST_TIMEOUT );
         await client.click( BROWSER_UI.FORWARDS );
-        await client.pause( 4500 );
+        await delay( 7000 );
         await client.windowByIndex( tabIndex );
 
         const clientUrl2 = await client.getUrl();
@@ -353,8 +354,6 @@ describe( 'main window', () =>
     it( 'can open settings menu and navigate to history', async () =>
     {
         expect.assertions( 1 );
-        const { client } = app;
-        await delay( 4500 );
         await setClientToMainBrowserWindow( app );
         await delay( 4500 );
         await client.click( BROWSER_UI.SETTINGS_MENU__BUTTON );
@@ -367,8 +366,15 @@ describe( 'main window', () =>
 
     it( 'accessibility audit', async () =>
     {
-        const audit = await app.client.auditAccessibility();
+        // expect.assertions( 1 );
+        const { client } = app;
+
+        await setClientToMainBrowserWindow( app );
+
+        const audit = await client.auditAccessibility();
+        console.log(audit)
         expect( audit.failed ).toBe( false );
+
     } );
 
     // TODO: Setup spectron spoofer for these menu interactions.
@@ -377,7 +383,7 @@ describe( 'main window', () =>
         const { client } = app;
         await setClientToMainBrowserWindow( app );
         await client.waitForExist( BROWSER_UI.ADDRESS_INPUT, WAIT_FOR_EXIST_TIMEOUT );
-        await client.pause( 500 );
+        await delay(500);
         await client.click( BROWSER_UI.ADDRESS_INPUT );
 
         // mac - cmd doesnt work...

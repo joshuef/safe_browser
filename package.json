@@ -25,7 +25,7 @@
     "lint-styles": "stylelint --ignore-path .eslintignore '**/*.*(css|scss)' --syntax scss",
     "lint-styles-fix": "yarn --silent lint-styles --fix; exit 0",
     "log": "tail -f $TMPDIR/safe-browser.log",
-    "prepush": "yarn test-peruse",
+    "prepush": "yarn test",
     "prerelease": "standard-version --prerelease rc",
     "package": "yarn build && electron-builder build --publish never && yarn post-pack",
     "post-pack": "node ./post-pack.js",
@@ -103,43 +103,43 @@
       "package.json"
     ],
     "extraResources": [
-     {
-       "from": "resources/log.toml",
-       "to": "log.toml"
-     },
-     {
-       "from": "resources/favicon.ico",
-       "to": "favicon.ico"
-     },
-     {
-       "from": "resources/PreloadDevVault",
-       "to": "PreloadDevVault"
-     },
-     {
-       "from": "resources/locales",
-       "to": "locales"
-     },
-     {
-       "from": "resources/crust.config",
-       "to": "${productName}.crust.config"
-     },
-     {
-       "from": "app/extensions/safe/dist",
-       "to": "extensions/safe/dist"
-     },
-     {
-       "from": "app/extensions/safe/iconfont",
-       "to": "extensions/safe/iconfont"
-     },
-     {
-       "from": "app/extensions/safe/auth-web-app/dist",
-       "to": "extensions/safe/auth-web-app/dist"
-     },
-     {
-       "from": "node_modules/nessie-ui/dist/styles.css",
-       "to": "nessie-styles.css"
-     }
-   ],
+      {
+        "from": "resources/log.toml",
+        "to": "log.toml"
+      },
+      {
+        "from": "resources/favicon.ico",
+        "to": "favicon.ico"
+      },
+      {
+        "from": "resources/PreloadDevVault",
+        "to": "PreloadDevVault"
+      },
+      {
+        "from": "resources/locales",
+        "to": "locales"
+      },
+      {
+        "from": "resources/crust.config",
+        "to": "${productName}.crust.config"
+      },
+      {
+        "from": "app/extensions/safe/dist",
+        "to": "extensions/safe/dist"
+      },
+      {
+        "from": "app/extensions/safe/iconfont",
+        "to": "extensions/safe/iconfont"
+      },
+      {
+        "from": "app/extensions/safe/auth-web-app/dist",
+        "to": "extensions/safe/auth-web-app/dist"
+      },
+      {
+        "from": "node_modules/nessie-ui/dist/styles.css",
+        "to": "nessie-styles.css"
+      }
+    ],
     "protocols": {
       "name": "SAFE Network URL",
       "schemes": [
@@ -305,7 +305,7 @@
     "sass-loader": "^7.1.0",
     "should": "13.1.3",
     "sinon": "^7.1.1",
-    "spectron": "3",
+    "spectron": "^4",
     "standard-version": "4.4.0",
     "style-loader": "^0.23.1",
     "stylelint": "^9.8.0",

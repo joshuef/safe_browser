@@ -86,6 +86,7 @@ const wrapBrowser = (BrowserComponent, extensionFunctionality = {}) => {
                         >
                             <button
                                 style={spectronAreaButton}
+                                aria-label="spoofSave"
                                 className={`${
                                     CLASSES.SPECTRON_AREA__SPOOF_SAVE
                                 }`}
@@ -93,6 +94,7 @@ const wrapBrowser = (BrowserComponent, extensionFunctionality = {}) => {
                             />
                             <button
                                 style={spectronAreaButton}
+                                aria-label="spoofRead"
                                 className={`${
                                     CLASSES.SPECTRON_AREA__SPOOF_LOAD
                                 }`}

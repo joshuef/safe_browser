@@ -4,7 +4,6 @@ import { app } from 'electron';
 import * as safeBrowserAppActions from '@Extensions/safe/actions/safeBrowserApplication_actions';
 import { initSafeBrowserApp } from '@Extensions/safe/safeBrowserApplication';
 import { getLibStatus } from '@Extensions/safe/auth-api/authFuncs';
-
 import { parse as parseURL } from 'url';
 import { setSafeBgProcessStore } from '@Extensions/safe/ffi/ipc';
 import { setIsMock } from '@Extensions/safe/actions/safeBrowserApplication_actions';
@@ -14,7 +13,7 @@ import {
     isRunningUnpacked
 } from '@Constants';
 import { getSafeBrowserUnauthedReqUri } from '@Extensions/safe/safeBrowserApplication/init/initAnon';
-
+import path from 'path';
 import sysUri from '@Extensions/safe/ffi/sys_uri';
 import { APP_INFO, PROTOCOLS } from '@Constants';
 import { addTab } from '@Actions/tabs_actions';
@@ -40,6 +39,7 @@ const onWebviewPreload = store => webviewPreload( store );
 
 const preAppLoad = () =>
 {
+    app.setPath('userData', path.resolve( app.getPath('temp') , 'safe-browser' ) )
     if ( isRunningUnpacked && process.platform === 'win32' ) return;
     app.setAsDefaultProtocolClient( 'safe-auth' );
     app.setAsDefaultProtocolClient( 'safe' );

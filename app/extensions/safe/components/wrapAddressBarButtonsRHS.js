@@ -98,6 +98,7 @@ const wrapAddressBarButtonsRHS = (
                         <Switch
                             className={CLASSES.SETTINGS_MENU__TOGGLE_BUTTON}
                             size="small"
+                            aria-label='settings-menu'
                             tabIndex={0}
                             style={{ float: 'right' }}
                             checked={experimentsEnabled}

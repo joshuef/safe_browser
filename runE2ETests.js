@@ -27,7 +27,6 @@ switch ( arg )
         pattern = `__e2e__${ s }.+\\.spec\\.js`;
         argsArray.push( '--bail' );
         argsArray.push( '--runInBand' );
-
         break;
     }
     case 'exts-e2e': {

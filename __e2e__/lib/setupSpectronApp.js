@@ -6,7 +6,7 @@ import RELEASE_NAME from '../../releaseName.js';
 import { delay } from './browser-driver';
 
 jest.unmock( 'electron' );
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 35000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 75000;
 
 export const isCI = process.env.CI || false;
 export const travisOS = process.env.TRAVIS_OS_NAME || '';
@@ -33,14 +33,19 @@ export const setupSpectronApp = extraArgs =>
 
     const packedLocation = path.resolve( './release', RELEASE_NAME, application );
 
-    console.log( 'Is testing packaged app?', isTestingPackagedApp );
-    console.log( 'Packaged application location:', packedLocation );
+    console.warn(`
+*****************************************************************************************************************
+E2E tests run against a packaged app. If you haven\'t repackaged your app for testing, your changes won\'t show up!
+*****************************************************************************************************************
+        `);
+
     const app = new Application( {
-        path : isTestingPackagedApp ? packedLocation : electron,
+        // path : isTestingPackagedApp ? packedLocation : electron,
+        path : packedLocation,
         args : [
             isTestingPackagedApp
                 ? ''
-                : path.join( __dirname, '..', '..', 'app', 'main.js' ),
+                : path.join( __dirname, '..', '..', 'app', 'main.prod.js' ),
             ...bonusArgs
         ],
         env : {

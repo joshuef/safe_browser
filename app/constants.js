@@ -124,7 +124,7 @@ const safeNodeAppPath = () =>
     }
 
     return isRunningUnpacked
-        ? [ remote.process.execPath, `${ remote.getGlobal( 'appDir' ) }/main.js` ]
+        ? [ remote.process.execPath, `${ remote.getGlobal( 'appDir' ) }/main.prod.js` ]
         : [ remote.app.getPath( 'exe' ) ];
 };
 

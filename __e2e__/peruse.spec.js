@@ -39,7 +39,6 @@ describe( 'main window', () =>
     {
         app = setupSpectronApp();
         await beforeAllTests( app );
-
     } );
 
     afterEach( async () =>
@@ -141,9 +140,9 @@ describe( 'main window', () =>
     {
         const { client } = app;
         await setClientToMainBrowserWindow( app );
-        await delay(500);
+        await delay( 500 );
         const tabIndex = await newTab( app );
-        await delay(500);
+        await delay( 500 );
         await navigateTo( app, 'example.com' );
         await delay( 7000 );
         await navigateTo( app, 'google.com' );
@@ -166,9 +165,9 @@ describe( 'main window', () =>
     {
         const { client } = app;
         await setClientToMainBrowserWindow( app );
-        await delay(500);
+        await delay( 500 );
         const tabIndex = await newTab( app );
-        await delay(500);
+        await delay( 500 );
         await navigateTo( app, 'example.com' );
         await delay( 7000 );
         await navigateTo( app, 'google.com' );
@@ -180,7 +179,7 @@ describe( 'main window', () =>
         await client.windowByIndex( tabIndex );
 
         await setClientToMainBrowserWindow( app );
-        await delay(500);
+        await delay( 500 );
 
         await client.waitForExist( BROWSER_UI.FORWARDS, WAIT_FOR_EXIST_TIMEOUT );
         await client.click( BROWSER_UI.FORWARDS );
@@ -372,9 +371,8 @@ describe( 'main window', () =>
         await setClientToMainBrowserWindow( app );
 
         const audit = await client.auditAccessibility();
-        console.log(audit)
+        console.log( audit );
         expect( audit.failed ).toBe( false );
-
     } );
 
     // TODO: Setup spectron spoofer for these menu interactions.

@@ -33,11 +33,11 @@ export const setupSpectronApp = extraArgs =>
 
     const packedLocation = path.resolve( './release', RELEASE_NAME, application );
 
-    console.warn(`
+    console.warn( `
 *****************************************************************************************************************
 E2E tests run against a packaged app. If you haven\'t repackaged your app for testing, your changes won\'t show up!
 *****************************************************************************************************************
-        `);
+        ` );
 
     const app = new Application( {
         // path : isTestingPackagedApp ? packedLocation : electron,

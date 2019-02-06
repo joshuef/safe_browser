@@ -39,7 +39,7 @@ const onWebviewPreload = store => webviewPreload( store );
 
 const preAppLoad = () =>
 {
-    app.setPath('userData', path.resolve( app.getPath('temp') , 'safe-browser' ) )
+    app.setPath( 'userData', path.resolve( app.getPath( 'temp' ), 'safe-browser' ) );
     if ( isRunningUnpacked && process.platform === 'win32' ) return;
     app.setAsDefaultProtocolClient( 'safe-auth' );
     app.setAsDefaultProtocolClient( 'safe' );

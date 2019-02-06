@@ -75,10 +75,65 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sleep 3; fi
 
 script:
+# update the xdg implementation on the machine. older version is buggy
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cp node_modules/opn/xdg-open ~/bin/;
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xdg-open --version;
+    fi
   - yarn package-ci
-  - yarn lint
-  - yarn flow
-  # HACK: Temporarily ignore `yarn test` on linux
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn test; fi
-  - yarn build-e2e
-  - yarn test-e2e
+  - yarn run package-only
+  - yarn run test-peruse
+  - if [[ "$NODE_ENV" != "prod" ]]; then travis_retry eval " pkill -f electron || pkill -f Peruse ||  yarn run test-exts-e2e-network";
+    fi
+  - travis_retry eval " pkill -f electron || pkill -f SAFE Browser ||  yarn run test-e2e-prod"
+  - sleep 5
+  - travis_retry eval " pkill -f electron || pkill -f SAFE Browser || yarn run test-exts-e2e-prod"
+
+
+after_success:
+- ls release
+- export RELEASE="$(ls release)";
+- echo "deploying ${RELEASE} to GitHub releases as tagged with ${TRAVIS_TAG}"
+- cd release
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ditto -c -k --sequesterRsrc --keepParent ${RELEASE} ${RELEASE}.zip;
+  fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then zip -r -q ${RELEASE}.zip ${RELEASE};
+  fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -d *.zip *.DS_Store && zip -d *.zip  __MACOSX/\*;
+  fi
+- cd ..
+- ls release
+
+after_failure:
+- ls /home/travis/safe-browser/app/node_modules/@maidsafe/safe-node-app/src/native
+# - cat ~/.local/share/applications/mimeapps.list
+# - cat ~/.local/share/applications/maidsafenet-ltd-safe-browser-authenticator.desktop
+- which xdg-open
+- xdg-open --version
+# - bash -x ~/bin/xdg-open safe-auth://whaaaaa
+- cat $TMPDIR/safe-browser.log;
+# check resolution...
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then  system_profiler SPDisplaysDataType | grep Resolution
+  fi
+
+
+before_deploy:
+
+- export RELEASE_ZIP="$(ls release/*.zip)";
+- echo "deploying ${RELEASE_ZIP} to GitHub releases as tagged with ${TRAVIS_TAG}"
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sha256sum release/*.zip >> release/$RELEASE.txt; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then shasum -a 256 release/*.zip >> release/$RELEASE.txt; fi
+- export SHA_256_SUM="$(ls release/*.txt)";
+
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key: $GITHUB_ACCESS_TOKEN
+  file:
+    - "${RELEASE_ZIP}"
+    - "${SHA_256_SUM}"
+  draft: true
+  tag_name: $TRAVIS_TAG
+  on:
+    tags: true

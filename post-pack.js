@@ -65,12 +65,12 @@ if ( platform === LINUX )
 
     const PERUSE_RESOURCES_FOLDER = path.resolve(
         CONTAINING_FOLDER,
-        'Resources'
+        'resources'
     );
 
     fs.moveSync(
         path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' ),
-        path.resolve( CONTAINING_FOLDER, 'SAFE Browser Helper.crust.config' ),
+        path.resolve( CONTAINING_FOLDER, 'safe-browser.crust.config' ),
         { overwrite: true }
     );
 

@@ -31,7 +31,7 @@ describe( 'main window', () =>
 
     afterEach( async () =>
     {
-        await delay( 2000 );
+        await delay( 500 );
     } );
 
     afterAll( async () =>
@@ -45,7 +45,6 @@ describe( 'main window', () =>
         expect( loaded ).toBeTruthy();
     } );
 
-
     it( 'can check if settings menu exists', async () =>
     {
         expect.assertions( 1 );
@@ -58,7 +57,6 @@ describe( 'main window', () =>
             BROWSER_UI.SETTINGS_MENU__BUTTON,
             WAIT_FOR_EXIST_TIMEOUT
         );
-        await delay( 2500 );
 
         expect( menuExists ).toBeTruthy();
     } );
@@ -76,7 +74,6 @@ describe( 'main window', () =>
             BROWSER_UI.SETTINGS_MENU,
             WAIT_FOR_EXIST_TIMEOUT
         );
-        await delay( 2500 );
 
         expect( settingsMenuIsShown ).toBeTruthy();
     } );
@@ -94,7 +91,6 @@ describe( 'main window', () =>
             WAIT_FOR_EXIST_TIMEOUT,
             true
         );
-        await delay( 2500 );
 
         expect( settingsMenuIsShown ).toBeFalsy();
     } );
@@ -132,6 +128,7 @@ describe( 'main window', () =>
         expect( toggle ).toBeTruthy();
     } );
 
+
     it( 'can open settings menu and navigate to bookmarks', async () =>
     {
         expect.assertions( 1 );
@@ -143,31 +140,19 @@ describe( 'main window', () =>
             WAIT_FOR_EXIST_TIMEOUT
         );
 
-        console.log( 'existinggggg' );
         await client.click( BROWSER_UI.SETTINGS_MENU__BUTTON );
+        console.log( 'existinggggg button' );
+        await client.waitForExist(
+            BROWSER_UI.SETTINGS_MENU__BOOKMARKS,
+            WAIT_FOR_EXIST_TIMEOUT
+        );
         await client.click( BROWSER_UI.SETTINGS_MENU__BOOKMARKS );
+        console.log( 'existinggggg links' );
         await delay( 2500 );
+
+        console.log( 'want a headerrr    ' );
         const header = await client.getText( 'h1' );
 
         expect( header ).toBe( 'Bookmarks' );
-    } );
-
-    it( 'can open settings menu and navigate to history', async () =>
-    {
-        expect.assertions( 1 );
-        const { client } = app;
-
-        await setClientToMainBrowserWindow( app );
-        await delay( 4500 );
-        await client.waitForExist(
-            BROWSER_UI.SETTINGS_MENU__BUTTON,
-            WAIT_FOR_EXIST_TIMEOUT
-        );
-        await client.click( BROWSER_UI.SETTINGS_MENU__BUTTON );
-        await client.click( BROWSER_UI.SETTINGS_MENU__HISTORY );
-        await delay( 2500 );
-        const header = await client.getText( 'h1' );
-
-        expect( header ).toContain( 'History' );
     } );
 } );

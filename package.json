@@ -39,7 +39,6 @@
     "install-prod": "cross-env NODE_ENV=prod node node_modules/deps_downloader/cli.js --package package.json",
     "install-mock": "cross-env NODE_ENV=dev node node_modules/deps_downloader/cli.js --package package.json",
     "postinstall": "electron-builder install-app-deps package.json && yarn build-dll  && yarn build-webPreload && opencollective-postinstall && yarn run install-prod && node app/extensions/safe/install-dev-libs.js",
-
     "precommit": "lint-staged",
     "prestart": "yarn build",
     "start": "cross-env NODE_ENV=production electron ./app/main.prod.js",
@@ -100,29 +99,28 @@
       "app/main.prod.js.map",
       "package.json"
     ],
-    "extraFiles": [
-    ],
+    "extraFiles": [],
     "extraResources": [
-        {
-            "from": "resources/log.toml",
-            "to": "log.toml"
-        },
-        {
-            "from": "resources/favicon.ico",
-            "to": "favicon.ico"
-        },
-        {
-            "from": "resources/PreloadDevVault",
-            "to": "PreloadDevVault"
-        },
-        {
-            "from": "resources/locales",
-            "to": "locales"
-        },
-        {
-            "from": "resources/crust.config",
-            "to": "${productName}.crust.config"
-        },
+      {
+        "from": "resources/log.toml",
+        "to": "log.toml"
+      },
+      {
+        "from": "resources/favicon.ico",
+        "to": "favicon.ico"
+      },
+      {
+        "from": "resources/PreloadDevVault",
+        "to": "PreloadDevVault"
+      },
+      {
+        "from": "resources/locales",
+        "to": "locales"
+      },
+      {
+        "from": "resources/crust.config",
+        "to": "${productName}.crust.config"
+      },
       {
         "from": "app/extensions/safe/dist",
         "to": "extensions/safe/dist"

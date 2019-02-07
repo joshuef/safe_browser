@@ -87,9 +87,12 @@ script:
   - yarn run test-peruse
   # - if [[ "$NODE_ENV" != "prod" ]]; then pkill -f electron || pkill -f SAFE Browser || yarn run test-exts-e2e-network;
   #   fi
-  - pkill -f electron || pkill -f SAFE Browser ||  yarn run test-e2e-prod
+  #   Split into smaller test subsets to facilitate retries only on smaller portions of the tests
+  - travis_retry eval "pkill -f electron || pkill -f SAFE Browser ||  yarn test-e2e __e2e__/peruse.spec.js"
   - sleep 5
-  - pkill -f electron || pkill -f SAFE Browser || yarn run test-exts-e2e-prod
+  - travis_retry eval "pkill -f electron || pkill -f SAFE Browser ||  yarn test-e2e __e2e__/settingsMenu.spec.js"
+  - sleep 5
+  - travis_retry eval "pkill -f electron || pkill -f SAFE Browser ||  yarn test-e2e __e2e__/navigation.spec.js"
 
 
 after_success:

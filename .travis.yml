@@ -81,7 +81,6 @@ script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xdg-open --version;
     fi
   - yarn package
-  - yarn run package-only
   - yarn run test-peruse
   - if [[ "$NODE_ENV" != "prod" ]]; then pkill -f electron || pkill -f SAFE Browser || yarn run test-exts-e2e-network;
     fi

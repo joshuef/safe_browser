@@ -1,7 +1,7 @@
 matrix:
-  env:
-    - NODE_ENV=dev
-    - NODE_ENV=prod
+  # env:
+  #   - NODE_ENV=dev
+  #   - NODE_ENV=prod
   # allow_failures:
   #   - os: windows
   include:
@@ -85,8 +85,8 @@ script:
     fi
   - yarn package
   - yarn run test-peruse
-  - if [[ "$NODE_ENV" != "prod" ]]; then pkill -f electron || pkill -f SAFE Browser || yarn run test-exts-e2e-network;
-    fi
+  # - if [[ "$NODE_ENV" != "prod" ]]; then pkill -f electron || pkill -f SAFE Browser || yarn run test-exts-e2e-network;
+  #   fi
   - pkill -f electron || pkill -f SAFE Browser ||  yarn run test-e2e-prod
   - sleep 5
   - pkill -f electron || pkill -f SAFE Browser || yarn run test-exts-e2e-prod

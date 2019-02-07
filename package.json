@@ -39,8 +39,7 @@
     "install-prod": "cross-env NODE_ENV=prod node node_modules/deps_downloader/cli.js --package package.json",
     "install-mock": "cross-env NODE_ENV=dev node node_modules/deps_downloader/cli.js --package package.json",
     "postinstall": "electron-builder install-app-deps package.json && yarn build-dll  && yarn build-webPreload && opencollective-postinstall && yarn run install-prod && node app/extensions/safe/install-dev-libs.js",
-    "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{*{js,jsx,json},babelrc,eslintrc,prettierrc,stylelintrc}'",
-    "postlint-styles-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{css,scss}'",
+
     "precommit": "lint-staged",
     "prestart": "yarn build",
     "start": "cross-env NODE_ENV=production electron ./app/main.prod.js",
@@ -67,8 +66,7 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "cross-env NODE_ENV=development eslint --cache --format=pretty",
-      "prettier --ignore-path .eslintignore --single-quote --write",
+      "yarn lint",
       "git add"
     ],
     "{*.json,.{babelrc,eslintrc,prettierrc,stylelintrc}}": [

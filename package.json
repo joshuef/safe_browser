@@ -57,7 +57,7 @@
     "test-exts-e2e-prod": "cross-env SPECTRON_TEST=true IS_PACKED=true BABEL_DISABLE_CACHE=1 node runE2ETests.js exts-e2e",
     "test-e2e-all": "yarn test-e2e && yarn test-exts-e2e",
     "test-watch": "yarn test --watch",
-    "rebuild": "npm rebuild --runtime=electron --target=4.0.3 --disturl=https://atom.io/download/atom-shell --build-from-source"
+    "rebuild": "npm rebuild --runtime=electron --target=2.0.8 --disturl=https://atom.io/download/atom-shell --build-from-source"
   },
   "standard-version": {
     "scripts": {
@@ -102,7 +102,7 @@
       "app/main.prod.js.map",
       "package.json"
     ],
-    "extraResources": [
+    "extraFiles": [
       {
         "from": "resources/log.toml",
         "to": "log.toml"
@@ -122,7 +122,9 @@
       {
         "from": "resources/crust.config",
         "to": "${productName}.crust.config"
-      },
+      }
+    ],
+    "extraResources": [
       {
         "from": "app/extensions/safe/dist",
         "to": "extensions/safe/dist"
@@ -250,7 +252,7 @@
     "deps_downloader": "https://s3.eu-west-2.amazonaws.com/deps-downloader/deps_downloader-0.1.0.tgz",
     "detect-port": "^1.3.0",
     "devtron": "^1.4.0",
-    "electron": "2",
+    "electron": "2.0.12",
     "electron-builder": "20.38.5",
     "electron-devtools-installer": "^2.2.4",
     "electron-window-state": "^4.1.1",
@@ -305,7 +307,7 @@
     "sass-loader": "^7.1.0",
     "should": "13.1.3",
     "sinon": "^7.1.1",
-    "spectron": "^4",
+    "spectron": "4",
     "standard-version": "4.4.0",
     "style-loader": "^0.23.1",
     "stylelint": "^9.8.0",
@@ -334,7 +336,6 @@
     "electron-debug": "^2.0.0",
     "electron-log": "2.2.17",
     "electron-redux": "1.3.1",
-    "electron-timber": "0.5.1",
     "electron-updater": "4.0.6",
     "enum": "2.5.0",
     "ffi": "2.3.0",

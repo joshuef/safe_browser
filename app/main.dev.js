@@ -210,13 +210,9 @@ app.on( 'ready', async () =>
         }
     }
 
-    mainWindow = openWindow( store );
-
-    // TODO: Reenable for adding Safe Network popup
-    // createTray();
-    // createSafeInfoWindow();
-
     bgProcessWindow = await setupBackground();
+
+    mainWindow = openWindow( store );
 } );
 
 app.on( 'open-url', ( e, url ) =>

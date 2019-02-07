@@ -37,7 +37,7 @@ describe( 'main window', () =>
 
     beforeEach( async () =>
     {
-        app = setupSpectronApp();
+        app = setupSpectronApp('--debug');
         await beforeAllTests( app );
     } );
 
@@ -66,7 +66,7 @@ describe( 'main window', () =>
     //     expect( logs ).toHaveLength( 0 );
     // } );
 
-    it( 'can open a new tab + set address', async () =>
+    it.only( 'can open a new tab + set address', async () =>
     {
         expect.assertions( 2 );
         const { client } = app;

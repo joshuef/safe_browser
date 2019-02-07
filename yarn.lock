@@ -1123,18 +1123,6 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@sindresorhus/fnv1a@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@sindresorhus/fnv1a/-/fnv1a-1.0.0.tgz#d419dd111b4d7fc3b87f97d86849bc23316149de"
-  integrity sha512-n+7NAD9vCDb2PaCRFIGrT2UF8WPIfMgGvCiVsYKY1/eBTrZU80N9erKhX9UTdxyvWhNuxQxwZGzdOIOlt8WqsA==
-
-"@sindresorhus/string-hash@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@sindresorhus/string-hash/-/string-hash-1.0.0.tgz#ec26f7de627ec88b5737c6e5102516de42d25a4a"
-  integrity sha512-f+MXwrsBBcicamPLVcvfoc1SBXLRRwRGe0atZlJFRypb6CKoODYwElIQLFuilFoD+7YWdjX42Lfx6mC0ClMKgw==
-  dependencies:
-    "@sindresorhus/fnv1a" "^1.0.0"
-
 "@sinonjs/commons@^1.2.0":
   version "1.3.0"
   resolved "https://registry.npmjs.org/@sinonjs/commons/-/commons-1.3.0.tgz#50a2754016b6f30a994ceda6d9a0a8c36adda849"
@@ -2019,11 +2007,6 @@ auth-header@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/auth-header/-/auth-header-1.0.0.tgz#ea24fdc5588e1eb8b750df8655a396aa48fc9076"
   integrity sha512-CPPazq09YVDUNNVWo4oSPTQmtwIzHusZhQmahCKvIsk0/xH6U3QsMAv3sM+7+Q0B1K2KJ/Q38OND317uXs4NHA==
-
-auto-bind@^1.2.0:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/auto-bind/-/auto-bind-1.2.1.tgz#807f7910b0210db9eefe133f3492c28e89698b96"
-  integrity sha512-/W9yj1yKmBLwpexwAujeD9YHwYmRuWFGV8HWE7smQab797VeHa4/cnE2NFeDhA+E+5e/OGBI8763EhLjfZ/MXA==
 
 autoprefixer@^9.0.0:
   version "9.3.1"
@@ -3831,14 +3814,6 @@ color@^0.11.0:
     color-convert "^1.3.0"
     color-string "^0.3.0"
 
-color@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/color/-/color-2.0.1.tgz#e4ed78a3c4603d0891eba5430b04b86314f4c839"
-  integrity sha512-ubUCVVKfT7r2w2D3qtHakj8mbmKms+tThR8gI8zEYCbUBl8/voqFGt3kgBqGwXAopgXybnkuOq+qMYCRrp4cXw==
-  dependencies:
-    color-convert "^1.9.1"
-    color-string "^1.5.2"
-
 color@^3.0.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/color/-/color-3.1.0.tgz#d8e9fb096732875774c84bf922815df0308d0ffc"
@@ -5373,17 +5348,6 @@ electron-redux@1.3.1:
     flux-standard-action "^1.0.0"
     redux "^3.4.0"
 
-electron-timber@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/electron-timber/-/electron-timber-0.5.1.tgz#a9b78ec097611ad5d438dc4635f842dc484d99fc"
-  integrity sha512-5CTijMwDeIdwm7GzYqUIRI2SbTjTJq2khexNmqzuZTFi7QmsbeJyvMSHvmTLztQGGmKeAGp4ym2FYRBa+OA5bA==
-  dependencies:
-    auto-bind "^1.2.0"
-    chalk "^2.4.1"
-    electron-util "^0.8.2"
-    randoma "^1.2.0"
-    split2 "^2.2.0"
-
 electron-to-chromium@^1.3.47, electron-to-chromium@^1.3.82:
   version "1.3.82"
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.82.tgz#7d13ae4437d2a783de3f4efba96b186c540b67b1"
@@ -5403,13 +5367,6 @@ electron-updater@4.0.6:
     semver "^5.6.0"
     source-map-support "^0.5.9"
 
-electron-util@^0.8.2:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/electron-util/-/electron-util-0.8.2.tgz#9ec18f54141192e3fcbfe1d6dfd22780de87ffed"
-  integrity sha512-35gFE5oxi39ZBchWWvMNiKyUaNp3OmH3S1UruM+P0ZLpnOgJUMdBxl514f6f9QsShn7Lj3u9t31tavN/PzmhPw==
-  dependencies:
-    electron-is-dev "^0.3.0"
-
 electron-window-state@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/electron-window-state/-/electron-window-state-4.1.1.tgz#6b34fdc31b38514dfec8b7c8f7b5d4addb67632d"
@@ -5419,10 +5376,10 @@ electron-window-state@^4.1.1:
     jsonfile "^2.2.3"
     mkdirp "^0.5.1"
 
-electron@2:
-  version "2.0.17"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-2.0.17.tgz#871c02eabcdfe11f7452c01b2f36510241b6de19"
-  integrity sha512-lbACWEiuiHFeSps3rB9DclD2zvwAIrTc2wmHUjZ3NAS64/jY5zXZuGxw0E28zVzCvMLtvvfF5wc5m1PIlz2TGA==
+electron@2.0.12:
+  version "2.0.12"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-2.0.12.tgz#04b11ef3246cd2a5839a8f16314051341dc5c449"
+  integrity sha512-mw8hoM/GPtFPP8FGiJcVNe8Rx63YJ7O8bf7McQj21HAvrXGAwReGFrpIe5xN6ec10fDXNSNyfzRucjFXtOtLcg==
   dependencies:
     "@types/node" "^8.0.24"
     electron-download "^3.0.1"
@@ -10440,13 +10397,13 @@ nopt@^4.0.1, nopt@~4.0.1:
     abbrev "1"
     osenv "^0.1.4"
 
-normalize-package-data@^2.0.0, normalize-package-data@^2.3.2, normalize-package-data@^2.3.4, normalize-package-data@~2.4.0:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/normalize-package-data/-/normalize-package-data-2.4.2.tgz#6b2abd85774e51f7936f1395e45acb905dc849b2"
-  integrity sha512-YcMnjqeoUckXTPKZSAsPjUPLxH85XotbpqK3w4RyCwdFQSU5FxxBys8buehkSfg0j9fKvV1hn7O0+8reEgkAiw==
+normalize-package-data@^2.0.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/normalize-package-data/-/normalize-package-data-2.5.0.tgz#e66db1838b200c1dfc233225d12cb36520e234a8"
+  integrity sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA==
   dependencies:
     hosted-git-info "^2.1.4"
-    is-builtin-module "^1.0.0"
+    resolve "^1.10.0"
     semver "2 || 3 || 4 || 5"
     validate-npm-package-license "^3.0.1"
 
@@ -10457,6 +10414,16 @@ normalize-package-data@^2.3.0, normalize-package-data@^2.3.5:
   dependencies:
     hosted-git-info "^2.1.4"
     is-builtin-module "^3.0.0"
+    semver "2 || 3 || 4 || 5"
+    validate-npm-package-license "^3.0.1"
+
+normalize-package-data@^2.3.2, normalize-package-data@^2.3.4, normalize-package-data@~2.4.0:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/normalize-package-data/-/normalize-package-data-2.4.2.tgz#6b2abd85774e51f7936f1395e45acb905dc849b2"
+  integrity sha512-YcMnjqeoUckXTPKZSAsPjUPLxH85XotbpqK3w4RyCwdFQSU5FxxBys8buehkSfg0j9fKvV1hn7O0+8reEgkAiw==
+  dependencies:
+    hosted-git-info "^2.1.4"
+    is-builtin-module "^1.0.0"
     semver "2 || 3 || 4 || 5"
     validate-npm-package-license "^3.0.1"
 
@@ -10545,9 +10512,9 @@ npm-logical-tree@^1.2.1:
     validate-npm-package-name "^3.0.0"
 
 npm-packlist@^1.1.12, npm-packlist@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/npm-packlist/-/npm-packlist-1.2.0.tgz#55a60e793e272f00862c7089274439a4cc31fc7f"
-  integrity sha512-7Mni4Z8Xkx0/oegoqlcao/JpPCPEMtUvsmB0q7mgvlMinykJLSRTYuFqoQLYgGY8biuxIeiHO+QNJKbCfljewQ==
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/npm-packlist/-/npm-packlist-1.3.0.tgz#7f01e8e44408341379ca98cfd756e7b29bd2626c"
+  integrity sha512-qPBc6CnxEzpOcc4bjoIBJbYdy0D/LFFPUdxvfwor4/w3vxeE0h6TiOVurCEPpQ6trjN77u/ShyfeJGsbAfB3dA==
   dependencies:
     ignore-walk "^3.0.1"
     npm-bundled "^1.0.1"
@@ -11136,11 +11103,6 @@ parent-module@^1.0.0:
   integrity sha512-8Mf5juOMmiE4FcmzYc4IaiS9L3+9paz2KOiXzkRviCP6aDmN49Hz6EMWz0lGNp9pX80GvvAuLADtyGfW/Em3TA==
   dependencies:
     callsites "^3.0.0"
-
-park-miller@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/park-miller/-/park-miller-1.0.0.tgz#1f8a3978e897354fde37358e28903cecad8f2e8f"
-  integrity sha512-Gdx+0DuJID9FpBFzBQGCqsVSpnW7AGTAXJkgSo9mSvRu/YBI9trLd3pUK4LQ6mwViZOCA/T9/GngkFRyPp63Rw==
 
 parse-asn1@^5.0.0:
   version "5.1.1"
@@ -12329,15 +12291,6 @@ randexp@0.4.6:
   dependencies:
     discontinuous-range "1.0.0"
     ret "~0.1.10"
-
-randoma@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/randoma/-/randoma-1.2.0.tgz#a14df5a02b0ddc6bb20ce69358da2f47a768b550"
-  integrity sha512-m7W2Eg8+6iXge4zH0y7qXRykoLF2WJd7AfSUSZa9LvxHBlEd3w49Bao2Tm1/nkTpp7ZsxS2Ur2jpSwbyQjkOKA==
-  dependencies:
-    "@sindresorhus/string-hash" "^1.0.0"
-    color "^2.0.1"
-    park-miller "^1.0.0"
 
 randomatic@^3.0.0:
   version "3.1.1"
@@ -14375,7 +14328,7 @@ specificity@^0.4.1:
   version "0.4.1"
   resolved "https://registry.npmjs.org/specificity/-/specificity-0.4.1.tgz#aab5e645012db08ba182e151165738d00887b019"
 
-spectron@^4:
+spectron@4:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/spectron/-/spectron-4.0.0.tgz#640bcc5d96e1295971e28d585e301b76e0a93033"
   integrity sha512-y974/xQJGafAnoSLG6TdqddBTow280OzCJk9z9aYxTc5y0QXipvCk1NxChjRb76E2kXtvLZvUHPs60ilrLjubQ==
@@ -14398,7 +14351,7 @@ split-string@^3.0.1, split-string@^3.0.2:
   dependencies:
     extend-shallow "^3.0.0"
 
-split2@^2.0.0, split2@^2.2.0:
+split2@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/split2/-/split2-2.2.0.tgz#186b2575bcf83e85b7d18465756238ee4ee42493"
   integrity sha512-RAb22TG39LhI31MbreBgIuKiIKhVsawfTgEGqKHTK87aG+ul/PB8Sqoi3I7kVdRWiCfrKxK3uo4/YUkpNvhPbw==

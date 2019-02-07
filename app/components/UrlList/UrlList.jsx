@@ -2,34 +2,40 @@
 import React, { Component } from 'react';
 import { ipcRenderer, remote } from 'electron';
 import PropTypes from 'prop-types';
-import logger from 'logger';
-import { PageContent, Text, TableRow, TableCell, Table } from 'nessie-ui';
+// import logger from 'logger';
+import {
+    PageContent, Text, TableRow, TableCell, Table
+} from 'nessie-ui';
 
 import styles from './urlList.css';
 
-export default class UrlList extends Component {
+export default class UrlList extends Component
+{
     static propTypes = {
-        list: PropTypes.array.isRequired,
-        onRemove: PropTypes.func,
-        addTab: PropTypes.func
+        list     : PropTypes.array.isRequired,
+        onRemove : PropTypes.func,
+        addTab   : PropTypes.func
     };
 
     static defaultProps = {
-        list: []
+        list : []
     };
 
-    render = () => {
+    render = () =>
+    {
         const { addTab, list } = this.props;
         const parsedList = [];
 
-        list.forEach((item, i) => {
-            const handleClick = e => {
+        list.forEach( ( item, i ) =>
+        {
+            const handleClick = e =>
+            {
                 // required to prevent the app navigating by default.
                 e.preventDefault();
-                addTab({
-                    url: item,
-                    isActiveTab: true
-                });
+                addTab( {
+                    url         : item,
+                    isActiveTab : true
+                } );
             };
 
             const listItem = (
@@ -37,19 +43,21 @@ export default class UrlList extends Component {
                     align="left"
                     verticalAlign="middle"
                     gutters="S"
-                    key={i}
+                    key={ i }
                 >
-                    <a onClick={handleClick} href={item}>
-                        {item}
-                    </a>
+                    <TableCell>
+                        <a onClick={ handleClick } href={ item }>
+                            {item}
+                        </a>
+                    </TableCell>
                 </TableRow>
             );
 
-            parsedList.push(listItem);
-        });
+            parsedList.push( listItem );
+        } );
 
         return (
-            <Table className={styles.table}>
+            <Table className={ styles.table }>
                 {parsedList}
                 {!parsedList.length && (
                     <TableRow>

@@ -72,7 +72,7 @@ export default class CustomMenu extends Component {
             <div>
                 <Button
                     shape="circle"
-                    className={`${styles.meatball} ${
+                    className={`${styles.customMenuItem} ${
                         CLASSES.SETTINGS_MENU__BUTTON
                     }`}
                     aria-label="settings-menu-button"

@@ -35,13 +35,18 @@ describe( 'main window', () =>
     let app;
 
 
-    beforeEach( async () =>
+    beforeAll( async () =>
     {
         app = setupSpectronApp( '--debug' );
         await beforeAllTests( app );
     } );
 
     afterEach( async () =>
+    {
+        await delay( 2000 );
+    } );
+
+    afterAll( async () =>
     {
         await afterAllTests( app );
     } );
@@ -342,10 +347,14 @@ describe( 'main window', () =>
         await delay( 4500 );
         await setClientToMainBrowserWindow( app );
         await delay( 4500 );
+        await client.waitForExist(
+            BROWSER_UI.SETTINGS_MENU__BUTTON,
+            WAIT_FOR_EXIST_TIMEOUT
+        );
         await client.click( BROWSER_UI.SETTINGS_MENU__BUTTON );
         await client.click( BROWSER_UI.SETTINGS_MENU__BOOKMARKS );
-        const header = await client.getText( 'h1' );
         await delay( 2500 );
+        const header = await client.getText( 'h1' );
 
         expect( header ).toBe( 'Bookmarks' );
     } );
@@ -353,14 +362,20 @@ describe( 'main window', () =>
     it( 'can open settings menu and navigate to history', async () =>
     {
         expect.assertions( 1 );
+        const { client } = app;
+
         await setClientToMainBrowserWindow( app );
         await delay( 4500 );
+        await client.waitForExist(
+            BROWSER_UI.SETTINGS_MENU__BUTTON,
+            WAIT_FOR_EXIST_TIMEOUT
+        );
         await client.click( BROWSER_UI.SETTINGS_MENU__BUTTON );
         await client.click( BROWSER_UI.SETTINGS_MENU__HISTORY );
-        const header = await client.getText( 'h1' );
         await delay( 2500 );
+        const header = await client.getText( 'h1' );
 
-        expect( header ).toBe( 'History' );
+        expect( header ).toContain( 'History' );
     } );
 
     it( 'accessibility audit', async () =>
@@ -370,7 +385,7 @@ describe( 'main window', () =>
 
         await setClientToMainBrowserWindow( app );
 
-        const audit = await client.auditAccessibility();
+        const audit = await client.auditAccessibility( { ignoreWarnings: true } );
         console.log( audit );
         expect( audit.failed ).toBe( false );
     } );

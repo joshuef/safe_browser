@@ -156,16 +156,13 @@ const onInitBgProcess = async store =>
  * @param  {Object} store redux store
  */
 const onOpen = store =>
-{
-    return new Promise( (resolve, reject) =>
+    new Promise( ( resolve, reject ) =>
     {
-
         logger.log( 'OnOpen: Setting mock in store. ', startedRunningMock );
         store.dispatch( setIsMock( startedRunningMock ) );
 
         resolve();
-    });
-};
+    } );
 
 /**
  * on open of peruse application

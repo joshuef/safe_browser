@@ -38,26 +38,17 @@ if ( platform === OSX )
 
     const LOGS = 'log.toml';
 
-    // fs.copySync(
-    //     path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' ),
-    //     path.resolve( PERUSE_CONFIG_FOLDER, 'SAFE Browser Helper.crust.config' ),
-    //     { overwrite: true }
-    // );
-    // fs.copySync(
-    //     path.resolve( PERUSE_RESOURCES_FOLDER, 'SAFE Browser.crust.config' ),
-    //     path.resolve( PERUSE_CONTENTS_FOLDER, 'SAFE Browser.crust.config' ),
-    //     { overwrite: true }
-    // );
-    // fs.copySync(
-    //     path.resolve( PERUSE_RESOURCES_FOLDER, LOGS ),
-    //     path.resolve( PERUSE_CONFIG_FOLDER, LOGS ),
-    //     { overwrite: true }
-    // );
-    // fs.copySync(
-    //     path.resolve( PERUSE_RESOURCES_FOLDER, LOGS ),
-    //     path.resolve( PERUSE_CONTENTS_FOLDER, LOGS ),
-    //     { overwrite: true }
-    // );
+    fs.moveSync(
+        path.resolve( PERUSE_CONTENTS_FOLDER, 'SAFE Browser.crust.config' ),
+        path.resolve( PERUSE_CONFIG_FOLDER, 'SAFE Browser Helper.crust.config' ),
+        { overwrite: true }
+    );
+
+    fs.copySync(
+        path.resolve( PERUSE_CONTENTS_FOLDER, LOGS ),
+        path.resolve( PERUSE_CONFIG_FOLDER, LOGS ),
+        { overwrite: true }
+    );
 
     PLATFORM_NAME = 'osx';
 

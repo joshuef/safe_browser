@@ -38,7 +38,7 @@ export const setupSpectronApp = extraArgs =>
 E2E tests run against a packaged app. If you haven\'t repackaged your app for testing, your changes won\'t show up!
 *****************************************************************************************************************
 
-is testing packaged app: ${isTestingPackagedApp}
+is testing packaged app: ${ isTestingPackagedApp }
         ` );
 
     const app = new Application( {

@@ -127,32 +127,4 @@ describe( 'main window', () =>
         expect( history ).toBeTruthy();
         expect( toggle ).toBeTruthy();
     } );
-
-
-    it( 'can open settings menu and navigate to bookmarks', async () =>
-    {
-        expect.assertions( 1 );
-        const { client } = app;
-        await setClientToMainBrowserWindow( app );
-        await delay( 4500 );
-        await client.waitForExist(
-            BROWSER_UI.SETTINGS_MENU__BUTTON,
-            WAIT_FOR_EXIST_TIMEOUT
-        );
-
-        await client.click( BROWSER_UI.SETTINGS_MENU__BUTTON );
-        console.log( 'existinggggg button' );
-        await client.waitForExist(
-            BROWSER_UI.SETTINGS_MENU__BOOKMARKS,
-            WAIT_FOR_EXIST_TIMEOUT
-        );
-        await client.click( BROWSER_UI.SETTINGS_MENU__BOOKMARKS );
-        console.log( 'existinggggg links' );
-        await delay( 2500 );
-
-        console.log( 'want a headerrr    ' );
-        const header = await client.getText( 'h1' );
-
-        expect( header ).toBe( 'Bookmarks' );
-    } );
 } );

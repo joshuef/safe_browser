@@ -79,14 +79,14 @@ const openWindow = store =>
     // @TODO: Use 'ready-to-show' event
     //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
 
-    mainWindow.webContents.on( 'did-finish-load', () =>
+    mainWindow.webContents.on( 'did-finish-load', async () =>
     {
         if ( !mainWindow )
         {
             throw new Error( '"mainWindow" is not defined' );
         }
 
-        onOpenLoadExtensions( store );
+        await onOpenLoadExtensions( store );
 
         // before show lets load state
         mainWindow.show();

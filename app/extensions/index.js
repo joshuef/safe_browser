@@ -169,15 +169,17 @@ export const onInitBgProcess = ( server, store ) =>
     } );
 };
 
-export const onOpenLoadExtensions = store =>
+export const onOpenLoadExtensions = async (store) =>
 {
-    allPackages.forEach( extension =>
+    const allExtensionLoading = allPackages.map( extension =>
     {
         if ( extension.onOpen )
         {
-            extension.onOpen( store );
+            return extension.onOpen( store );
         }
     } );
+
+    return Promise.all( allExtensionLoading );
 };
 
 export const onAppReady = store =>

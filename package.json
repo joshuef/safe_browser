@@ -53,8 +53,8 @@
     "test-e2e": "cross-env NODE_ENV=test SPECTRON_TEST=true IS_UNPACKED=true BABEL_DISABLE_CACHE=1 node runE2ETests.js e2e",
     "test-exts-e2e": "cross-env NODE_ENV=test SPECTRON_TEST=true IS_UNPACKED=true BABEL_DISABLE_CACHE=1 node runE2ETests.js exts-e2e",
     "test-exts-e2e-network": "cross-env SPECTRON_TEST=true IS_PACKED=true BABEL_DISABLE_CACHE=1 node runE2ETests.js exts-e2e-network",
-    "test-e2e-prod": "cross-env SPECTRON_TEST=true IS_PACKED=true BABEL_DISABLE_CACHE=1 node runE2ETests.js e2e",
-    "test-exts-e2e-prod": "cross-env SPECTRON_TEST=true IS_PACKED=true BABEL_DISABLE_CACHE=1 node runE2ETests.js exts-e2e",
+    "test-e2e-prod": "cross-env NODE_ENV=prod SPECTRON_TEST=true IS_PACKED=true BABEL_DISABLE_CACHE=1 node runE2ETests.js e2e",
+    "test-exts-e2e-prod": "cross-env NODE_ENV=prod SPECTRON_TEST=true IS_PACKED=true BABEL_DISABLE_CACHE=1 node runE2ETests.js exts-e2e",
     "test-e2e-all": "yarn test-e2e && yarn test-exts-e2e",
     "test-watch": "yarn test --watch",
     "rebuild": "npm rebuild --runtime=electron --target=2.0.8 --disturl=https://atom.io/download/atom-shell --build-from-source"
@@ -103,28 +103,28 @@
       "package.json"
     ],
     "extraFiles": [
-      {
-        "from": "resources/log.toml",
-        "to": "log.toml"
-      },
-      {
-        "from": "resources/favicon.ico",
-        "to": "favicon.ico"
-      },
-      {
-        "from": "resources/PreloadDevVault",
-        "to": "PreloadDevVault"
-      },
-      {
-        "from": "resources/locales",
-        "to": "locales"
-      },
-      {
-        "from": "resources/crust.config",
-        "to": "${productName}.crust.config"
-      }
     ],
     "extraResources": [
+        {
+            "from": "resources/log.toml",
+            "to": "log.toml"
+        },
+        {
+            "from": "resources/favicon.ico",
+            "to": "favicon.ico"
+        },
+        {
+            "from": "resources/PreloadDevVault",
+            "to": "PreloadDevVault"
+        },
+        {
+            "from": "resources/locales",
+            "to": "locales"
+        },
+        {
+            "from": "resources/crust.config",
+            "to": "${productName}.crust.config"
+        },
       {
         "from": "app/extensions/safe/dist",
         "to": "extensions/safe/dist"

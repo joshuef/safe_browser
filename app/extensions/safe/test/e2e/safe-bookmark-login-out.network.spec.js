@@ -51,11 +51,7 @@ describe( 'SAFE network log in and out', async () =>
     afterEach( async () =>
     {
         await afterAllTests( app );
-    } );
-
-    test( 'window loaded', async () =>
-    {
-        expect( await windowLoaded( app ) ).toBeTruthy();
+        await delay( 500 );
     } );
 
     if ( travisOS === 'linux' )
@@ -120,7 +116,6 @@ describe( 'SAFE network log in and out', async () =>
 
             await setClientToMainBrowserWindow( app );
 
-            console.log( 'THIS ONE WE GO**********************************' );
             await navigateTo( app, 'safe-browser:bookmarks' );
             // fetch browser config
             await client.waitForExist(
@@ -147,20 +142,23 @@ describe( 'SAFE network log in and out', async () =>
         {
             const { client } = app;
 
-            await delay( 3500 );
+            // await delay( 3500 );
 
             await createAccount( app );
 
             await delay( 1500 );
             await setClientToMainBrowserWindow( app );
 
+            console.log('Before note')
             await client.waitForExist(
                 BROWSER_UI.NOTIFICATION__ACCEPT,
                 NOTIFICATION_WAIT
             );
+            console.log('AFTERNOTE')
             await client.click( BROWSER_UI.NOTIFICATION__ACCEPT );
             await delay( 1500 );
 
+            console.log('BEFORE ANOTHER')
             // again the bookmarks
             // fetch browser config
             await client.waitForExist(
@@ -169,10 +167,13 @@ describe( 'SAFE network log in and out', async () =>
             );
             await client.click( BROWSER_UI.SPECTRON_AREA__SPOOF_LOAD );
             await delay( 6000 );
+            console.log('load clicked ANOTHER')
 
             await navigateTo( app, 'safe-browser:bookmarks' );
 
-            await delay( 1500 );
+            await delay( 2500 );
+
+            console.log('pre url list')
             const bookmarksFinalCheck = await client.getText( '.urlList__table' );
 
             // bookmarksFinalCheck is an array

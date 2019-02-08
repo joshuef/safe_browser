@@ -57,7 +57,6 @@ before_install:
 
 install:
   - yarn --ignore-engines
-  - yarn rebuild
   # On Linux, initialize "virtual display". See before_script
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then

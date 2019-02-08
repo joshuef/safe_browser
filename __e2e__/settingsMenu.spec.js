@@ -127,4 +127,44 @@ describe( 'main window', () =>
         expect( history ).toBeTruthy();
         expect( toggle ).toBeTruthy();
     } );
+
+    it( 'can open settings menu and navigate to bookmarks', async () =>
+    {
+        await afterAllTests( app );
+        await delay( 1500 );
+        app = setupSpectronApp( '--debug' );
+        await beforeAllTests( app );
+
+        expect.assertions( 1 );
+        const { client } = app;
+        await delay( 4500 );
+        await setClientToMainBrowserWindow( app );
+        await delay( 4500 );
+        await client.click( BROWSER_UI.SETTINGS_MENU__BUTTON );
+        await client.click( BROWSER_UI.SETTINGS_MENU__BOOKMARKS );
+        const header = await client.getText( 'h1' );
+        await delay( 2500 );
+
+        expect( header ).toBe( 'Bookmarks' );
+    } );
+
+    it( 'can open settings menu and navigate to history', async () =>
+    {
+        await afterAllTests( app );
+        await delay( 1500 );
+        app = setupSpectronApp( '--debug' );
+        await beforeAllTests( app );
+
+        expect.assertions( 1 );
+        const { client } = app;
+        await delay( 4500 );
+        await setClientToMainBrowserWindow( app );
+        await delay( 4500 );
+        await client.click( BROWSER_UI.SETTINGS_MENU__BUTTON );
+        await client.click( BROWSER_UI.SETTINGS_MENU__HISTORY );
+        const header = await client.getText( 'h1' );
+        await delay( 2500 );
+
+        expect( header ).toBe( 'History' );
+    } );
 } );

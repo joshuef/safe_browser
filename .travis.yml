@@ -96,8 +96,8 @@ script:
   - sleep 5
   - travis_retry eval "pkill -f electron || pkill -f SAFE Browser || yarn run test-exts-e2e-prod"
   - sleep 5
-  - yarn cross-env NODE_ENV=dev yarn package
-  - travis_retry eval "pkill -f electron || pkill -f SAFE Browser || cross-env NODE_ENV=dev yarn run test-exts-e2e-network"
+  # - yarn cross-env NODE_ENV=dev yarn package
+  # - travis_retry eval "pkill -f electron || pkill -f SAFE Browser || cross-env NODE_ENV=dev yarn run test-exts-e2e-network"
 
 
 after_success:

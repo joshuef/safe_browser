@@ -13,11 +13,14 @@ matrix:
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+        - NODE_ENV=dev
 
     - os: linux
       language: node_js
       node_js:
         - 8
+      env:
+        - NODE_ENV=dev
       addons:
         apt:
           sources:
@@ -39,6 +42,8 @@ matrix:
     #   env:
     #     - ELECTRON_CACHE=$HOME/.cache/electron
     #     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+    #     - NODE_ENV=dev
+
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
@@ -84,7 +89,6 @@ script:
     fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xdg-open --version;
     fi
-  - yarn cross-env NODE_ENV=dev yarn package
   - travis_retry eval "pkill -f electron || pkill -f SAFE Browser || cross-env NODE_ENV=dev yarn run test-exts-e2e-network"
   - yarn run test-peruse
   # Split into smaller test subsets to facilitate retries only on smaller portions of the tests
@@ -100,6 +104,8 @@ script:
 
 
 after_success:
+    # need to build prod and zip em both....
+    # - yarn package
 - ls release
 - export RELEASE="$(ls release)";
 - echo "deploying ${RELEASE} to GitHub releases as tagged with ${TRAVIS_TAG}"

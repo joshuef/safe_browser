@@ -27,13 +27,13 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = DEFAULT_TIMEOUT_INTERVAL + 40000;
 
 describe( 'SAFE network webFetch operation', async () =>
 {
-    console.warn(`
+    console.warn( `
 **************************************
 These tests use native node to manipulate mock.
 
 Therefore need a node version inline w/electron (8 for e2.x eg.)
 **************************************
-        `)
+        ` );
     const appInfo = {
         id     : 'net.peruse.test',
         name   : 'SAFE App Test',

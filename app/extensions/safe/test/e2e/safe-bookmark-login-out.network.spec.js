@@ -149,16 +149,16 @@ describe( 'SAFE network log in and out', async () =>
             await delay( 1500 );
             await setClientToMainBrowserWindow( app );
 
-            console.log('Before note')
+            console.log( 'Before note' );
             await client.waitForExist(
                 BROWSER_UI.NOTIFICATION__ACCEPT,
                 NOTIFICATION_WAIT
             );
-            console.log('AFTERNOTE')
+            console.log( 'AFTERNOTE' );
             await client.click( BROWSER_UI.NOTIFICATION__ACCEPT );
             await delay( 1500 );
 
-            console.log('BEFORE ANOTHER')
+            console.log( 'BEFORE ANOTHER' );
             // again the bookmarks
             // fetch browser config
             await client.waitForExist(
@@ -167,13 +167,13 @@ describe( 'SAFE network log in and out', async () =>
             );
             await client.click( BROWSER_UI.SPECTRON_AREA__SPOOF_LOAD );
             await delay( 6000 );
-            console.log('load clicked ANOTHER')
+            console.log( 'load clicked ANOTHER' );
 
             await navigateTo( app, 'safe-browser:bookmarks' );
 
             await delay( 2500 );
 
-            console.log('pre url list')
+            console.log( 'pre url list' );
             const bookmarksFinalCheck = await client.getText( '.urlList__table' );
 
             // bookmarksFinalCheck is an array

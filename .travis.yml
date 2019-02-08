@@ -8,7 +8,8 @@ matrix:
     - os: osx
       language: node_js
       node_js:
-        - node
+          # Must use node 8 while on electron 2.x (for safe.spec tests.)
+        - 8
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
@@ -16,7 +17,7 @@ matrix:
     - os: linux
       language: node_js
       node_js:
-        - node
+        - 8
       addons:
         apt:
           sources:
@@ -34,7 +35,7 @@ matrix:
     # - os: windows
     #   language: node_js
     #   node_js:
-    #     - node
+    #     - 8
     #   env:
     #     - ELECTRON_CACHE=$HOME/.cache/electron
     #     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder

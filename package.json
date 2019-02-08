@@ -41,7 +41,7 @@
     "postinstall": "electron-builder install-app-deps package.json && yarn build-dll  && yarn build-webPreload && opencollective-postinstall && yarn run install-prod && node app/extensions/safe/install-dev-libs.js",
     "precommit": "lint-staged",
     "prestart": "yarn build",
-    "rebuild": "npm rebuild --runtime=electron --target=2.0.8 --disturl=https://atom.io/download/atom-shell --build-from-source",
+    "rebuild": "npm rebuild --runtime=electron --target=2.0.11 --disturl=https://atom.io/download/atom-shell --build-from-source",
     "start": "cross-env NODE_ENV=production electron ./app/main.prod.js",
     "start-main-dev": "cross-env HOT=1 IS_UNPACKED=true electron -r @babel/register ./app/main.dev.js",
     "start-renderer-dev": "cross-env webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",

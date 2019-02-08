@@ -35,14 +35,14 @@ matrix:
             - xorriso
             - rpm
 
-    # - os: windows
-    #   language: node_js
-    #   node_js:
-    #     - 8
-    #   env:
-    #     - ELECTRON_CACHE=$HOME/.cache/electron
-    #     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-    #     - NODE_ENV=dev
+    - os: windows
+      language: node_js
+      node_js:
+        - 8
+      env:
+        - ELECTRON_CACHE=$HOME/.cache/electron
+        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+        - NODE_ENV=dev
 
 
 before_cache:
@@ -89,10 +89,11 @@ script:
     fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xdg-open --version;
     fi
-  - travis_retry eval "pkill -f electron || pkill -f SAFE Browser || cross-env NODE_ENV=dev yarn run test-exts-e2e-network"
   - yarn run test-peruse
   # Split into smaller test subsets to facilitate retries only on smaller portions of the tests
   # - yarn package
+  - travis_retry eval "pkill -f electron || pkill -f SAFE Browser || cross-env NODE_ENV=dev yarn run test-exts-e2e-network"
+  - sleep 5
   - travis_retry eval "pkill -f electron || pkill -f SAFE Browser ||  yarn test-e2e __e2e__/peruse.spec.js"
   - sleep 5
   - travis_retry eval "pkill -f electron || pkill -f SAFE Browser ||  yarn test-e2e __e2e__/settingsMenu.spec.js"

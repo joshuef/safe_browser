@@ -56,6 +56,7 @@ before_install:
 
 install:
   - yarn --ignore-engines
+  - yarn rebuild
   # On Linux, initialize "virtual display". See before_script
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
@@ -95,7 +96,7 @@ script:
   - travis_retry eval "pkill -f electron || pkill -f SAFE Browser || yarn run test-exts-e2e-prod"
   - sleep 5
   - yarn cross-env NODE_ENV=dev yarn package
-  - travis_rety eval "pkill -f electron || pkill -f SAFE Browser || cross-env NODE_ENV=dev yarn run test-exts-e2e-network"
+  - travis_retry eval "pkill -f electron || pkill -f SAFE Browser || cross-env NODE_ENV=dev yarn run test-exts-e2e-network"
 
 
 after_success:

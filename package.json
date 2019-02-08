@@ -41,6 +41,7 @@
     "postinstall": "electron-builder install-app-deps package.json && yarn build-dll  && yarn build-webPreload && opencollective-postinstall && yarn run install-prod && node app/extensions/safe/install-dev-libs.js",
     "precommit": "lint-staged",
     "prestart": "yarn build",
+    "rebuild": "npm rebuild --runtime=electron --target=2.0.8 --disturl=https://atom.io/download/atom-shell --build-from-source",
     "start": "cross-env NODE_ENV=production electron ./app/main.prod.js",
     "start-main-dev": "cross-env HOT=1 IS_UNPACKED=true electron -r @babel/register ./app/main.dev.js",
     "start-renderer-dev": "cross-env webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",
@@ -53,8 +54,7 @@
     "test-e2e-prod": "cross-env NODE_ENV=prod SPECTRON_TEST=true IS_PACKED=true BABEL_DISABLE_CACHE=1 node runE2ETests.js e2e",
     "test-exts-e2e-prod": "cross-env NODE_ENV=prod SPECTRON_TEST=true IS_PACKED=true BABEL_DISABLE_CACHE=1 node runE2ETests.js exts-e2e",
     "test-e2e-all": "yarn test-e2e && yarn test-exts-e2e",
-    "test-watch": "yarn test --watch",
-    "rebuild": "npm rebuild --runtime=electron --target=2.0.8 --disturl=https://atom.io/download/atom-shell --build-from-source"
+    "test-watch": "yarn test --watch"
   },
   "standard-version": {
     "scripts": {

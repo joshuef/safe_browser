@@ -84,9 +84,11 @@ script:
     fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xdg-open --version;
     fi
-  - yarn package
+  - yarn cross-env NODE_ENV=dev yarn package
+  - travis_retry eval "pkill -f electron || pkill -f SAFE Browser || cross-env NODE_ENV=dev yarn run test-exts-e2e-network"
   - yarn run test-peruse
   # Split into smaller test subsets to facilitate retries only on smaller portions of the tests
+  # - yarn package
   - travis_retry eval "pkill -f electron || pkill -f SAFE Browser ||  yarn test-e2e __e2e__/peruse.spec.js"
   - sleep 5
   - travis_retry eval "pkill -f electron || pkill -f SAFE Browser ||  yarn test-e2e __e2e__/settingsMenu.spec.js"
@@ -95,8 +97,6 @@ script:
   - sleep 5
   - travis_retry eval "pkill -f electron || pkill -f SAFE Browser || yarn run test-exts-e2e-prod"
   - sleep 5
-  # - yarn cross-env NODE_ENV=dev yarn package
-  # - travis_retry eval "pkill -f electron || pkill -f SAFE Browser || cross-env NODE_ENV=dev yarn run test-exts-e2e-network"
 
 
 after_success:

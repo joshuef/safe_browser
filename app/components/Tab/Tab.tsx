@@ -268,7 +268,11 @@ export default class Tab extends Component<TabProps, TabState> {
         }
         this.updateBrowserState( { loading: false, mountedAndReady: true } );
         if ( url && url !== 'about:blank' ) {
+<<<<<<< HEAD
             this.loadURL( url ).catch( ( error ) => console.info( 'err in loadurl', error ) );
+=======
+            this.loadURL( url ).catch( ( err ) => console.info( 'err in loadurl', err ) );
+>>>>>>> feat( electron ): Update to electron v 4.x
             this.setCurrentWebId( null );
         }
     }

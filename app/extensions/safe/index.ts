@@ -104,7 +104,7 @@ const onInitBgProcess = async ( store ) => {
 
         registerSafeProtocol( store );
         registerSafeAuthProtocol( store );
-        blockNonSAFERequests();
+        blockNonSAFERequests( store );
     } catch ( e ) {
         logger.error( 'Load extensions error: ', e );
     }

@@ -3,13 +3,14 @@ import { remote, shell } from 'electron';
 import { parse as parseURL } from 'url';
 import path from 'path';
 import { CONFIG, isRunningTestCafeProcess, allowedHttp } from '$Constants';
+import { addNotification } from '$Actions/notification_actions';
 import { logger } from '$Logger';
 import { urlIsAllowedBySafe } from './utils/safeHelpers';
 
 // const isForLocalServer = ( parsedUrlObject ) =>
 //     parsedUrlObject.protocol === 'localhost:' || parsedUrlObject.hostname === '127.0.0.1';
 
-const blockNonSAFERequests = () => {
+const blockNonSAFERequests = ( store ) => {
     const filter = {
         urls: ['*://*']
     };
@@ -52,6 +53,11 @@ const blockNonSAFERequests = () => {
         }
 
         logger.error( 'Blocked URL:', details.url );
+        const notification = {
+            title: 'Blocked URL',
+            body: details.url
+        };
+        store.dispatch( addNotification( notification ) );
         callback( { cancel: true } );
     } );
 };

@@ -53,8 +53,8 @@ export default class Tab extends Component<TabProps, TabState> {
         return { hasError: true, theError: error };
     }
 
-    constructor( props ) {
-        super( props );
+    constructor( properties ) {
+        super( properties );
         this.state = {
             browserState: {
                 canGoBack: false,
@@ -92,7 +92,7 @@ export default class Tab extends Component<TabProps, TabState> {
             append: ( params ) => [
                 {
                     label: 'Open Link in New Tab.',
-                    visible: params.linkURL.length > 0,
+                    visible: params.linkURL && params.linkURL.length > 0,
                     click() {
                         addTab( {
                             url: params.linkURL,
@@ -176,8 +176,8 @@ export default class Tab extends Component<TabProps, TabState> {
         } );
     }
 
-    componentWillReceiveProps( nextProps ) {
-        if ( JSON.stringify( nextProps ) === JSON.stringify( this.props ) ) return;
+    componentWillReceiveProps( nextProperties ) {
+        if ( JSON.stringify( nextProperties ) === JSON.stringify( this.props ) ) return;
         if ( !this.state.browserState.mountedAndReady ) return;
         const {
             focusWebview,
@@ -185,12 +185,12 @@ export default class Tab extends Component<TabProps, TabState> {
             url,
             updateTab,
             index,
-            shouldToggleDevTools,
+            shouldToggleDevelopmentTools,
             shouldReload
         } = this.props;
         const { webview } = this;
         logger.info( 'Tab: did receive updated props' );
-        if ( nextProps.shouldFocusWebview && isActiveTab ) {
+        if ( nextProperties.shouldFocusWebview && isActiveTab ) {
             this.with( ( webview, webContents ) => {
                 webview.focus();
                 webContents.focus();
@@ -199,31 +199,31 @@ export default class Tab extends Component<TabProps, TabState> {
         }
         if (
             !this.props.shouldFocusWebview &&
-      !nextProps.shouldFocusWebview &&
-      nextProps.isActiveTab
+      !nextProperties.shouldFocusWebview &&
+      nextProperties.isActiveTab
         ) {
             focusWebview( true );
         }
-        const nextId = nextProps.webId || {};
+        const nextId = nextProperties.webId || {};
         const currentId = this.props.webId || {};
         if ( nextId['@id'] !== currentId['@id'] ) {
             if ( !webview ) return;
-            logger.info( 'New WebID set for ', nextProps.url );
-            this.setCurrentWebId( nextProps.webId );
+            logger.info( 'New WebID set for ', nextProperties.url );
+            this.setCurrentWebId( nextProperties.webId );
         }
-        if ( nextProps.url && nextProps.url !== url ) {
+        if ( nextProperties.url && nextProperties.url !== url ) {
             if ( !webview ) return;
-            const webviewSrc = parseURL( webview.src );
+            const webviewSource = parseURL( webview.src );
             if (
-                webviewSrc.href === '' ||
-        `${webviewSrc.protocol}${webviewSrc.hostname}` === 'about:blank' ||
-        urlHasChanged( webview.src, nextProps.url )
+                webviewSource.href === '' ||
+        `${webviewSource.protocol}${webviewSource.hostname}` === 'about:blank' ||
+        urlHasChanged( webview.src, nextProperties.url )
             ) {
-                this.loadURL( nextProps.url );
+                this.loadURL( nextProperties.url );
             }
         }
-        if ( !shouldReload && nextProps.shouldReload ) {
-            logger.verbose( 'Should reload URL: ', nextProps.url );
+        if ( !shouldReload && nextProperties.shouldReload ) {
+            logger.verbose( 'Should reload URL: ', nextProperties.url );
             this.reload();
             const tabUpdate = {
                 index,
@@ -231,7 +231,7 @@ export default class Tab extends Component<TabProps, TabState> {
             };
             updateTab( tabUpdate );
         }
-        if ( !shouldToggleDevTools && nextProps.shouldToggleDevTools ) {
+        if ( !shouldToggleDevelopmentTools && nextProperties.shouldToggleDevTools ) {
             this.isDevToolsOpened() ? this.closeDevTools() : this.openDevTools();
             const tabUpdate = {
                 index,
@@ -241,7 +241,7 @@ export default class Tab extends Component<TabProps, TabState> {
         }
     }
 
-    updateBrowserState( props = {} ) {
+    updateBrowserState( properties = {} ) {
         const { webview } = this;
         if ( !webview ) {
             return;
@@ -253,7 +253,7 @@ export default class Tab extends Component<TabProps, TabState> {
             ...this.state.browserState,
             canGoBack: webview.canGoBack(),
             canGoForward: webview.canGoForward(),
-            ...props
+            ...properties
         };
         this.setState( { browserState } );
     }
@@ -268,7 +268,7 @@ export default class Tab extends Component<TabProps, TabState> {
         }
         this.updateBrowserState( { loading: false, mountedAndReady: true } );
         if ( url && url !== 'about:blank' ) {
-            this.loadURL( url ).catch( ( err ) => console.info( 'err in loadurl', err ) );
+            this.loadURL( url ).catch( ( error ) => console.info( 'err in loadurl', error ) );
             this.setCurrentWebId( null );
         }
     }
@@ -300,7 +300,7 @@ export default class Tab extends Component<TabProps, TabState> {
         } );
     }
 
-    didFailLoad( err ) {
+    didFailLoad( error ) {
         const {
             url,
             index,
@@ -311,7 +311,7 @@ export default class Tab extends Component<TabProps, TabState> {
             windowId
         } = this.props;
         const { webview } = this;
-        const urlObj = stdUrl.parse( url );
+        const urlObject = stdUrl.parse( url );
         const renderError = ( header, subHeader ) => {
             const errorAsHtml = ReactDOMServer.renderToStaticMarkup(
                 <Error error={{ header, subHeader }} />
@@ -328,7 +328,7 @@ export default class Tab extends Component<TabProps, TabState> {
                 }
             ` );
         };
-        if ( urlObj.hostname === '127.0.0.1' || urlObj.hostname === 'localhost' ) {
+        if ( urlObject.hostname === '127.0.0.1' || urlObject.hostname === 'localhost' ) {
             try {
                 renderError( 'Page Load Failed' );
             } catch ( scriptError ) {
@@ -336,7 +336,7 @@ export default class Tab extends Component<TabProps, TabState> {
             }
             return;
         }
-        if ( err && err.errorDescription === 'ERR_INVALID_URL' ) {
+        if ( error && error.errorDescription === 'ERR_INVALID_URL' ) {
             try {
                 renderError( `Invalid URL: ${url}` );
             } catch ( scriptError ) {
@@ -344,7 +344,7 @@ export default class Tab extends Component<TabProps, TabState> {
             }
             return;
         }
-        if ( err && err.errorDescription === 'ERR_BLOCKED_BY_CLIENT' ) {
+        if ( error && error.errorDescription === 'ERR_BLOCKED_BY_CLIENT' ) {
             const notification = {
                 title: 'Blocked URL',
                 body: url
@@ -453,10 +453,10 @@ export default class Tab extends Component<TabProps, TabState> {
 
     didGetRedirectRequest( e ) {
         const { oldURL, newURL } = e;
-        const prev = oldURL;
+        const previous = oldURL;
         const next = newURL;
         logger.info( 'Webview: did get redirect request' );
-        if ( prev === this.state.browserState.url ) {
+        if ( previous === this.state.browserState.url ) {
             this.updateBrowserState( { redirects: [next] } );
         }
     }
@@ -560,7 +560,7 @@ For updates or to submit ideas and suggestions, visit https://github.com/maidsaf
         return frozen;
     }
 
-    with( cb, opts = { insist: false } ) {
+    with( callback, options = { insist: false } ) {
         const { webview } = this;
         if ( !webview ) return;
         const webContents = webview.getWebContents();
@@ -568,7 +568,7 @@ For updates or to submit ideas and suggestions, visit https://github.com/maidsaf
             return;
         }
         if ( webContents.isDestroyed() ) return;
-        cb( webview, webContents );
+        callback( webview, webContents );
     }
 
     openDevTools() {
@@ -628,21 +628,21 @@ For updates or to submit ideas and suggestions, visit https://github.com/maidsaf
         }
 
         if ( this.state && this.state.hasError ) {
-            const err = this.state.theError;
-            const stringError = JSON.stringify( err, [
+            const error = this.state.theError;
+            const stringError = JSON.stringify( error, [
                 'message',
                 'arguments',
                 'type',
                 'name'
             ] );
-            logger.error( 'Error from Tab.jsx', err );
+            logger.error( 'Error from Tab.jsx', error );
             logger.error( stringError );
             // You can render any custom fallback UI
             return (
                 <div className={moddedClass}>
                     <h4>Something went wrong with this tab.</h4>
                     <span>
-                        {JSON.stringify( err, ['message', 'arguments', 'type', 'name'] )}
+                        {JSON.stringify( error, ['message', 'arguments', 'type', 'name'] )}
                     </span>
                 </div>
             );

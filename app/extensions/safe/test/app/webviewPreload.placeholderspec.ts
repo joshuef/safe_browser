@@ -1,4 +1,4 @@
-import * as webviewPreload from '$Extensions/safe/webviewPreload';
+import * as webviewPreload from '$App/extensions/safe/webviewProcess/webviewPreload';
 import { APP_INFO, startedRunningProduction } from '$Constants';
 
 // avoid appveyour for its weak.ref issues right now.

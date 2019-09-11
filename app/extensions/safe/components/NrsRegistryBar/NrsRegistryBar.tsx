@@ -23,7 +23,7 @@ export class NrsRegistryBar extends Component<NrsRegistryBarProps, {}> {
 
         return (
             <div>
-                {`${address} is avilable.`}{' '}
+                {`${address} is available.`}{' '}
                 <button type="button" onClick={this.handleRegisterAddress}>
           Register it now.
                 </button>

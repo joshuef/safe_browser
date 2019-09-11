@@ -1,26 +1,22 @@
+import { Store } from 'redux';
 import { logger } from '$Logger';
 
-import { setupUnauthedConnection } from '$Extensions/safe/backgroundProcess/safeBrowserApplication';
-
 import { blockNonSAFERequests } from '$Extensions/safe/blockNonSafeReqs';
-
 import { registerSafeProtocol } from '$Extensions/safe/protocols/safe';
-import { setupRoutes } from '$Extensions/safe/server-routes';
 
-// export { getWebIds } from '$Extensions/safe/backgroundProcess/safeBrowserApplication';
+import { connectUnauthorised } from '$Extensions/safe/actions/aliased';
 
 export {
     getHTTPFriendlyData
 } from '$App/extensions/safe/backgroundProcess/fetch';
 
-export const onInitBgProcess = async ( store ) => {
+export const onInitBgProcess = async ( store: Store ): Promise<void> => {
     logger.info( 'Registering SAFE Network Protocols' );
     try {
         registerSafeProtocol();
         blockNonSAFERequests();
 
-        // todo : should this be an action?
-        setupUnauthedConnection();
+        store.dispatch( connectUnauthorised() );
     } catch ( e ) {
         logger.error( 'Load extensions error: ', e );
     }

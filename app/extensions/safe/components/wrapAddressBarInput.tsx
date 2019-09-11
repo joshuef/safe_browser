@@ -10,7 +10,11 @@ import './wrapAddressBarInput.less';
 import { bindActionCreators } from 'redux';
 import styles from './wrapAddressBarButtons.css';
 import { CLASSES } from '$Constants';
+
+import { NrsRegistryBar } from '$Extensions/safe/components/NrsRegistryBar';
+
 import * as SafeBrowserAppActions from '$Extensions/safe/actions/safeBrowserApplication_actions';
+import * as SafeBrowserAppAliasedActions from '$Extensions/safe/actions/aliased';
 
 import { logger } from '$Logger';
 
@@ -23,7 +27,8 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
     const actions = {
-        ...SafeBrowserAppActions
+        ...SafeBrowserAppActions,
+        ...SafeBrowserAppAliasedActions
     };
     return bindActionCreators( actions, dispatch );
 }
@@ -40,6 +45,7 @@ interface AddressBarInputProps {
         versionedUrls: {
             [url: string]: number;
         };
+        availableNrsUrls: Array<string>;
     };
     disableExperiments?: Function;
 }
@@ -58,7 +64,8 @@ export const wrapAddressBarInput = (
             address: '',
             updateTabUrl: () => {},
             pWeb: {
-                versionedUrls: {}
+                versionedUrls: {},
+                availableNrsUrls: []
             }
         }
     ) => {
@@ -82,9 +89,15 @@ export const wrapAddressBarInput = (
         }
 
         let knownVersionedUrl;
+        const { availableNrsUrls, versionedUrls } = pWeb;
         const parseTheQuery = true;
-        const versionedUrls = pWeb.versionedUrls || {};
         const parsedAddress = parse( address, parseTheQuery );
+
+        let addressIsAvailable = false;
+
+        if ( availableNrsUrls.includes( `safe://${parsedAddress.host}` ) ) {
+            addressIsAvailable = true;
+        }
 
         const urlVersion =
       parsedAddress.query && parsedAddress.query.v
@@ -183,6 +196,7 @@ export const wrapAddressBarInput = (
                         addonBefore={addOnsBefore}
                         addonAfter={addOnsAfter}
                     />
+                    {addressIsAvailable && <NrsRegistryBar address={address} />}
                 </Column>
             </Grid>
         );

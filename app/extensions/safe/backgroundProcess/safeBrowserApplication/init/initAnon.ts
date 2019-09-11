@@ -14,7 +14,7 @@ export const initAnon = async (): Safe => {
         safeBrowserAppObject = new Safe();
 
         logger.info( 'Connecting to the Network...' );
-        safeBrowserAppObject.connect( APP_ID );
+        await safeBrowserAppObject.connect( APP_ID );
 
         return safeBrowserAppObject;
     } catch ( e ) {

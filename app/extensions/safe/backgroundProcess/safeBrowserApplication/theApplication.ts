@@ -8,21 +8,30 @@ import { logger } from '$Logger';
 
 let safeBrowserAppObject;
 let currentStore;
+let connectionIsAuthorised = false;
+
+// let isAuthed = false;
+
 let isAuthing = false;
 // TODO: Refactor away this and use aliased actions for less... sloppy
 // flow and make this more reasonable.
-export const getIsAuthing = () => isAuthing;
+export const safeIsAuthorised = () => connectionIsAuthorised;
+
+// export const getIsAuthing = () => isAuthing;
 //
+export const setSafeBrowserAppObject = ( passedApp, isAuthed = false ) => {
+    safeBrowserAppObject = passedApp;
+    connectionIsAuthorised = isAuthed;
+};
+
 export const getSafeBrowserAppObject = () => safeBrowserAppObject;
+
 export const getCurrentStore = () => currentStore;
 export const setCurrentStore = ( passedStore ) => {
     currentStore = passedStore;
 };
 export const setIsAuthing = ( state ) => {
     isAuthing = state;
-};
-export const setSafeBrowserAppObject = ( passedApp ) => {
-    safeBrowserAppObject = passedApp;
 };
 
 export const clearAppObj = () => {

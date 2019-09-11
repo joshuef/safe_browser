@@ -13,7 +13,7 @@ export const initAuthed = async (): Safe => {
 
         safeBrowserAppObject = new Safe();
 
-        const authCredentials = safeBrowserAppObject.auth_app(
+        const authCredentials = await safeBrowserAppObject.auth_app(
             APP_ID,
             APP_NAME,
             APP_VENDOR,
@@ -21,8 +21,8 @@ export const initAuthed = async (): Safe => {
         );
 
         logger.info( 'Connecting (authed) to the Network...' );
-        safeBrowserAppObject.connect( APP_ID, authCredentials );
-
+        await safeBrowserAppObject.connect( APP_ID, authCredentials );
+        logger.info( 'Connected.' );
         return safeBrowserAppObject;
     } catch ( e ) {
         logger.error( e );

@@ -7,18 +7,15 @@ import { logger } from '$Logger';
 
 interface NrsRegistryBarProps {
     address: string;
-    // registerNrsName : Function
+    registerNrsName: Function;
 }
 export class NrsRegistryBar extends Component<NrsRegistryBarProps, {}> {
     handleRegisterAddress = ( webId ) => {
-        const {
-            // registerNrsName,
-            address
-        } = this.props;
+        const { registerNrsName, address } = this.props;
 
         logger.info( `Registering ${address} on NRS` );
 
-    // registerNrsName( address );
+        registerNrsName( address );
     };
 
     render() {

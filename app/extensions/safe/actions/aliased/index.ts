@@ -1,10 +1,11 @@
 import { createAliasedAction } from 'electron-redux';
 import { getWebIds } from '$Extensions/safe/backgroundProcess/safeBrowserApplication/webIds';
 import {
+    registerNrsNameOnNetwork,
     setupUnauthedConnection,
     setupAuthorisedConnection
 } from '$Extensions/safe/backgroundProcess/safeBrowserApplication';
-
+import { logger } from '$Logger';
 import { TYPES } from '$Extensions/safe/actions/safeBrowserApplication_actions';
 
 export const getAvailableWebIds = createAliasedAction(
@@ -31,6 +32,15 @@ export const connectAuthorised = createAliasedAction(
     () => ( {
     // the real action
         type: TYPES.CONNECT_AUTHORISED,
-        payload: setupUnauthedConnection()
+        payload: setupAuthorisedConnection()
+    } )
+);
+
+export const registerNrsName = createAliasedAction(
+    TYPES.ALIAS_REGISTER_NRS_NAME,
+    ( address: string ) => ( {
+    // the real action
+        type: TYPES.REGISTER_NRS_NAME,
+        payload: registerNrsNameOnNetwork( address )
     } )
 );

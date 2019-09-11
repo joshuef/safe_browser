@@ -75,6 +75,7 @@ export const wrapAddressBarInput = (
             safeBrowserApp,
             disableExperiments,
             updateTabUrl,
+            registerNrsName,
             pWeb
         } = props;
         const { isMock, experimentsEnabled } = safeBrowserApp;
@@ -196,7 +197,12 @@ export const wrapAddressBarInput = (
                         addonBefore={addOnsBefore}
                         addonAfter={addOnsAfter}
                     />
-                    {addressIsAvailable && <NrsRegistryBar address={address} />}
+                    {addressIsAvailable && (
+                        <NrsRegistryBar
+                            address={address}
+                            registerNrsName={registerNrsName}
+                        />
+                    )}
                 </Column>
             </Grid>
         );

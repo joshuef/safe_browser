@@ -227,5 +227,3 @@ const appInfo = {
 // }
 
 export const APP_INFO = appInfo;
-
-export const allowedHttp = ['https://invite.maidsafe.net/'];

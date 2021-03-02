@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.18.1](https://github.com/maidsafe/safe_browser/compare/v0.15.1...v0.18.1) (2021-03-02)
+
+
+### Features
+
+* **deps:** Electron and safe-nodejs updates ([800aabd](https://github.com/maidsafe/safe_browser/commit/800aabda32fe788ea3597ee693c2d1def3186253))
+* **deps:** Update electron to 6.1.0 ([ef77f59](https://github.com/maidsafe/safe_browser/commit/ef77f592143927695481e4afa3d995fe2aa04e41))
+* **electron:** update to electron 8.4.0 ([3a0dd8d](https://github.com/maidsafe/safe_browser/commit/3a0dd8d831c56109a84498dc7f2845699d16f5e1))
+* **fetch:** add permissive access control origin header ([0ef2a1d](https://github.com/maidsafe/safe_browser/commit/0ef2a1da24ca104c239c2792105c83d4415be0f2))
+* **fetch:** Add permissive access control origin header ([d9cac14](https://github.com/maidsafe/safe_browser/commit/d9cac14fd966e6b8f76d3c15331db6d648e5dcfc))
+* **fetch:** enable fetch(safe://urls) ([3a99cd4](https://github.com/maidsafe/safe_browser/commit/3a99cd4ab16448f3573e8d974a3d7dcc4598ad89))
+* **releases:** use release channels ([79cb0fc](https://github.com/maidsafe/safe_browser/commit/79cb0fc22522cfc40b0cd605b55293c7d95456e8))
+* **safe:** Update safe-nodejs to 0.3.1 ([bd13d86](https://github.com/maidsafe/safe_browser/commit/bd13d860b5a70c24314af980506c9dc58d205a43))
+* **safe:** update safe-nodejs to 0.6.0 ([fc9a9f5](https://github.com/maidsafe/safe_browser/commit/fc9a9f5476e2bc32fa68b5cc8be39958170f4f80))
+* **safe:** update safe-nodejs to 0.7.0 ([6bc55ad](https://github.com/maidsafe/safe_browser/commit/6bc55adf0ffaacc80d66c793fe93879dfad24a33))
+* **safe:** update safe-nodejs to 0.8.0 ([f95ee28](https://github.com/maidsafe/safe_browser/commit/f95ee285e69a56a4f55fd01f212f2789c5025af0))
+* **XorUrl:** Expose XorUrlEncoder functionlaity. ([b21fe2f](https://github.com/maidsafe/safe_browser/commit/b21fe2fb01e3817c3cfdc125a75501b8d1a4b119)), closes [#1022](https://github.com/maidsafe/safe_browser/issues/1022)
+
+
+### Bug Fixes
+
+* **blocking:** Updates to url blocking ([e8c4512](https://github.com/maidsafe/safe_browser/commit/e8c451231dda5021d8645dd18be39d225e6e345f))
+* **ci:** notarize w/ travis in package stage. ([c987d29](https://github.com/maidsafe/safe_browser/commit/c987d290ac8f6be2df2ef73fa8dc5477e04e3599))
+* **devtools:** Update devtools reqs for HTML encoding (and spaces). ([2befbf5](https://github.com/maidsafe/safe_browser/commit/2befbf50ba5205b5e17dbbd2976483070e246ca1)), closes [#992](https://github.com/maidsafe/safe_browser/issues/992)
+* **e2e:** update app naming for tests on channel builds ([8062980](https://github.com/maidsafe/safe_browser/commit/8062980ddb04ed28b9f37daab31063da830082f7))
+* **fetch:** updates for api changes ([0a7ec15](https://github.com/maidsafe/safe_browser/commit/0a7ec15a2fe437616788df6a4c983b1eeb579550))
+* **fetch:** use permissive headers in responses from server ([a00cee4](https://github.com/maidsafe/safe_browser/commit/a00cee4074716f694cd218213784363a204169a4))
+* **logs:** tidy logging output ([1fd9a6f](https://github.com/maidsafe/safe_browser/commit/1fd9a6f63d2587dd2a5610e1dfd92082e8dfa462))
+* **mimetypes:** Add in mimtypes for ImmutaData from xorurls ([7df5b11](https://github.com/maidsafe/safe_browser/commit/7df5b11954a41d14e732d21bccf1b954ecc4a09d)), closes [#1012](https://github.com/maidsafe/safe_browser/issues/1012)
+* **pWeb:** Block non versioned external site requests. ([6a1c5cb](https://github.com/maidsafe/safe_browser/commit/6a1c5cbd8813d76ff0eb6c330b4fe623d0afb175)), closes [#1029](https://github.com/maidsafe/safe_browser/issues/1029)
+* **pWeb:** Versioned sites now request relative resources from same version. ([1889365](https://github.com/maidsafe/safe_browser/commit/18893651f161c057f95f4b11f11e973e106a6b5a)), closes [#1010](https://github.com/maidsafe/safe_browser/issues/1010)
+* **react:** Update lifecycle methods for upgrading react ([aec5b18](https://github.com/maidsafe/safe_browser/commit/aec5b18327b97614483ba10b3490a12a37d841cc))
+* **register-site:** fix refactor's missing e->event ([e6d6683](https://github.com/maidsafe/safe_browser/commit/e6d6683832487222a37d1247a035ca57bf0d0944))
+* **resolution:** External NRS resolution fix. ([0e1f691](https://github.com/maidsafe/safe_browser/commit/0e1f6919329b39bb5831f96d9c0a9a794a5d779b)), closes [#1052](https://github.com/maidsafe/safe_browser/issues/1052)
+* **resolution:** Tweak to parse version of req url direct ([796d99e](https://github.com/maidsafe/safe_browser/commit/796d99e1312b0f017fa2222aa22e94fa58e9bebe)), closes [#1052](https://github.com/maidsafe/safe_browser/issues/1052) [#1050](https://github.com/maidsafe/safe_browser/issues/1050)
+* **security:** use context isolation for webviews ([3f87dd7](https://github.com/maidsafe/safe_browser/commit/3f87dd7e9965977b970cd93628e06123abb533b7))
+* electron-log updates for v4 ([afc5f2a](https://github.com/maidsafe/safe_browser/commit/afc5f2aa709188ba2872cd8b0fe3dd500e175056))
+* Update auth_app params. ([611e7d5](https://github.com/maidsafe/safe_browser/commit/611e7d59707b4e6b97c57d7ee89ee26a64253ec1)), closes [#1119](https://github.com/maidsafe/safe_browser/issues/1119)
+* **resolution:** Default pages, slash or no ([295d4f7](https://github.com/maidsafe/safe_browser/commit/295d4f7c362b9d3cfb7f98725843224cd920fb74)), closes [#1061](https://github.com/maidsafe/safe_browser/issues/1061)
+* **resolution:** Pweb resolution tweaks. ([357de99](https://github.com/maidsafe/safe_browser/commit/357de99b86ef2236d816abe7b9a2f370225a877c)), closes [#1061](https://github.com/maidsafe/safe_browser/issues/1061)
+* **updates:** Fix SNAPP calls. ([49d12d2](https://github.com/maidsafe/safe_browser/commit/49d12d2c5bcfec40c7b11cf9633e75415369ba1e))
+* **updates:** Improve silent update behaviour ([6622f9b](https://github.com/maidsafe/safe_browser/commit/6622f9bef1f347a9193b69af35ab779c8050272c))
+* **versioning:** Hitting versioned url now reports proper latest v ([006502d](https://github.com/maidsafe/safe_browser/commit/006502dc1807b8ad05df9c72b22b5739c901402d))
+* **winux:** Install on quit, but dont restart when silently updating ([91b6bcd](https://github.com/maidsafe/safe_browser/commit/91b6bcd28e198207fd34899307f979279baa958f))
+* notarize permissions for mac ([b9c12b5](https://github.com/maidsafe/safe_browser/commit/b9c12b5b215388b41443063511fb0d67ce7e4121))
+
 ## [0.16.0](https://github.com/maidsafe/safe_browser/compare/v0.15.4...v0.16.0) (2020-03-10)
 
 ### Features
